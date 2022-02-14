@@ -1,0 +1,20 @@
+.page-footer{
+  background-color: #0077FF;
+  color: white;
+}
+.text-pengaduan {
+  padding-left: 2rem;
+}
+.style-maps{
+  height: 200px;
+  width: 350px;
+}
+/* .style-footer-box{
+    margin-right: 5px;
+    margin-left:20px;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    padding-top: 100px;
+    padding-left: 10px;
+    padding-bottom: 10px;
+  
+} */
