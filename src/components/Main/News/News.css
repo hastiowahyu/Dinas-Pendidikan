@@ -50,3 +50,22 @@
         width: 480px;
     }
 }
+
+@media all and (max-width: 1833px) {
+    .layout-1833 {
+        flex: 0 0 auto;
+        width: 100% !important;
+    }
+}
+
+html, body {
+    width: 100%;
+}
+
+.carousel .carousel-control-next-icon {
+    background-image: none !important;
+}
+
+.carousel-control-prev-icon {
+    background-image: none !important;
+}

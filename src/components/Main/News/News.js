@@ -64,16 +64,16 @@ const News = (params) => {
   return (
     <Fragment>
       <Row>
-        <Col sm={5}>
+        <div className="col-12 col-md-5 layout-1833">
           <h1 className='text-size'>Berita Terbaru___ </h1>
           <hr />
-          <div className='style'>
+          <div className='row'>
             {console.log("console ini :" + DataResponse)}
             {DataResponse &&
               DataResponse.map((item, index) => {
                 console.log("item", item);
                 return (
-                  <Fragment>
+                  <div className="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-4">
                     <Card>
                       <Card.Img
                         variant='top'
@@ -91,12 +91,12 @@ const News = (params) => {
                         <Link to={""}>see more</Link>
                       </Card.Body>
                     </Card>
-                  </Fragment>
+                  </div>
                 );
               })}
           </div>
-        </Col>
-        <Col md={4}>
+        </div>
+        <div className="col-12 col-md-4 layout-1833">
           <h1>Berita Umum</h1> <hr />
           {/* <Scrollbar className='style-scroll'> */}
           <Card className='style-accordion'>
@@ -124,9 +124,9 @@ const News = (params) => {
             </Container>
           </Card>
           {/* </Scrollbar> */}
-        </Col>
+        </div>
 
-        <Col md={3}>
+        <div className="col-12 col-md-3 layout-1833" md={3}>
           <h1>Kategori___</h1>
           <hr />
           <ListGroup as='ol' numbered>
@@ -150,7 +150,7 @@ const News = (params) => {
                 );
               })}
           </ListGroup>
-        </Col>
+        </div>
       </Row>
     </Fragment>
   );
