@@ -1,10 +1,9 @@
 .logo{
   margin-bottom: 5px;
-  margin-top: 60px;
-  margin-left: 20px;
-  margin-right: 20px;
   border-top: 5px solid #0077FF;
-  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px !important;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  border-radius: 10px;
+
 }
 .style-image{
   width: 30%;

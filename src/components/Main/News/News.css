@@ -1,17 +1,52 @@
-.berita-terbaru{
-    margin-right: 5px;
-    margin-left:20px;
-    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-    padding-top: 10px;
-    padding-left: 10px;
-    padding-bottom: 10px;
+.card-style{
+ display: flex;
 }
-.berita-umum{
-    margin-right: 20px;
-    margin-left: 5px;
-    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-    padding-top: 10px;
-    padding-left: 10px;
-    padding-bottom: 10px;
+.size-image{
+    height: 183px !important;
+    object-fit: cover;
+}
+/* .berita-terbaru{
+    height: 100% !important;
+} */
+.card-title{
+    height: 96px !important;
+}
+.card-body{
+    height: 100% !important;
+}
+.card-text{
+    height: 108.05px !important;
+}
+.style-accordion{
+      box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
 
+.style {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(50px, 1fr));
+    column-gap: 24px;
+    row-gap: 24px;
+    max-width: 948px;
+
+}
+
+
+/* css jika tampilan desktop/normal */
+/* .body {
+    width: 1024px;
+} */
+/* Css untuk tampilan tablet */
+@media all and (min-width: 768px) and (max-width: 991px) {
+    .style {
+        grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+        column-gap: 24px;
+        row-gap: 24px;
+        max-width: 948px;
+    }
+}
+/* Css untuk tampilan wide mobile */
+@media all and (min-width: 480px) and (max-width: 767px) {
+    body {
+        width: 480px;
+    }
+}

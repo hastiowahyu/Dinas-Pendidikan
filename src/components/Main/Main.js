@@ -6,7 +6,7 @@ import SecondLine from "./SecondLine/SecondLine";
 
 const Main = () => {
   return (
-    <div>
+    <div className="style-main">
       <Galery />
       <div className='style-main'>
         <News />
