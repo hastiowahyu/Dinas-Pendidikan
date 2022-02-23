@@ -143,7 +143,7 @@ const News = (params) => {
                         <div className='fw-bold'>{item.nama_kategori}</div>
                       </div>
                       <Badge bg='primary' pill>
-                        14
+                        {item.news_count}
                       </Badge>
                     </ListGroup.Item>
                   </>
