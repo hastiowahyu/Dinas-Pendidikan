@@ -21,6 +21,9 @@ const Foto = () => {
         console.log(error);
       });
   }, []);
+
+
+
   return (
     <Fragment>
       <div id='landing'>

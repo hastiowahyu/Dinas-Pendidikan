@@ -7,6 +7,8 @@ const Galery = () => {
   const [DataResponse, setDataResponses] = useState(0);
   const axios = require("axios");
 
+  
+
   useEffect(() => {
     axios
       .get(

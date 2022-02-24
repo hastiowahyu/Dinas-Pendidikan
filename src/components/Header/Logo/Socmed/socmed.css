@@ -1,12 +1,12 @@
 .social-container {
   background: #ffffff00;
   padding: 25px;
-  float: right;
+  /* float: right; */
 }
 a.social {
   margin: 0 1rem;
   transition: transform 250ms;
-  display: inline-block;
+  /* display: inline-block; */
 }
 a.social:hover {
   transform: translateY(-2px);
