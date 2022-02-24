@@ -123,7 +123,11 @@ const SecondLine = () => {
                 return item.dokumen_item.map((itm, idx) => {
                   return (
                     <ListGroup.Item>
-                      <a href={itm.dokumen_file_data}>
+                      <a
+                        target='_blank'
+                        href={
+                          `data:application/pdf;base64,${itm.dokumen_file_data}`
+                        }>
                         {itm.dokumen_file_name}
                       </a>
                     </ListGroup.Item>

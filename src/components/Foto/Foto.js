@@ -1,6 +1,6 @@
 // import {React, useEffect, useState} from "react";
 import "./Foto.css";
-import React from "react";
+import React, { Fragment } from "react";
 import { useEffect } from "react";
 import { useState } from "react";
 
@@ -22,32 +22,44 @@ const Foto = () => {
       });
   }, []);
   return (
-    <div>
-      <div>
-        <div className='style-foto'>
-          <h2 className='text-center'>
-            Gallery Dinas Pendidikan Lampung Timur
-          </h2>
-          <div className='lightbox-gallery'>
-          {DataResponse &&
-            DataResponse.map((item, index) => {
-              return item.image_gallery_item.map((itm, idx) => {
-                return (
-                    <div>
-                      <img
-                        src={itm.image_file_data}
-                        data-image-hd='https://picsum.photos/id/343/600/600'
-                        className='gallery-image'
-                        alt='Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reprehenderit, quae, quam. Ut dolorum quia, unde dicta at harum porro officia obcaecati ipsam deserunt fugit dolore delectus quam, maxime nisi quo.'
-                      />
-                    </div>
-                );
-              });
-            })}
-            </div>
+    <Fragment>
+      <div id='landing'>
+        <div id='landing-text'>
+          <div id='landing-text-inner'>
+            <h1>SELAMAT DATANG DIGALERI</h1>
+            <h2>DISDIK LAMPUNG TIMUR</h2>
+            <a href='#images' className='btn' id='view-work'>
+              View Gallery
+            </a>
+          </div>
         </div>
+        <div id='landing-image' />
       </div>
-    </div>
+      <div className='wrap' id='images'>
+        {DataResponse &&
+          DataResponse.map((item, index) => {
+            return item.image_gallery_item.map((itm, idx) => {
+              return (
+                <div>
+                  <div className='tile'>
+                    <img src={itm.image_file_data} />
+                    <div className='text'>
+                      <h1>{itm.created_by}</h1>
+                      <h2 className='animate-text'>{itm.created_at}</h2>
+                      <p className='animate-text'>{itm.description}</p>
+                      <div className='dots'>
+                        <span />
+                        <span />
+                        <span />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              );
+            });
+          })}
+      </div>
+    </Fragment>
   );
 };
 
