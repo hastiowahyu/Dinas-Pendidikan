@@ -1,12 +1,18 @@
+.style-socmed {
+     margin-left: auto !important;
+     margin-right: auto;
+     display: flex !important;
+    
+}
 .social-container {
   background: #ffffff00;
-  padding: 25px;
-  /* float: right; */
+  padding-top: 10px;
+  padding-bottom: 0px;
+  margin: auto;
 }
 a.social {
   margin: 0 1rem;
   transition: transform 250ms;
-  /* display: inline-block; */
 }
 a.social:hover {
   transform: translateY(-2px);
