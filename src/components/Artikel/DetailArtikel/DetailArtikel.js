@@ -1,8 +1,9 @@
 import React from "react";
 import "./DetailArtikel.css";
-import { Card, Container, Col } from "react-bootstrap";
+import { Card, Container, Col, Row } from "react-bootstrap";
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
+import moment from "moment-with-locales-es6";
 
 const DetailArtikel = () => {
   const { id } = useParams();
@@ -24,31 +25,34 @@ const DetailArtikel = () => {
 
   return (
     <div>
-      <div className='container'>
-        <div className='row'>
-          <div className='col-md-10 offset-md-1'>
-            <div className='intro'>
-              <h1 className='text-center'>{dataDetailArtikel.title}</h1>
-              <p className='text-center'>
-                <span className='by'>by </span>
-                <a>{dataDetailArtikel.created_by}</a>
-                <span> | </span>
-                <span className='date'> {dataDetailArtikel.created_at}</span>
-              </p>
-              <img
-                className='img-fluid'
-                src={dataDetailArtikel.image_file_data}
-              />
-            </div>
-          </div>
-        </div>
-      </div>
+      <Row>
+        <Col md={9}>
+          <Container>
+            <Card>
+              <Card.Img variant='top' src={dataDetailArtikel.image_file_data} />
+              <Card.Body>
+                <Card.Title>{dataDetailArtikel.title}</Card.Title>
+                <span>
+                  {
+                    (moment.locale("id-ID"),
+                    moment(dataDetailArtikel.created_at).fromNow())
+                  }
+                </span>
+                &emsp;
+                <span>{dataDetailArtikel.news_category_id}</span>
+                <Card.Text
+                  dangerouslySetInnerHTML={{
+                    __html: dataDetailArtikel.content,
+                  }}></Card.Text>
+              </Card.Body>
+            </Card>
+          </Container>
+        </Col>
+        <Col md={3}>
+          <h1>Popular Post</h1>
+        </Col>
+      </Row>
     </div>
-    // <div>
-    //   <div>
-    //     <p>{dataDetailArtikel.intro}</p>
-    //   </div>
-    // </div>
   );
 };
 
