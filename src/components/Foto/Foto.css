@@ -322,3 +322,6 @@ margin-bottom: 20px;
 .tile-videos:hover .text-videos {
   display: none;
 }
+.style-vid{
+  margin: 10px;
+}

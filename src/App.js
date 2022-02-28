@@ -16,7 +16,7 @@ function App() {
         <Route path='/' element={<Main />} />
         <Route path='/beranda' element={<Main />} />
         <Route path='/artikel' element={<Artikel />} />
-        <Route path='/artikel/DetailArtikel' element={<DetailArtikel />} />
+        <Route path='/artikel/DetailArtikel/:id' element={<DetailArtikel />} />
         <Route path='/gallery' element={<Foto />} />
       </Routes>
       {/* <Header /> */}

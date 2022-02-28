@@ -92,28 +92,30 @@ const SecondLine = () => {
         <Col md={7}>
           <h3>Gallery___</h3>
           <hr />
-          <div className='grid'>
-            {BoxAlbum &&
-              BoxAlbum.map((item, index) => {
-                return (
-                  <div>
-                    <figure>
-                      <img
-                        className='style-gambar'
-                        src={item.image_file_data}
-                        alt='Chaffinch'
-                      />
-                      <figcaption>
-                        {handleLength(item.description, 40)}....
-                      </figcaption>
-                    </figure>
-                  </div>
-                );
-              })}
-          </div>
-          <Button variant='primary' size='sm'>
-            Lihat Berita Lain
-          </Button>
+          <Card>
+            <div className='grid'>
+              {BoxAlbum &&
+                BoxAlbum.map((item, index) => {
+                  return (
+                    <div>
+                      <figure>
+                        <img
+                          className='style-gambar'
+                          src={item.image_file_data}
+                          alt='Chaffinch'
+                        />
+                        <figcaption>
+                          {handleLength(item.description, 40)}....
+                        </figcaption>
+                      </figure>
+                    </div>
+                  );
+                })}
+            </div>
+            <div className='style-btn'>
+              <Button className='style-button'>Lihat Berita Lain</Button>
+            </div>
+          </Card>
         </Col>
         <Col md={2}>
           <h3>Dokumen___</h3> <hr />
@@ -125,9 +127,7 @@ const SecondLine = () => {
                     <ListGroup.Item>
                       <a
                         target='_blank'
-                        href={
-                          `data:application/pdf;base64,${itm.dokumen_file_data}`
-                        }>
+                        href={`data:application/pdf;base64,${itm.dokumen_file_data}`}>
                         {itm.dokumen_file_name}
                       </a>
                     </ListGroup.Item>

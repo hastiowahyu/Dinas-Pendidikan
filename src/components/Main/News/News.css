@@ -65,5 +65,11 @@ html, body {
 }
 .card-date{
     margin-top: 20px;
-    color: brown;
+    color: rgb(0, 2, 139);
+}
+.style-button{
+    border-radius: 5px !important;
+}
+.style-btn{
+    margin: auto;
 }

@@ -45,3 +45,10 @@ figcaption {
   grid-template-rows: 1fr auto;
   gap: 1.5rem;
 }
+.style-button {
+  border-radius: 5px !important;
+  width: 300px;
+}
+.style-btn {
+  margin: auto;
+}

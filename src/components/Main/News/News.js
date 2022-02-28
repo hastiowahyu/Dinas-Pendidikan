@@ -9,8 +9,7 @@ import ListGroup from "react-bootstrap/ListGroup";
 import Accordion from "react-bootstrap/Accordion";
 import { Badge, Container } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import moment from "moment";
-
+import moment from "moment-with-locales-es6";
 // import { Scrollbar } from "react-scrollbars-custom";
 
 const News = (params) => {
@@ -90,12 +89,15 @@ const News = (params) => {
                           {handleLength(item.intro, 120)}....{" "}
                           <p className='card-date'>
                             <small>
-                              {(moment.locale('id-ID'), moment(item.created_at).fromNow())},{" "}
-                              {item.total_hit}x Dibaca
+                              {
+                                (moment.locale("id-ID"),
+                                moment(item.created_at).fromNow())
+                              }
+                              , {item.total_hit}x Dibaca
                             </small>
                           </p>
                         </Card.Text>
-                        <Link to={""}>see more</Link>
+                        <Link to={""}>Read More</Link>
                       </Card.Body>
                     </Card>
                   </div>
@@ -124,11 +126,11 @@ const News = (params) => {
                   );
                 })}
             </Accordion>
-            <Container>
-              <Button variant='primary' size='sm'>
+            <div className='style-btn'>
+              <Button variant='primary' className='style-button'>
                 Lihat Berita Lain
               </Button>
-            </Container>
+            </div>
           </Card>
           {/* </Scrollbar> */}
         </div>
@@ -147,7 +149,9 @@ const News = (params) => {
                       as='li'
                       className='d-flex justify-content-between align-items-start'>
                       <div className='ms-2 me-auto'>
-                        <div className='fw-bold'>{item.nama_kategori}</div>
+                        <div className='fw-bold'>
+                          <a href='#'>{item.nama_kategori}</a>
+                        </div>
                       </div>
                       <Badge bg='primary' pill>
                         {item.news_count}

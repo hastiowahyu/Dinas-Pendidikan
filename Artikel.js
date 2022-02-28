@@ -96,7 +96,7 @@ const Artikel = () => {
   return (
     <div className='style-artikel'>
       <Row>
-        {/* <Col md={3}>
+        <Col md={3}>
           <h1>Cari Artikel___</h1>
           <hr />
           <section className='webdesigntuts-workshop'>
@@ -105,8 +105,8 @@ const Artikel = () => {
               <button>Search</button>
             </form>
           </section>
-        </Col> */}
-        <Col md={6}>
+        </Col>
+        <Col md={4}>
           <h1> Artikel Terbaru___ </h1> <hr />
           <div>
             {console.log("first", DataResponse)}
@@ -133,9 +133,7 @@ const Artikel = () => {
                           />
                         </p>
                         <p className='read-more'>
-                          <Link to={`/artikel/DetailArtikel/${item.id}`}>
-                            Read More
-                          </Link>
+                          <Link to='/artikel/DetailArtikel'>Read More</Link>
                         </p>
                       </div>
                     </div>
@@ -157,9 +155,7 @@ const Artikel = () => {
                           />
                         </p>
                         <p className='read-more'>
-                          <Link to={`/artikel/DetailArtikel/${item.id}`}>
-                            Read More
-                          </Link>
+                          <Link to='/DetaiArtikel'>Read More</Link>
                         </p>
                       </div>
                     </div>

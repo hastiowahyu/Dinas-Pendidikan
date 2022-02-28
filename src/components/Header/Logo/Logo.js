@@ -32,7 +32,7 @@ const Logo = () => {
         </Row>
         <hr></hr>
         <Fragment>
-          <img className='style-image' src='Disdik.svg' />
+          <img className='style-image' src='/Disdik.svg' />
         </Fragment>
       </Col>
     </Row>
