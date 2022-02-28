@@ -9,6 +9,7 @@ import ListGroup from "react-bootstrap/ListGroup";
 import Accordion from "react-bootstrap/Accordion";
 import { Badge, Container } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import moment from "moment";
 
 // import { Scrollbar } from "react-scrollbars-custom";
 
@@ -64,7 +65,7 @@ const News = (params) => {
   return (
     <Fragment>
       <Row>
-        <div className="col-12 col-md-5 layout-1833">
+        <div className='col-12 col-md-5 layout-1833'>
           <h1 className='text-size'>Berita Terbaru___ </h1>
           <hr />
           <div className='row'>
@@ -73,7 +74,7 @@ const News = (params) => {
               DataResponse.map((item, index) => {
                 console.log("item", item);
                 return (
-                  <div className="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-4">
+                  <div className='col-12 col-sm-12 col-md-12 col-lg-12 col-xl-4'>
                     <Card>
                       <Card.Img
                         variant='top'
@@ -87,6 +88,12 @@ const News = (params) => {
                         </Card.Title>
                         <Card.Text className='card-text'>
                           {handleLength(item.intro, 120)}....{" "}
+                          <p className='card-date'>
+                            <small>
+                              {(moment.locale('id-ID'), moment(item.created_at).fromNow())},{" "}
+                              {item.total_hit}x Dibaca
+                            </small>
+                          </p>
                         </Card.Text>
                         <Link to={""}>see more</Link>
                       </Card.Body>
@@ -96,7 +103,7 @@ const News = (params) => {
               })}
           </div>
         </div>
-        <div className="col-12 col-md-4 layout-1833">
+        <div className='col-12 col-md-4 layout-1833'>
           <h1>Berita Umum</h1> <hr />
           {/* <Scrollbar className='style-scroll'> */}
           <Card className='style-accordion'>
@@ -126,7 +133,7 @@ const News = (params) => {
           {/* </Scrollbar> */}
         </div>
 
-        <div className="col-12 col-md-3 layout-1833" md={3}>
+        <div className='col-12 col-md-3 layout-1833' md={3}>
           <h1>Kategori___</h1>
           <hr />
           <ListGroup as='ol' numbered>

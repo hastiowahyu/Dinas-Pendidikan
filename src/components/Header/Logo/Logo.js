@@ -20,13 +20,13 @@ const Logo = () => {
     <Row>
       <Col ref={logoRef} className='logo'>
         <Row>
-          <Col md={4} className='style-marque'>
+          <Col md={6} className='style-marque'>
             <Marquee>--Selamat Datang DiDinas Pendidikan Lampung Timur--</Marquee>
           </Col>
-          <Col md={4}>
+          {/* <Col md={4}>
             <Socmed />
-          </Col>
-          <Col md={4} className='style-marque'>
+          </Col> */}
+          <Col md={6} className='style-marque'>
             <Marquee>--Selamat Datang DiDinas Pendidikan Lampung Timur--</Marquee>
           </Col>
         </Row>

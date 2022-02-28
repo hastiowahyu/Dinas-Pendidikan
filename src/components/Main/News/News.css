@@ -30,12 +30,6 @@
 
 }
 
-
-/* css jika tampilan desktop/normal */
-/* .body {
-    width: 1024px;
-} */
-/* Css untuk tampilan tablet */
 @media all and (min-width: 768px) and (max-width: 991px) {
     .style {
         grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
@@ -68,4 +62,8 @@ html, body {
 
 .carousel-control-prev-icon {
     background-image: none !important;
+}
+.card-date{
+    margin-top: 20px;
+    color: brown;
 }
