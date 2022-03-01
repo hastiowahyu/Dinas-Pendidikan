@@ -5,6 +5,7 @@ import "./SecondLine.css";
 import { React, useEffect, useState, Fragment } from "react";
 import Button from "react-bootstrap/Button";
 import { ListGroup } from "react-bootstrap";
+import { Link } from "react-router-dom";
 
 const SecondLine = () => {
   const [DataPimpinan, setDataPimpinan] = useState(null);
@@ -13,16 +14,16 @@ const SecondLine = () => {
   const [DataDokumen, setDataDokumen] = useState([]);
 
   const axios = require("axios");
-  useEffect(() => {
-    axios
-      .get("http://adminmesuji.embuncode.com/api/instansi/detail/2")
-      .then(function (pimpinan) {
-        setDataPimpinan(pimpinan.data.data.foto_kepala);
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
-  }, []);
+  // useEffect(() => {
+  //   axios
+  //     .get("http://adminmesuji.embuncode.com/api/instansi/detail/2")
+  //     .then(function (pimpinan) {
+  //       setDataPimpinan(pimpinan.data.data.foto_kepala);
+  //     })
+  //     .catch(function (error) {
+  //       console.log(error);
+  //     });
+  // }, []);
 
   useEffect(() => {
     axios
@@ -72,24 +73,7 @@ const SecondLine = () => {
     <div className='style-secondline'>
       {" "}
       <Row>
-        {console.log("BoxAlbum >> ", BoxAlbum)}
-        <Col md={3}>
-          <h3>Pimpinan Disidik</h3>
-          <hr />
-          <Card>
-            <Card.Img
-              variant='top'
-              className='style-pimpinan'
-              src={DataPimpinan}
-            />
-            <Card.Body className='card-body'>
-              <Card.Text className='card-text'>
-                <h3></h3>
-              </Card.Text>
-            </Card.Body>
-          </Card>
-        </Col>
-        <Col md={7}>
+        <Col md={8}>
           <h3>Gallery___</h3>
           <hr />
           <Card>
@@ -113,11 +97,13 @@ const SecondLine = () => {
                 })}
             </div>
             <div className='style-btn'>
-              <Button className='style-button'>Lihat Berita Lain</Button>
+              <Link to={"/"} className='style-button'>
+                Lihat Gambar Lain {">>"}
+              </Link>
             </div>
           </Card>
         </Col>
-        <Col md={2}>
+        <Col md={4}>
           <h3>Dokumen___</h3> <hr />
           <ListGroup>
             {DataDokumen &&

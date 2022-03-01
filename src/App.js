@@ -7,10 +7,11 @@ import { Routes, Route} from "react-router-dom";
 import Artikel from "./components/Artikel/Artikel";
 import DetailArtikel from "./components/Artikel/DetailArtikel/DetailArtikel";
 import Foto from "./components/Foto/Foto";
+import DetailNews from "./components/Main/News/DetailNews/DetailNews";
 
 function App() {
   return (
-    <div className="body">
+    <div className='body'>
       <Header />
       <Routes>
         <Route path='/' element={<Main />} />
@@ -18,11 +19,11 @@ function App() {
         <Route path='/artikel' element={<Artikel />} />
         <Route path='/artikel/DetailArtikel/:id' element={<DetailArtikel />} />
         <Route path='/gallery' element={<Foto />} />
+        <Route path='/news/DetailNews/:id' element={<DetailNews />} />
       </Routes>
       {/* <Header /> */}
       <FooterKita />
     </div>
-
   );
 }
 

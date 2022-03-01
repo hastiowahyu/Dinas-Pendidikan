@@ -5,6 +5,7 @@ import { useEffect } from "react";
 import { useState } from "react";
 import Box from "@mui/material/Box";
 import { Row, Col } from "react-bootstrap";
+import moment from "moment-with-locales-es6";
 
 const Foto = () => {
   const [DataResponse, setDataResponses] = useState(0);
@@ -66,7 +67,12 @@ const Foto = () => {
                     <img src={itm.image_file_data} />
                     <div className='text'>
                       <h1>{itm.created_by}</h1>
-                      <h2 className='animate-text'>{itm.created_at}</h2>
+                      <h2 className='animate-text'>
+                        {
+                          (moment.locale("id-ID"),
+                          moment(itm.created_at).fromNow())
+                        }
+                      </h2>
                       <p className='animate-text'>{itm.description}</p>
                       <div className='dots'>
                         <span />

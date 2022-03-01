@@ -96,16 +96,6 @@ const Artikel = () => {
   return (
     <div className='style-artikel'>
       <Row>
-        {/* <Col md={3}>
-          <h1>Cari Artikel___</h1>
-          <hr />
-          <section className='webdesigntuts-workshop'>
-            <form action='' method=''>
-              <input type='search' placeholder='What are you looking for?' />
-              <button>Search</button>
-            </form>
-          </section>
-        </Col> */}
         <Col md={6}>
           <h1> Artikel Terbaru___ </h1> <hr />
           <div>
@@ -176,12 +166,18 @@ const Artikel = () => {
         </Col>
 
         <Col md={5}>
-          <section className='webdesigntuts-workshop'>
-            <form action='' method=''>
-              <input type='search' placeholder='What are you looking for?' />
-              <button>Search</button>
-            </form>
-          </section>
+          <div className='main'>
+            {/* Actual search box */}
+            <div className='form-group has-search'>
+              <span className='fa fa-search form-control-feedback' />
+              <input
+                type='text'
+                className='form-control'
+                placeholder='Cari Artikel'
+              />
+            </div>
+           
+          </div>
           <h1>Artikel Populer__</h1> <hr />
           <Row>
             <div>
@@ -217,10 +213,14 @@ const Artikel = () => {
                                 , {item.total_hit}x Dibaca
                               </small>
                             </p>
-
-                            <a href='/' className='readmore'>
+                            <Link
+                              to={`/artikel/DetailArtikel/${item.id}`}
+                              className='readmore'>
                               Read More
-                            </a>
+                            </Link>
+                            {/* <a href='/' className='readmore'>
+                              Read More
+                            </a> */}
                           </div>
                         </div>
                       </div>

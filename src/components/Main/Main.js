@@ -3,6 +3,7 @@ import "./Main.css";
 import Galery from "./Galery/Galery";
 import News from "./News/News";
 import SecondLine from "./SecondLine/SecondLine";
+import ThridLine from "./ThirdLine/ThridLine";
 
 const Main = () => {
   return (
@@ -11,6 +12,7 @@ const Main = () => {
       <div className='style-main'>
         <News />
         <SecondLine />
+        <ThridLine />
       </div>
     </div>
   );

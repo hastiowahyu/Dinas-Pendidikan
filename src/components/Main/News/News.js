@@ -32,7 +32,7 @@ const News = (params) => {
 
   useEffect(() => {
     axios
-      .get("http://adminmesuji.embuncode.com/api/news?instansi_id=2&per_page=3")
+      .get("http://adminmesuji.embuncode.com/api/news?instansi_id=2&per_page=3 +")
       .then(function (response) {
         console.log("console ini1: " + response.data.data.data);
         setDataResponses(response.data.data.data);
@@ -97,7 +97,9 @@ const News = (params) => {
                             </small>
                           </p>
                         </Card.Text>
-                        <Link to={""}>Read More</Link>
+                        <Link to={`/news/DetailNews/${item.id}`}>
+                          Read More
+                        </Link>
                       </Card.Body>
                     </Card>
                   </div>
@@ -119,7 +121,10 @@ const News = (params) => {
                       <>
                         <Accordion.Item eventKey={index}>
                           <Accordion.Header>{item.title}</Accordion.Header>
-                          <Accordion.Body>{item.intro}</Accordion.Body>
+
+                          <Link to={`/news/DetailNews/${item.id}`}>
+                            <Accordion.Body>{item.intro}</Accordion.Body>
+                          </Link>
                         </Accordion.Item>
                       </>
                     </>
@@ -127,9 +132,12 @@ const News = (params) => {
                 })}
             </Accordion>
             <div className='style-btn'>
-              <Button variant='primary' className='style-button'>
+              {/* <Button variant='primary' className='style-button'>
                 Lihat Berita Lain
-              </Button>
+              </Button> */}
+              <Link to={"/"} className='style-button'>
+                Lihat Berita Lain {">>"}
+              </Link>
             </div>
           </Card>
           {/* </Scrollbar> */}
