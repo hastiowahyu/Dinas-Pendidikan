@@ -3,11 +3,12 @@ import Main from "./components/Main/Main";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 import FooterKita from "./components/Footer/Footer";
-import { Routes, Route} from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import Artikel from "./components/Artikel/Artikel";
 import DetailArtikel from "./components/Artikel/DetailArtikel/DetailArtikel";
 import Foto from "./components/Foto/Foto";
 import DetailNews from "./components/Main/News/DetailNews/DetailNews";
+import Berita from "./components/Berita/Berita";
 
 function App() {
   return (
@@ -20,8 +21,11 @@ function App() {
         <Route path='/artikel/DetailArtikel/:id' element={<DetailArtikel />} />
         <Route path='/gallery' element={<Foto />} />
         <Route path='/news/DetailNews/:id' element={<DetailNews />} />
+        <Route path='/News/Artikel' element={<Artikel />} />
+        <Route path='/Beranda/GalleryFoto' element={<Foto />} />
+        <Route path='/Berita' element={<Berita />} />
+        <Route path='/berita/DetailNews/:id' element={<DetailNews />} />
       </Routes>
-      {/* <Header /> */}
       <FooterKita />
     </div>
   );

@@ -2,10 +2,24 @@ import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Col, Container, Row, Footer } from "mdbreact";
 import "./Footer.css";
-import { FiPhoneCall } from "react-icons/fi";
-import { HiOutlineMail } from "react-icons/hi";
+import { useEffect, useState } from "react";
+
+
 
 const FooterKita = () => {
+    const [DataFoter, setDataFoter] = useState([]);
+    const axios = require("axios");
+    useEffect(() => {
+      axios
+        .get("http://adminmesuji.embuncode.com/api/instansi/detail/2")
+        .then(function (footer) {
+          setDataFoter(footer.data.data);
+          console.log("console foter: " + footer.data.data);
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+    }, []);
   return (
     <footer className='footer-section'>
       <div className='container'>
@@ -16,7 +30,7 @@ const FooterKita = () => {
                 <i className='fas fa-map-marker-alt' />
                 <div className='cta-text'>
                   <h4>Find us</h4>
-                  <span>1010 Avenue, sw 54321, chandigarh</span>
+                  <span>{DataFoter.alamat}</span>
                 </div>
               </div>
             </div>
@@ -25,7 +39,7 @@ const FooterKita = () => {
                 <i className='fas fa-phone' />
                 <div className='cta-text'>
                   <h4>Call us</h4>
-                  <span>9876543210 0</span>
+                  <span>{DataFoter.nomor_telepon}</span>
                 </div>
               </div>
             </div>
@@ -34,7 +48,7 @@ const FooterKita = () => {
                 <i className='far fa-envelope-open' />
                 <div className='cta-text'>
                   <h4>Mail us</h4>
-                  <span>mail@info.com</span>
+                  <span>{DataFoter.email}</span>
                 </div>
               </div>
             </div>
@@ -50,12 +64,7 @@ const FooterKita = () => {
                   </a>
                 </div>
                 <div className='footer-text'>
-                  <p>
-                    Dinas Pendidikan merupakan unsur pelaksana otonomi daerah
-                    yang dipimpin oleh seorang Kepala Dinas yang berkedudukan di
-                    bawah dan bertanggung jawab kepada Bupati melalui Sekretaris
-                    Daerah Kabupaten.
-                  </p>
+                  <p>{DataFoter.tentang}</p>
                 </div>
                 <div className='footer-social-icon'>
                   <span>Follow us</span>

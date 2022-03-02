@@ -14,16 +14,6 @@ const SecondLine = () => {
   const [DataDokumen, setDataDokumen] = useState([]);
 
   const axios = require("axios");
-  // useEffect(() => {
-  //   axios
-  //     .get("http://adminmesuji.embuncode.com/api/instansi/detail/2")
-  //     .then(function (pimpinan) {
-  //       setDataPimpinan(pimpinan.data.data.foto_kepala);
-  //     })
-  //     .catch(function (error) {
-  //       console.log(error);
-  //     });
-  // }, []);
 
   useEffect(() => {
     axios
@@ -97,7 +87,7 @@ const SecondLine = () => {
                 })}
             </div>
             <div className='style-btn'>
-              <Link to={"/"} className='style-button'>
+              <Link to={"/Beranda/GalleryFoto"} className='style-button'>
                 Lihat Gambar Lain {">>"}
               </Link>
             </div>

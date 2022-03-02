@@ -88,13 +88,14 @@ const News = (params) => {
                         <Card.Text className='card-text'>
                           {handleLength(item.intro, 120)}....{" "}
                           <p className='card-date'>
-                            <small>
+                            <span>
                               {
                                 (moment.locale("id-ID"),
                                 moment(item.created_at).fromNow())
-                              }
-                              , {item.total_hit}x Dibaca
-                            </small>
+                              }{" | "}
+                              {item.news_category_id}
+                            </span>
+                          
                           </p>
                         </Card.Text>
                         <Link to={`/news/DetailNews/${item.id}`}>
@@ -135,7 +136,7 @@ const News = (params) => {
               {/* <Button variant='primary' className='style-button'>
                 Lihat Berita Lain
               </Button> */}
-              <Link to={"/"} className='style-button'>
+              <Link to={"/News/Artikel"} className='style-button'>
                 Lihat Berita Lain {">>"}
               </Link>
             </div>
