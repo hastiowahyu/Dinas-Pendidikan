@@ -1,7 +1,3 @@
-.card-horizontal {
-  display: flex;
-  flex: 1 1 auto;
-}
 .card-title {
   height: 40px !important;
 }
@@ -10,6 +6,10 @@
 }
 .text-kepala{
   color: blue;
-  font-style: italic;
-  
+  font-style: italic; 
+}
+.img-kepala{
+  max-width: 300px;
+  margin: auto;
+  border-radius: 10px;
 }

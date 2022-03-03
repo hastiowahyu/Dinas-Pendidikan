@@ -4,6 +4,7 @@ import Galery from "./Galery/Galery";
 import News from "./News/News";
 import SecondLine from "./SecondLine/SecondLine";
 import ThridLine from "./ThirdLine/ThridLine";
+import FourLine from "./FourLine/FourLine";
 
 const Main = () => {
   return (
@@ -13,6 +14,7 @@ const Main = () => {
         <News />
         <SecondLine />
         <ThridLine />
+        <FourLine />
       </div>
     </div>
   );

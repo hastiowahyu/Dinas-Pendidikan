@@ -6,6 +6,7 @@ import { React, useEffect, useState, Fragment } from "react";
 import Button from "react-bootstrap/Button";
 import { ListGroup } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import moment from "moment-with-locales-es6";
 
 const SecondLine = () => {
   const [DataPimpinan, setDataPimpinan] = useState(null);
@@ -28,7 +29,9 @@ const SecondLine = () => {
 
   useEffect(() => {
     axios
-      .get("http://adminmesuji.embuncode.com/api/dokumen?instansi_id=2")
+      .get(
+        "http://adminmesuji.embuncode.com/api/dokumen?instansi_id=8&per_page=4"
+      )
       .then(function (dokumen) {
         console.log("console dokumen: " + dokumen.data.data.data);
         setDataDokumen(dokumen.data.data.data);
@@ -64,53 +67,88 @@ const SecondLine = () => {
       {" "}
       <Row>
         <Col md={8}>
-          <h3>Gallery___</h3>
+          <h3>Gallery</h3>
           <hr />
-          <Card>
-            <div className='grid'>
-              {BoxAlbum &&
-                BoxAlbum.map((item, index) => {
-                  return (
-                    <div>
-                      <figure>
-                        <img
-                          className='style-gambar'
-                          src={item.image_file_data}
-                          alt='Chaffinch'
-                        />
-                        <figcaption>
-                          {handleLength(item.description, 40)}....
-                        </figcaption>
-                      </figure>
-                    </div>
-                  );
-                })}
-            </div>
-            <div className='style-btn'>
-              <Link to={"/Beranda/GalleryFoto"} className='style-button'>
-                Lihat Gambar Lain {">>"}
-              </Link>
-            </div>
-          </Card>
+
+          <div className='grid'>
+            {BoxAlbum &&
+              BoxAlbum.map((item, index) => {
+                return (
+                  <div>
+                    <figure className='figure'>
+                      <img
+                        className='style-gambar'
+                        src={item.image_file_data}
+                        alt='Chaffinch'
+                      />
+                      <figcaption>
+                        {handleLength(item.description, 40)}....
+                      </figcaption>
+                    </figure>
+                  </div>
+                );
+              })}
+          </div>
+          <div className='style-btn'>
+            <Link to={"/Beranda/GalleryFoto"}>
+              <p className='tag-p'>Lihat Gambar Lain {">>"}</p>
+            </Link>
+          </div>
         </Col>
         <Col md={4}>
-          <h3>Dokumen___</h3> <hr />
-          <ListGroup>
+          <h3>Dokumen Terbaru</h3> <hr />
+          <div className='dokumen-bg'>
             {DataDokumen &&
-              DataDokumen.map((item, idx) => {
+              DataDokumen.map((item, index) => {
                 return item.dokumen_item.map((itm, idx) => {
                   return (
-                    <ListGroup.Item>
-                      <a
-                        target='_blank'
-                        href={`data:application/pdf;base64,${itm.dokumen_file_data}`}>
-                        {itm.dokumen_file_name}
-                      </a>
-                    </ListGroup.Item>
+                    <>
+                      <div className='row offerList'>
+                        <div className='col-md-12'>
+                          <div className='media p-2'>
+                            <img
+                              className='d-flex mr-3 image-dok'
+                              src='./dokumen.jpg'
+                              alt='Generic placeholder image'
+                            />
+                            <div className='media-body'>
+                              <h5 className='mt-0'>
+                                <a
+                                  href={
+                                    "/pdf/" +
+                                    item.slug +
+                                    "/" +
+                                    itm.dokumen_file_name.replace(/\s/g, "")
+                                  }>
+                                  {itm.dokumen_file_name}
+                                </a>
+                              </h5>
+                              <p className='text_grey mb-0 '>
+                                <span className='text_blue'>Created on: </span>
+
+                                {moment(itm.created_at).format("L")}
+                                {/* {itm.created_at} | */}
+                                <span className='text_blue'> Created by: </span>
+                                {itm.created_by}
+                              </p>
+                              <span className='badge badge-pill badge-primary'>
+                                {" "}
+                                Update By: {itm.updated_by}
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </>
                   );
                 });
               })}
-          </ListGroup>
+          </div>
+          <div className='style-btn'>
+            <Link to={"/Beranda/Dokumen"}>
+              <p className='tag-p'>Lihat Dokumen Lain {">>"}</p>
+            </Link>
+          </div>
         </Col>
       </Row>
     </div>

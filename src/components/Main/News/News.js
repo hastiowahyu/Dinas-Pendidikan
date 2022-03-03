@@ -32,7 +32,9 @@ const News = (params) => {
 
   useEffect(() => {
     axios
-      .get("http://adminmesuji.embuncode.com/api/news?instansi_id=2&per_page=3 +")
+      .get(
+        "http://adminmesuji.embuncode.com/api/news?instansi_id=2&per_page=3 +"
+      )
       .then(function (response) {
         console.log("console ini1: " + response.data.data.data);
         setDataResponses(response.data.data.data);
@@ -65,7 +67,7 @@ const News = (params) => {
     <Fragment>
       <Row>
         <div className='col-12 col-md-5 layout-1833'>
-          <h1 className='text-size'>Berita Terbaru___ </h1>
+          <h1 className='text-size'>Berita Terbaru</h1>
           <hr />
           <div className='row'>
             {console.log("console ini :" + DataResponse)}
@@ -85,18 +87,18 @@ const News = (params) => {
                         <Card.Title className='card-title'>
                           {handleLength(item.title, 50)}....
                         </Card.Title>
+                        <p className='card-date'>
+                          <span>
+                            {
+                              (moment.locale("id-ID"),
+                              moment(item.created_at).format("ll"))
+                            }
+                            {" | "}
+                            {item.news_category_id}
+                          </span>
+                        </p>
                         <Card.Text className='card-text'>
                           {handleLength(item.intro, 120)}....{" "}
-                          <p className='card-date'>
-                            <span>
-                              {
-                                (moment.locale("id-ID"),
-                                moment(item.created_at).fromNow())
-                              }{" | "}
-                              {item.news_category_id}
-                            </span>
-                          
-                          </p>
                         </Card.Text>
                         <Link to={`/news/DetailNews/${item.id}`}>
                           Read More
@@ -111,7 +113,7 @@ const News = (params) => {
         <div className='col-12 col-md-4 layout-1833'>
           <h1>Berita Umum</h1> <hr />
           {/* <Scrollbar className='style-scroll'> */}
-          <Card className='style-accordion'>
+          <Container className='style-accordion'>
             <Accordion>
               {console.log("console ini kategori:" + DataUmum)}
               {DataUmum &&
@@ -133,19 +135,18 @@ const News = (params) => {
                 })}
             </Accordion>
             <div className='style-btn'>
-              {/* <Button variant='primary' className='style-button'>
-                Lihat Berita Lain
-              </Button> */}
-              <Link to={"/News/Artikel"} className='style-button'>
-                Lihat Berita Lain {">>"}
-              </Link>
+              <div className='style-btn'>
+                <Link to={"/Beranda/Berita"}>
+                  <p className='tag-p'>Lihat Berita Lain {">>"}</p>
+                </Link>
+              </div>
             </div>
-          </Card>
+          </Container>
           {/* </Scrollbar> */}
         </div>
 
         <div className='col-12 col-md-3 layout-1833' md={3}>
-          <h1>Kategori___</h1>
+          <h1>Kategori Berita</h1>
           <hr />
           <ListGroup as='ol' numbered>
             {console.log("console ini kategori33:" + dataKategori)}

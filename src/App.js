@@ -11,7 +11,7 @@ import DetailNews from "./components/Main/News/DetailNews/DetailNews";
 import Berita from "./components/Berita/Berita";
 import Dokumen from "./components/Dokumen/Dokumen";
 import { PDFViewer } from "./components/Dokumen/PDFViewer";
-
+import HalamanStatis from "./components/HalamanStatis/HalamanStatis";
 function App() {
   return (
     <div className='body'>
@@ -28,7 +28,10 @@ function App() {
         <Route path='/Berita' element={<Berita />} />
         <Route path='/berita/DetailNews/:id' element={<DetailNews />} />
         <Route path='/Dokumen' element={<Dokumen />} />
-        <Route path="/pdf/:slug/:filename" element={<PDFViewer />} />
+        <Route path='/pdf/:slug/:filename' element={<PDFViewer />} />
+        <Route path='/static/:id' element={<HalamanStatis />} />
+        <Route path='/Beranda/Dokumen' element={<Dokumen />} />
+        <Route path='/Beranda/Berita' element={<Berita />} />
       </Routes>
       <FooterKita />
     </div>

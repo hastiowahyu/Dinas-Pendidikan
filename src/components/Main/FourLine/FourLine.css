@@ -1,0 +1,14 @@
+.card-nya{
+  background:rgba(224, 246, 255, 0.63) !important;
+  
+}
+.jarak{
+  margin-bottom: 5px;
+  /* padding-left: 30px;
+  padding-right: 30px;
+  padding-top: 20px; */
+  padding: 10px;
+}
+.ukuran-img {
+  height: 300px;
+}

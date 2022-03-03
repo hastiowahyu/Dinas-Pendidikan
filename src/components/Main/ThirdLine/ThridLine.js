@@ -3,6 +3,7 @@ import "./ThridLine.css";
 import { useEffect, useState } from "react";
 import { GrLocation } from "react-icons/gr";
 import { IoMdCall } from "react-icons/io";
+import { Row, Col, Container } from "react-bootstrap";
 const ThridLine = () => {
   const [DataPimpinan, setDataPimpinan] = useState([]);
   const axios = require("axios");
@@ -22,31 +23,32 @@ const ThridLine = () => {
 
   return (
     <div>
-      <>
-        <div className='container-fluid'>
-          <div className='row'>
-            <div className='col-12 mt-3'>
-              <div className='card'>
-                <div className='card-horizontal'>
-                  <div className='img-square-wrapper'>
-                    <img
-                      className=''
-                      src={DataPimpinan.foto_kepala}
-                      alt='Card image cap'
-                    />
-                  </div>
-                  <div className='card-body'>
-                    <h5 className="text-kepala">Kepala{" "}{DataPimpinan.nama_instansi}</h5><br/>
-                    <h4 className='card-title'>{DataPimpinan.nama_kepala}<hr/></h4><br/>
-                    <h6>Tentang Instansi</h6>
-                    <p className='card-text'>{DataPimpinan.tentang}</p>
-                  </div>
-                </div>
-              </div>
-            </div>
+      <hr />
+      <Row>
+        <Col md={5}>
+          <Container>
+            <img
+              className='img-kepala'
+              src={DataPimpinan.foto_kepala}
+              alt='Card image cap'
+            />
+          </Container>
+        </Col>
+        <Col md={7}>
+          <div className='card-body'>
+            <h5 className='text-kepala'>Kepala {DataPimpinan.nama_instansi}</h5>
+            <br />
+            <h4 className='card-title'>
+              {DataPimpinan.nama_kepala}
+              <hr />
+            </h4>
+            <br />
+            <h5>Tentang Instansi</h5>
+            <p className='card-text'>{DataPimpinan.tentang}</p>
           </div>
-        </div>
-      </>
+        </Col>
+      </Row>
+      <hr />
     </div>
   );
 };

@@ -17,9 +17,7 @@
 .card-text{
     height: 115.23px !important;
 }
-.style-accordion{
-      box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-}
+
 
 .style {
     display: grid;
@@ -65,11 +63,10 @@ html, body {
 }
 .card-date{
     margin-top: 20px;
-    color: rgb(0, 2, 139);
+    color: rgb(70, 70, 70);
+    padding-top: 20px;
 }
-.style-button{
-    border-radius: 5px !important;
-}
+
 .style-btn{
     margin: auto;
 }
