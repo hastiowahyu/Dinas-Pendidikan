@@ -9,6 +9,8 @@ import DetailArtikel from "./components/Artikel/DetailArtikel/DetailArtikel";
 import Foto from "./components/Foto/Foto";
 import DetailNews from "./components/Main/News/DetailNews/DetailNews";
 import Berita from "./components/Berita/Berita";
+import Dokumen from "./components/Dokumen/Dokumen";
+import { PDFViewer } from "./components/Dokumen/PDFViewer";
 
 function App() {
   return (
@@ -25,6 +27,8 @@ function App() {
         <Route path='/Beranda/GalleryFoto' element={<Foto />} />
         <Route path='/Berita' element={<Berita />} />
         <Route path='/berita/DetailNews/:id' element={<DetailNews />} />
+        <Route path='/Dokumen' element={<Dokumen />} />
+        <Route path="/pdf/:slug/:filename" element={<PDFViewer />} />
       </Routes>
       <FooterKita />
     </div>

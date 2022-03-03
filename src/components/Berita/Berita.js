@@ -96,22 +96,8 @@ const Berita = () => {
   return (
     <div className='style-artikel'>
       <Row>
-        <Col md={7}>
-          <Row>
-            {" "}
-            <div className='main'>
-              {/* Actual search box */}
-              <div className='form-group has-search'>
-                <span className='fa fa-search form-control-feedback' />
-                <input
-                  type='text'
-                  className='form-control'
-                  placeholder='Cari Artikel'
-                />
-              </div>
-            </div>
-          </Row>
-          <h1> Artikel Terbaru___ </h1> <hr />
+        <Col md={6}>
+          <h1> Berita Terbaru___ </h1> <hr />
           <div>
             {console.log("Berita", DataResponse)}
             {DataResponse != null
@@ -178,8 +164,19 @@ const Berita = () => {
             </Col>
           </Row>
         </Col>
-        <Col md={5}>
-          <h1>Artikel Populer__</h1> <hr />
+        <Col md={6}>
+          <div className='main'>
+            {/* Actual search box */}
+            <div className='form-group has-search'>
+              <span className='fa fa-search form-control-feedback' />
+              <input
+                type='text'
+                className='form-control'
+                placeholder='Cari Artikel'
+              />
+            </div>
+          </div>
+          <h1>Berita Populer__</h1> <hr />
           <Row>
             <div>
               {console.log("console ini :" + DataPopuler)}

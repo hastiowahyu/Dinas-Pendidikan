@@ -5,3 +5,11 @@
 .card-title {
   height: 40px !important;
 }
+.card-text{
+ text-align: justify;
+}
+.text-kepala{
+  color: blue;
+  font-style: italic;
+  
+}

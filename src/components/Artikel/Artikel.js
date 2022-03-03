@@ -165,7 +165,7 @@ const Artikel = () => {
           </Row>
         </Col>
 
-        <Col md={5}>
+        <Col md={6}>
           <div className='main'>
             {/* Actual search box */}
             <div className='form-group has-search'>

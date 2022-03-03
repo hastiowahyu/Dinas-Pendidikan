@@ -36,16 +36,9 @@ const ThridLine = () => {
                     />
                   </div>
                   <div className='card-body'>
-                    <h4 className='card-title'>{DataPimpinan.nama_kepala}</h4>
-                    <div>
-                      <GrLocation />
-                      <h5>{DataPimpinan.alamat}</h5>
-                      <br />
-                    </div>
-                    <div>
-                      <IoMdCall />
-                      <h6>{DataPimpinan.nomor_telepon}</h6>
-                    </div>
+                    <h5 className="text-kepala">Kepala{" "}{DataPimpinan.nama_instansi}</h5><br/>
+                    <h4 className='card-title'>{DataPimpinan.nama_kepala}<hr/></h4><br/>
+                    <h6>Tentang Instansi</h6>
                     <p className='card-text'>{DataPimpinan.tentang}</p>
                   </div>
                 </div>
@@ -53,21 +46,6 @@ const ThridLine = () => {
             </div>
           </div>
         </div>
-        {/* 
-        <h3>Pimpinan Disidik</h3>
-        <hr />
-        <Card>
-          <Card.Img
-            variant='top'
-            className='style-pimpinan'
-            src={DataPimpinan}
-          />
-          <Card.Body className='card-body'>
-            <Card.Text className='card-text'>
-              <h3></h3>
-            </Card.Text>
-          </Card.Body>
-        </Card> */}
       </>
     </div>
   );
