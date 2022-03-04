@@ -1,9 +1,8 @@
-import React, { Fragment } from "react";
+import React from "react";
 import { useEffect, useState } from "react";
 import "./Artikel.css";
-import { Container, Pagination } from "react-bootstrap";
-import { Card, Row, Col } from "react-bootstrap";
-import DetailArtikel from "./DetailArtikel/DetailArtikel";
+import { Pagination } from "react-bootstrap";
+import { Row, Col } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import ListGroup from "react-bootstrap/ListGroup";
 import { Badge } from "react-bootstrap";
@@ -82,17 +81,17 @@ const Artikel = () => {
       });
   }, []);
 
-    useEffect(() => {
-      axios
-        .get("http://adminmesuji.embuncode.com/api/article/categories/2")
-        .then(function (response) {
-          console.log("console ini2: " + response.data.data);
-          setDataKategori(response.data.data);
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
-    }, []);
+  useEffect(() => {
+    axios
+      .get("http://adminmesuji.embuncode.com/api/article/categories/2")
+      .then(function (response) {
+        console.log("console ini2: " + response.data.data);
+        setDataKategori(response.data.data);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  }, []);
   return (
     <div className='style-artikel'>
       <Row>
@@ -106,7 +105,11 @@ const Artikel = () => {
                   return index % 2 === 0 ? (
                     <div className='blog-card'>
                       <div className='meta'>
-                        <img className='photo' src={item.image_file_data} />
+                        <img
+                          className='photo'
+                          src={item.image_file_data}
+                          alt='/'
+                        />
                         <ul className='details'>
                           <li className='date'>
                             {convvertDate(item.created_at)}
@@ -176,7 +179,6 @@ const Artikel = () => {
                 placeholder='Cari Artikel'
               />
             </div>
-           
           </div>
           <h1>Artikel Populer__</h1> <hr />
           <Row>
@@ -193,6 +195,7 @@ const Artikel = () => {
                             <img
                               className='style-img-popular'
                               src={item.image_file_data}
+                              alt='/'
                             />
                           </div>
                           <div className='right'>

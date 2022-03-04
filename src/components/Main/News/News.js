@@ -1,18 +1,16 @@
 import React, { Fragment } from "react";
 import Card from "react-bootstrap/Card";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
-import Button from "react-bootstrap/Button";
 import "./News.css";
 import { useEffect, useState } from "react";
 import ListGroup from "react-bootstrap/ListGroup";
 import Accordion from "react-bootstrap/Accordion";
-import { Badge, Container } from "react-bootstrap";
+import { Badge, Container, Row } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import moment from "moment-with-locales-es6";
-// import { Scrollbar } from "react-scrollbars-custom";
+import { MdDateRange } from "react-icons/md";
+import { HiClipboardList } from "react-icons/hi";
 
-const News = (params) => {
+const News = () => {
   const [DataResponse, setDataResponses] = useState();
   const [DataUmum, setDataUmum] = useState();
   const [dataKategori, setDataKategori] = useState();
@@ -89,12 +87,15 @@ const News = (params) => {
                         </Card.Title>
                         <p className='card-date'>
                           <span>
-                            {
-                              (moment.locale("id-ID"),
-                              moment(item.created_at).format("ll"))
-                            }
-                            {" | "}
-                            {item.news_category_id}
+                            {" "}
+                            <MdDateRange size={20} />
+                            {moment(item.created_at).format("L")}
+                          </span>
+                          &nbsp;
+                          <span>
+                            {" "}
+                            <HiClipboardList size={20} />{" "}
+                            {item.news_category_id}{" "}
                           </span>
                         </p>
                         <Card.Text className='card-text'>

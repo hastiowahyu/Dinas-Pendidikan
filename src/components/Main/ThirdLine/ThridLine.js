@@ -1,12 +1,11 @@
 import React, { Fragment } from "react";
 import "./ThridLine.css";
 import { useEffect, useState } from "react";
-import { GrLocation } from "react-icons/gr";
-import { IoMdCall } from "react-icons/io";
 import { Row, Col, Container } from "react-bootstrap";
 const ThridLine = () => {
   const [DataPimpinan, setDataPimpinan] = useState([]);
   const axios = require("axios");
+  
   useEffect(() => {
     axios
       .get("http://adminmesuji.embuncode.com/api/instansi/detail/2")

@@ -15,6 +15,7 @@
 .tag-p{
   font-style: italic;
   float: right;
+  margin-right: 60px;
 }
 .dokumen-bg{
   background:rgba(224, 246, 255, 0.63) !important;

@@ -1,9 +1,8 @@
-import React, { Fragment } from "react";
+import React from "react";
 import { useEffect, useState } from "react";
 import "./../Artikel/Artikel.css";
-import { Container, Pagination } from "react-bootstrap";
-import { Card, Row, Col } from "react-bootstrap";
-// import DetailArtikel from "./DetailArtikel/DetailArtikel";
+import { Pagination } from "react-bootstrap";
+import { Row, Col } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import ListGroup from "react-bootstrap/ListGroup";
 import { Badge } from "react-bootstrap";
@@ -106,7 +105,11 @@ const Berita = () => {
                   return index % 2 === 0 ? (
                     <div className='blog-card'>
                       <div className='meta'>
-                        <img className='photo' src={item.image_file_data} />
+                        <img
+                          className='photo'
+                          src={item.image_file_data}
+                          alt='/'
+                        />
                         <ul className='details'>
                           <li className='date'>
                             {convvertDate(item.created_at)}
@@ -132,7 +135,11 @@ const Berita = () => {
                   ) : (
                     <div className='blog-card alt'>
                       <div className='meta'>
-                        <img className='photo' src={item.image_file_data} />
+                        <img
+                          className='photo'
+                          src={item.image_file_data}
+                          alt='/'
+                        />
                         <ul className='details'>
                           <li className='date'>{item.created_at}</li>
                         </ul>
@@ -191,6 +198,7 @@ const Berita = () => {
                             <img
                               className='style-img-popular'
                               src={item.image_file_data}
+                              alt='/'
                             />
                           </div>
                           <div className='right'>
@@ -216,9 +224,6 @@ const Berita = () => {
                               className='readmore'>
                               Read More
                             </Link>
-                            {/* <a href='/' className='readmore'>
-                              Read More
-                            </a> */}
                           </div>
                         </div>
                       </div>

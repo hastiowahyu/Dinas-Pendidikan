@@ -66,7 +66,7 @@ const SecondLine = () => {
     <div className='style-secondline'>
       {" "}
       <Row>
-        <Col md={8}>
+        <Col md={9}>
           <h3>Gallery</h3>
           <hr />
 
@@ -95,7 +95,7 @@ const SecondLine = () => {
             </Link>
           </div>
         </Col>
-        <Col md={4}>
+        <Col>
           <h3>Dokumen Terbaru</h3> <hr />
           <div className='dokumen-bg'>
             {DataDokumen &&

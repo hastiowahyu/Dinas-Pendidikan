@@ -32,6 +32,7 @@ function App() {
         <Route path='/static/:id' element={<HalamanStatis />} />
         <Route path='/Beranda/Dokumen' element={<Dokumen />} />
         <Route path='/Beranda/Berita' element={<Berita />} />
+        <Route path='/Beranda/DetailArtikel/:id' element={<DetailArtikel />} />
       </Routes>
       <FooterKita />
     </div>

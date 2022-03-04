@@ -1,18 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { Document, Page } from "react-pdf";
-import { ListGroup } from "react-bootstrap";
 import { Container } from "react-bootstrap";
 import "./Dokumen.css";
 import moment from "moment-with-locales-es6";
 
 function Dokumen() {
-  const [numPages, setNumPages] = useState(null);
-  const [pageNumber, setPageNumber] = useState(1);
   const [DataDokumen, setDataDokumen] = useState([]);
 
-  function onDocumentLoadSuccess({ numPages }) {
-    setNumPages(numPages);
-  }
   const axios = require("axios");
   useEffect(() => {
     axios
@@ -24,7 +18,7 @@ function Dokumen() {
       .catch(function (error) {
         console.log(error);
       });
-  }, []);
+  },);
   return (
     <div>
       {DataDokumen &&
@@ -38,7 +32,7 @@ function Dokumen() {
                       <img
                         className='d-flex mr-3 image-dok'
                         src='./dokumen.jpg'
-                        alt='Generic placeholder image'
+                        
                       />
                       <div className='media-body'>
                         <h5 className='mt-0'>
@@ -53,10 +47,10 @@ function Dokumen() {
                           </a>
                         </h5>
                         <p className='text_grey mb-0 '>
-                          <span className='text_blue'>Created on: </span>
+                          <span className='text_blue'>
+                            Created on: {moment(itm.created_at).format("L")}
+                          </span>
 
-                          {moment(itm.created_at).format("L")}
-                          {/* {itm.created_at} | */}
                           <span className='text_blue'> Created by: </span>
                           {itm.created_by}
                         </p>
