@@ -1,10 +1,9 @@
-import React, { Fragment } from "react";
 import Card from "react-bootstrap/Card";
 import "./News.css";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState, Fragment } from "react";
 import ListGroup from "react-bootstrap/ListGroup";
 import Accordion from "react-bootstrap/Accordion";
-import { Badge, Container, Row } from "react-bootstrap";
+import { Badge, Container, Row, Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import moment from "moment-with-locales-es6";
 import { MdDateRange } from "react-icons/md";
@@ -65,8 +64,10 @@ const News = () => {
     <Fragment>
       <Row>
         <div className='col-12 col-md-5 layout-1833'>
-          <h1 className='text-size'>Berita Terbaru</h1>
-          <hr />
+          <div className='style-btn hot-news'>
+            <h1 className='text-size'>Berita Terbaru</h1>
+          </div>
+
           <div className='row'>
             {console.log("console ini :" + DataResponse)}
             {DataResponse &&
@@ -112,8 +113,10 @@ const News = () => {
           </div>
         </div>
         <div className='col-12 col-md-4 layout-1833'>
-          <h1>Berita Umum</h1> <hr />
-          {/* <Scrollbar className='style-scroll'> */}
+          <div className='style-btn hot-news'>
+            <h1>Berita Populer </h1>
+          </div>
+
           <Container className='style-accordion'>
             <Accordion>
               {console.log("console ini kategori:" + DataUmum)}
@@ -135,20 +138,18 @@ const News = () => {
                   );
                 })}
             </Accordion>
-            <div className='style-btn'>
-              <div className='style-btn'>
-                <Link to={"/Beranda/Berita"}>
-                  <p className='tag-p'>Lihat Berita Lain {">>"}</p>
-                </Link>
-              </div>
+            <div>
+              <Link to={"/Beranda/Berita"}>
+                <p className='tag-p'>Berita Lainnya{">>"}</p>
+              </Link>
             </div>
           </Container>
-          {/* </Scrollbar> */}
         </div>
 
         <div className='col-12 col-md-3 layout-1833' md={3}>
-          <h1>Kategori Berita</h1>
-          <hr />
+          <div className='style-btn hot-news'>
+            <h1>Kategori Berita</h1>
+          </div>
           <ListGroup as='ol' numbered>
             {console.log("console ini kategori33:" + dataKategori)}
             {dataKategori &&

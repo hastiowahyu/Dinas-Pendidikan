@@ -68,5 +68,12 @@ html, body {
 }
 
 .style-btn{
-    margin: auto;
+    border-bottom: 1px solid rgb(202, 202, 202);
+    margin-bottom: 10px;
 }
+.style-btn a p{
+    float: right;
+    justify-content: right;
+}
+.hot-news{
+    margin-bottom: 10px !important}

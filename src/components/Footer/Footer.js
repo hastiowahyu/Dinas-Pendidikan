@@ -4,22 +4,34 @@ import { Col, Container, Row, Footer } from "mdbreact";
 import "./Footer.css";
 import { useEffect, useState } from "react";
 
-
-
 const FooterKita = () => {
-    const [DataFoter, setDataFoter] = useState([]);
-    const axios = require("axios");
-    useEffect(() => {
-      axios
-        .get("http://adminmesuji.embuncode.com/api/instansi/detail/2")
-        .then(function (footer) {
-          setDataFoter(footer.data.data);
-          console.log("console foter: " + footer.data.data);
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
-    }, []);
+  const [DataFoter, setDataFoter] = useState([]);
+  const [DataInstansi, setDataInstansi] = useState([]);
+
+  const axios = require("axios");
+  useEffect(() => {
+    axios
+      .get("http://adminmesuji.embuncode.com/api/instansi/detail/2")
+      .then(function (footer) {
+        setDataFoter(footer.data.data);
+        console.log("console foter: " + footer.data.data);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  }, []);
+
+  useEffect(() => {
+    axios
+      .get("http://adminmesuji.embuncode.com/api/instansi")
+      .then(function (instansi) {
+        setDataInstansi(instansi.data.data);
+        console.log("console foter: " + instansi.data.data);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  }, []);
   return (
     <footer className='footer-section'>
       <div className='container'>
@@ -68,14 +80,14 @@ const FooterKita = () => {
                 </div>
                 <div className='footer-social-icon'>
                   <span>Follow us</span>
-                  <a href='#'>
+                  <a href={DataFoter.facebook}>
                     <i className='fab fa-facebook-f facebook-bg' />
                   </a>
-                  <a href='#'>
-                    <i className='fab fa-twitter twitter-bg' />
+                  <a href={DataFoter.youtube}>
+                    <i class='fab fa-youtube youtube-bg'></i>
                   </a>
-                  <a href='#'>
-                    <i className='fab fa-google-plus-g google-bg' />
+                  <a href={DataFoter.instagram}>
+                    <i class='fab fa-instagram instagram-bg' />
                   </a>
                 </div>
               </div>
@@ -83,32 +95,25 @@ const FooterKita = () => {
             <div className='col-xl-4 col-lg-4 col-md-6 mb-30'>
               <div className='footer-widget'>
                 <div className='footer-widget-heading'>
-                  <h3>Useful Links</h3>
-                  <iframe
-                    src='https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3974.346922786506!2d105.52375941576365!3d-5.04738325271603!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e4090978ec3a727%3A0xe8ce47b35172a75!2sDinas%20Pendidikan%20Pemuda%20dan%20Olahraga%20Kab.%20Lampung%20Timur!5e0!3m2!1sid!2sid!4v1644394766236!5m2!1sid!2sid'
-                    className='style-maps'
-                  />
+                  <h3>Maps</h3>
+                  <iframe src={DataFoter.google_map} className='style-maps' />
                 </div>
               </div>
             </div>
             <div className='col-xl-4 col-lg-4 col-md-6 mb-50'>
               <div className='footer-widget'>
                 <div className='footer-widget-heading'>
-                  <h3>Buku Tamu</h3>
-                </div>
-                <div className='footer-text mb-25'>
-                  <p>
-                    Don’t miss to subscribe to our new feeds, kindly fill the
-                    form below.
-                  </p>
-                </div>
-                <div className='subscribe-form'>
-                  <form action='#'>
-                    <input type='text' placeholder='Email Address' />
-                    <button>
-                      <i className='fab fa-telegram-plane' />
-                    </button>
-                  </form>
+                  <h3>Dinas Terkait</h3>
+                  <div style={{ height: "300px", overflowY: "scroll" }}>
+                    <ul>
+                      {console.log("console ini :" + DataInstansi)}
+                      {DataInstansi &&
+                        DataInstansi.map((item, index) => {
+                          console.log("item", item);
+                          return <li>{item.nama_instansi}</li>;
+                        })}
+                    </ul>
+                  </div>
                 </div>
               </div>
             </div>
@@ -127,7 +132,7 @@ const FooterKita = () => {
                     <br />
                     Design by{" "}
                   </>
-                  <a href='https://www.instagram.com/hastio.wu/'>Hastio</a>
+                  <a href='https://www.instagram.com/hastio.wu/'>710</a>
                 </p>
               </div>
             </div>

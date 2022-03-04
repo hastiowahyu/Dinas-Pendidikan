@@ -83,21 +83,22 @@ h1{
 }
 
 .blog-card .details .author:before {
-  font-family: FontAwesome;
+  font-family: 'Font Awesome 5 Free';
   margin-right: 10px;
   content: "\f007";
 }
 
 .blog-card .details .date:before {
-  font-family: FontAwesome;
+  font-family: 'Font Awesome 5 Free';
   margin-right: 10px;
   content: "\f133";
 }
 
-.blog-card .details .tags ul:before {
-  font-family: FontAwesome;
-  content: "\f02b";
+.blog-card .details .tags:before {
+  font-family: 'Font Awesome 5 Free';
+  content: "\f02c";
   margin-right: 10px;
+  font-weight: 550;
 }
 
 .blog-card .details .tags li {
@@ -145,12 +146,14 @@ h1{
 }
 
 .blog-card .description .read-more a:after {
-  content: "\f061";
-  font-family: FontAwesome;
+  content: "\f101";
+  font-family:'Font Awesome 5 Free';
   margin-left: -10px;
   opacity: 0;
   vertical-align: middle;
   transition: margin 0.3s, opacity 0.3s;
+  font-weight: 600;
+  color: #0077FF;
 }
 
 .blog-card .description .read-more a:hover:after {

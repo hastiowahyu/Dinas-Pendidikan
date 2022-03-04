@@ -1,5 +1,4 @@
-import React from "react";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./Artikel.css";
 import { Pagination } from "react-bootstrap";
 import { Row, Col } from "react-bootstrap";
@@ -7,7 +6,9 @@ import { Link } from "react-router-dom";
 import ListGroup from "react-bootstrap/ListGroup";
 import { Badge } from "react-bootstrap";
 import moment from "moment-with-locales-es6";
-
+import { MdDateRange } from "react-icons/md";
+import { HiClipboardList } from "react-icons/hi";
+import { FaRegEye } from "react-icons/fa";
 const Artikel = () => {
   const [DataResponse, setDataResponses] = useState(0);
   const [DataPopuler, setDataPopuler] = useState([]);
@@ -62,11 +63,6 @@ const Artikel = () => {
     }
   }
 
-  function convvertDate(timeResponse) {
-    var date = new Date(timeResponse);
-    return date.toLocaleString("en-GB", { hour12: false });
-  }
-
   useEffect(() => {
     axios
       .get(
@@ -112,8 +108,13 @@ const Artikel = () => {
                         />
                         <ul className='details'>
                           <li className='date'>
-                            {convvertDate(item.created_at)}
+                            {
+                              (moment.locale("id-ID"),
+                              moment(item.created_at).format("L"))
+                            }
                           </li>
+                          <li className='tags'>{item.news_category_id}</li>
+                          <li className='author'>{item.created_by}</li>
                         </ul>
                       </div>
                       <div className='description'>
@@ -137,7 +138,14 @@ const Artikel = () => {
                       <div className='meta'>
                         <img className='photo' src={item.image_file_data} />
                         <ul className='details'>
-                          <li className='date'>{item.created_at}</li>
+                          <li className='date'>
+                            {
+                              (moment.locale("id-ID"),
+                              moment(item.created_at).format("L"))
+                            }
+                          </li>
+                          <li className='tags'>{item.news_category_id}</li>
+                          <li className='author'>{item.created_by}</li>
                         </ul>
                       </div>
                       <div className='description'>
@@ -208,22 +216,31 @@ const Artikel = () => {
                               />
                             </p>
                             <p>
-                              <small>
+                              <span>
+                                {" "}
+                                <MdDateRange size={22} />
                                 {
                                   (moment.locale("id-ID"),
-                                  moment(item.created_at).fromNow())
+                                  moment(item.created_at).format("L"))
                                 }
-                                , {item.total_hit}x Dibaca
-                              </small>
+                              </span>
+                              &ensp;
+                              <span>
+                                {" "}
+                                <HiClipboardList size={22} />{" "}
+                                {item.news_category_id}{" "}
+                              </span>
+                              &ensp;
+                              <span>
+                                {" "}
+                                <FaRegEye size={22} /> {item.total_hit}x Dibaca{" "}
+                              </span>
                             </p>
                             <Link
                               to={`/artikel/DetailArtikel/${item.id}`}
                               className='readmore'>
                               Read More
                             </Link>
-                            {/* <a href='/' className='readmore'>
-                              Read More
-                            </a> */}
                           </div>
                         </div>
                       </div>

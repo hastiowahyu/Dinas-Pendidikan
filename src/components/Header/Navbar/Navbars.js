@@ -3,6 +3,7 @@ import Navbar from "react-bootstrap/Navbar";
 import {Nav, NavDropdown, Form, FormControl,Button } from "react-bootstrap";
 import './Navbar.css';
 import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 
 const Navbars = (params) => {
@@ -41,7 +42,7 @@ const Navbars = (params) => {
                                 console.log("Nama Children " + h.name);
                               }
                               return (
-                                <NavDropdown.Item eventKey='4.1'>
+                                <NavDropdown.Item eventKey='4.1' as={Link} to={h.url}>
                                   {h.name}
                                 </NavDropdown.Item>
                               );

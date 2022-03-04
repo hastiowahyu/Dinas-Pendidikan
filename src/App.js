@@ -17,11 +17,11 @@ function App() {
     <div className='body'>
       <Header />
       <Routes>
-        <Route path='/' element={<Main />} />
+        <Route exact path='/' element={<Main />} />
         <Route path='/beranda' element={<Main />} />
         <Route path='/artikel' element={<Artikel />} />
         <Route path='/artikel/DetailArtikel/:id' element={<DetailArtikel />} />
-        <Route path='/gallery' element={<Foto />} />
+        <Route path='/foto' element={<Foto />} />
         <Route path='/news/DetailNews/:id' element={<DetailNews />} />
         <Route path='/News/Artikel' element={<Artikel />} />
         <Route path='/Beranda/GalleryFoto' element={<Foto />} />
@@ -38,5 +38,4 @@ function App() {
     </div>
   );
 }
-
 export default App;

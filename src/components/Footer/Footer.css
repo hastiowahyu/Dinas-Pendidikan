@@ -11,6 +11,9 @@ HTML CSSResult Skip Results Iframe ul {
 .footer-cta {
   border-bottom: 1px solid #373636;
 }
+.single-cta{
+  display: flex;
+}
 
 .single-cta i {
   color: #ff5e14;
@@ -96,8 +99,11 @@ HTML CSSResult Skip Results Iframe ul {
   background: #55ACEE;
 }
 
-.google-bg {
-  background: #DD4B39;
+.youtube-bg {
+  background: #c4302b;
+}
+.instagram-bg{
+ background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%);
 }
 
 .footer-widget-heading h3 {
@@ -119,8 +125,6 @@ HTML CSSResult Skip Results Iframe ul {
 }
 
 .footer-widget ul li {
-  display: inline-block;
-  float: left;
   width: 50%;
   margin-bottom: 12px;
 }

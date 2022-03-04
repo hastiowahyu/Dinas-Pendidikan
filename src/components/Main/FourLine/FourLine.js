@@ -43,8 +43,10 @@ const FourLine = () => {
     <Container>
       <Row>
         <Col md={6}>
-          <h1>Artikel Populer</h1>
-          <hr />
+          <div className='style-btn hot-news'>
+            <h1>Artikel Populer</h1>
+          </div>
+
           <div className='main-pop'>
             {DataPopuler &&
               DataPopuler.map((item, index) => {
@@ -81,7 +83,9 @@ const FourLine = () => {
           </div>
         </Col>
         <Col>
-          <h1>Artikel Terbaru</h1>
+          <div className='style-btn hot-news'>
+            <h1>Artikel Terbaru</h1>
+          </div>
           <hr />
           <div>
             {console.log("console ini kategori:" + DataArtikel)}

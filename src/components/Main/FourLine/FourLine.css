@@ -2,13 +2,14 @@
 .main-pop{
   background: rgba(224, 246, 255, 0.63);
   border-radius: 5px;
+    margin: 10px;
 }
 .cards-type {
   display: flex;
   align-items: flex-start;
   flex-wrap: wrap;
   padding: 10px;
-  border-top: 100px;
+  border-bottom: 1px;
 }
 
 img {
@@ -25,7 +26,7 @@ img {
 .card__info {
   flex-basis: calc(70% - 40px);
   flex-grow: 1;
-  margin: 10px;
+
 }
 
 h2 {

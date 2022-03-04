@@ -13,9 +13,10 @@
   height: auto !important;
 }
 .tag-p{
+  margin-top: 10px;
   font-style: italic;
-  float: right;
-  margin-right: 60px;
+  text-align: center;
+  font-size: large;
 }
 .dokumen-bg{
   background:rgba(224, 246, 255, 0.63) !important;
@@ -61,13 +62,8 @@ figcaption {
   max-width: 80rem;
   margin: 0 auto;
   grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr));
-  /* grid-template-rows: 1fr auto; */
   gap: 1.5rem;
 }
-.style-button {
-  border-radius: 5px !important;
-  width: 300px;
-}
-.style-btn {
-  margin: auto;
+.khusus-image{
+  margin-left: 50px !important;
 }

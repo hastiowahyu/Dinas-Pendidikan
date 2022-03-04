@@ -5,7 +5,7 @@ import { Row, Col, Container } from "react-bootstrap";
 const ThridLine = () => {
   const [DataPimpinan, setDataPimpinan] = useState([]);
   const axios = require("axios");
-  
+
   useEffect(() => {
     axios
       .get("http://adminmesuji.embuncode.com/api/instansi/detail/2")
@@ -21,9 +21,8 @@ const ThridLine = () => {
   console.log(DataPimpinan);
 
   return (
-    <div>
-      <hr />
-      <Row>
+    <div className='utama'>
+      <Row className="Row-nya">
         <Col md={5}>
           <Container>
             <img
@@ -47,7 +46,6 @@ const ThridLine = () => {
           </div>
         </Col>
       </Row>
-      <hr />
     </div>
   );
 };

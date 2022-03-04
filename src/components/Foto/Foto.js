@@ -91,7 +91,7 @@ const Foto = () => {
           <p className='text-box'>VIDEO DISDIK</p>
         </Box>
       </div>
-      <Row xs={1} md={3} className='g-4' className='coba'>
+      <Row xs={1} md={3} className='g-4 coba' >
         
             {DataVideo &&
               DataVideo.map((item, index) => {

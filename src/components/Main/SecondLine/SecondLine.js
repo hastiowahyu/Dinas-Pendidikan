@@ -67,8 +67,9 @@ const SecondLine = () => {
       {" "}
       <Row>
         <Col md={9}>
-          <h3>Gallery</h3>
-          <hr />
+          <div className='style-btn hot-news'>
+            <h3>Gallery</h3>
+          </div>
 
           <div className='grid'>
             {BoxAlbum &&
@@ -89,14 +90,16 @@ const SecondLine = () => {
                 );
               })}
           </div>
-          <div className='style-btn'>
+          <div className="khusus-gambar">
             <Link to={"/Beranda/GalleryFoto"}>
-              <p className='tag-p'>Lihat Gambar Lain {">>"}</p>
+              <p className='tag-p'>Gambar Lainnya {">>"}</p>
             </Link>
           </div>
         </Col>
         <Col>
-          <h3>Dokumen Terbaru</h3> <hr />
+          <div className='style-btn hot-news'>
+            <h3>Dokumen Terbaru</h3>
+          </div>
           <div className='dokumen-bg'>
             {DataDokumen &&
               DataDokumen.map((item, index) => {
@@ -144,9 +147,9 @@ const SecondLine = () => {
                 });
               })}
           </div>
-          <div className='style-btn'>
+          <div>
             <Link to={"/Beranda/Dokumen"}>
-              <p className='tag-p'>Lihat Dokumen Lain {">>"}</p>
+              <p className='tag-p'>Dokumen Lainnya {">>"}</p>
             </Link>
           </div>
         </Col>
