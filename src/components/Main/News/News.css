@@ -18,7 +18,10 @@
     height: 115.23px !important;
 }
 
-
+.list-item-mui{
+    border-bottom: 1px solid rgb(202, 202, 202);
+    border-top: 1px solid rgb(202, 202, 202);
+}
 .style {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(50px, 1fr));

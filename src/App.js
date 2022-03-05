@@ -12,6 +12,9 @@ import Berita from "./components/Berita/Berita";
 import Dokumen from "./components/Dokumen/Dokumen";
 import { PDFViewer } from "./components/Dokumen/PDFViewer";
 import HalamanStatis from "./components/HalamanStatis/HalamanStatis";
+import GalleryVidio
+ from "./components/GalleryVidio/GalleryVidio";
+
 function App() {
   return (
     <div className='body'>
@@ -33,6 +36,7 @@ function App() {
         <Route path='/Beranda/Dokumen' element={<Dokumen />} />
         <Route path='/Beranda/Berita' element={<Berita />} />
         <Route path='/Beranda/DetailArtikel/:id' element={<DetailArtikel />} />
+        <Route path='/vidio' element={<GalleryVidio />} />
       </Routes>
       <FooterKita />
     </div>

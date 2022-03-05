@@ -8,6 +8,15 @@ import { Link } from "react-router-dom";
 import moment from "moment-with-locales-es6";
 import { MdDateRange } from "react-icons/md";
 import { HiClipboardList } from "react-icons/hi";
+import List from "@mui/material/List";
+import ListItem from "@mui/material/ListItem";
+import ListItemText from "@mui/material/ListItemText";
+import ListItemAvatar from "@mui/material/ListItemAvatar";
+import Avatar from "@mui/material/Avatar";
+import ImageIcon from "@mui/icons-material/Image";
+import WorkIcon from "@mui/icons-material/Work";
+import BeachAccessIcon from "@mui/icons-material/BeachAccess";
+import ListIcon from "@mui/icons-material/List";
 
 const News = () => {
   const [DataResponse, setDataResponses] = useState();
@@ -150,7 +159,7 @@ const News = () => {
           <div className='style-btn hot-news'>
             <h1>Kategori Berita</h1>
           </div>
-          <ListGroup as='ol' numbered>
+          {/* <ListGroup as='ol' numbered>
             {console.log("console ini kategori33:" + dataKategori)}
             {dataKategori &&
               dataKategori.map((item, index) => {
@@ -172,7 +181,37 @@ const News = () => {
                   </>
                 );
               })}
-          </ListGroup>
+          </ListGroup> */}
+          <List
+            sx={{
+              borderRadius: "10px",
+              width: "100%",
+              maxWidth: "100%",
+              bgcolor: "rgba(224, 246, 255, 0.63)",
+              paddingLeft: "5px",
+              paddingRight: "5px",
+            }}>
+            {console.log("console ini kategori33:" + dataKategori)}
+            {dataKategori &&
+              dataKategori.map((item, index) => {
+                console.log("kategori", item);
+                return (
+                  <>
+                    <ListItem className='list-item-mui'>
+                      <ListItemAvatar>
+                        <Avatar>
+                          <ListIcon />
+                        </Avatar>
+                      </ListItemAvatar>
+                      <ListItemText primary={item.nama_kategori} />
+                      <Badge bg='primary' pill>
+                        {item.news_count}
+                      </Badge>
+                    </ListItem>
+                  </>
+                );
+              })}
+          </List>
         </div>
       </Row>
     </Fragment>

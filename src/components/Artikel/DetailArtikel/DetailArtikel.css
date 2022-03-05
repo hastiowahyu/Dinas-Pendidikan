@@ -1,3 +1,41 @@
-.body{
-  margin-top: 70px;
+.main-detail{
+  margin: 15px;
+  margin-top: 30px;
+
 }
+.txt-deco{
+  text-align: center !important;
+  margin-bottom: 30px !important;
+  height: 100% !important;
+ 
+}
+.card-deco{
+  border-top: 6px solid #0077FF !important;
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px,
+  rgba(0, 0, 0, 0.12) 0px -12px 30px,
+  rgba(0, 0, 0, 0.12) 0px 4px 6px,
+  rgba(0, 0, 0, 0.17) 0px 12px 13px,
+  rgba(0, 0, 0, 0.09) 0px -3px 5px !important; 
+  margin-bottom: 50ZZpx !important;
+}
+.populer-deco{
+    border-top: 6px solid #0077FF !important;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px,
+    rgba(0, 0, 0, 0.12) 0px -12px 30px,
+    rgba(0, 0, 0, 0.12) 0px 4px 6px,
+    rgba(0, 0, 0, 0.17) 0px 12px 13px,
+    rgba(0, 0, 0, 0.09) 0px -3px 5px !important;
+    margin-bottom: 50px !important;
+    border-radius: 10px;
+    padding: 10px 50px;
+  }
+.populer-deco h3{
+   border-bottom: 1px solid rgb(202, 202, 202) !important;
+   margin: 15px 0px;
+   padding-bottom: 15px;
+
+}
+.p-deco{
+  margin-bottom: 20px;
+}
+

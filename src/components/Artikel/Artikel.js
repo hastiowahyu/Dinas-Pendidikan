@@ -1,10 +1,8 @@
 import React, { useEffect, useState } from "react";
 import "./Artikel.css";
-import { Pagination } from "react-bootstrap";
-import { Row, Col } from "react-bootstrap";
+import { Row, Col, Pagination, Badge } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import ListGroup from "react-bootstrap/ListGroup";
-import { Badge } from "react-bootstrap";
 import moment from "moment-with-locales-es6";
 import { MdDateRange } from "react-icons/md";
 import { HiClipboardList } from "react-icons/hi";
@@ -176,7 +174,7 @@ const Artikel = () => {
           </Row>
         </Col>
 
-        <Col md={6}>
+        <Col md={6} >
           <div className='main'>
             {/* Actual search box */}
             <div className='form-group has-search'>

@@ -9,7 +9,6 @@ import moment from "moment-with-locales-es6";
 
 const Foto = () => {
   const [DataResponse, setDataResponses] = useState(0);
-  const [DataVideo, setDataVideo] = useState([]);
   const axios = require("axios");
 
   useEffect(() => {
@@ -26,18 +25,6 @@ const Foto = () => {
       });
   }, []);
 
-  useEffect(() => {
-    axios
-      .get("http://adminmesuji.embuncode.com/api/video-gallery?instansi_id=2")
-      .then(function (response) {
-        console.log("console ini video: " + response.data.data.data);
-        setDataVideo(response.data.data.data);
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
-  }, []);
-
   return (
     <Fragment>
       <div id='landing'>
@@ -46,7 +33,7 @@ const Foto = () => {
             <h1>SELAMAT DATANG DIGALERI</h1>
             <h2>DISDIK LAMPUNG TIMUR</h2>
             <a href='#images' className='btn' id='view-work'>
-              View Gallery
+              View Foto
             </a>
           </div>
         </div>
@@ -86,47 +73,6 @@ const Foto = () => {
             });
           })}
       </div>
-      <div>
-        <Box className='style-box'>
-          <p className='text-box'>VIDEO DISDIK</p>
-        </Box>
-      </div>
-      <Row xs={1} md={3} className='g-4 coba' >
-        
-            {DataVideo &&
-              DataVideo.map((item, index) => {
-                return item.image_gallery_item.map((itm, idx) => {
-                  return (
-                    <Col
-                      md={6}
-                      sm={12}
-                      xs={12}
-                      lg={4}
-                      key={idx}
-                      className='style-vid'>
-                      <div className='tile-videos'>
-                        <iframe
-                          id='player'
-                          type='text/html'
-                          src={`https://www.youtube.com/embed/${itm.video_url}?`}
-                          className='player-wrapper'
-                          style={{ width: "100%", height: "100%" }}
-                          frameBorder='0'></iframe>
-                        <div className='text-videos'>
-                          <p>{item.description}</p>
-                          <p className='animate-text-videos'>
-                            {itm.description}
-                          </p>
-                        </div>
-                      </div>
-                    </Col>
-                  );
-                });
-              })}
-
-
-
-      </Row>
     </Fragment>
   );
 };

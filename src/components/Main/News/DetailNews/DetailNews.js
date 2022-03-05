@@ -1,15 +1,21 @@
 import React from "react";
-import "./DetailNews.css";
+import "./../../../Artikel/DetailArtikel/DetailArtikel.css";
+import "./../../../Artikel/Artikel.css";
 import { Card, Container, Col, Row } from "react-bootstrap";
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import moment from "moment-with-locales-es6";
+import { MdDateRange } from "react-icons/md";
+import { HiClipboardList } from "react-icons/hi";
+import { FaRegEye } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
 const DetailNews = () => {
   const { id } = useParams();
   console.log("dtlart", id);
   const axios = require("axios");
   const [dataDetailNews, setDataDetailNews] = useState(0);
+  const [DataPopuler, setDataPopuler] = useState([]);
 
   useEffect(() => {
     axios
@@ -23,33 +29,125 @@ const DetailNews = () => {
       });
   }, [axios]);
 
+  useEffect(() => {
+    axios
+      .get(
+        "http://adminmesuji.embuncode.com/api/article?instansi_id=2&per_page=4&sort_type=desc&sort_by=total_hit"
+      )
+      .then(function (response) {
+        console.log("console ini1: " + response.data.data.data);
+        setDataPopuler(response.data.data.data);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  }, []);
+
+  function handleLength(valeu, lengths) {
+    if (valeu.length < lengths) {
+      return valeu;
+    } else {
+      return valeu.substring(0, lengths);
+    }
+  }
   return (
-    <div>
+    <div className='main-detail'>
       <Row>
-        <Col md={9}>
-          <Container>
-            <Card>
-              <Card.Img variant='top' src={dataDetailNews.image_file_data} />
-              <Card.Body>
-                <Card.Title>{dataDetailNews.title}</Card.Title>
+        <Col md={6}>
+          <Card className='card-deco'>
+            <Card.Img variant='top' src={dataDetailNews.image_file_data} />
+            <Card.Body>
+              <Card.Title className='txt-deco'>
+                {dataDetailNews.title}
+              </Card.Title>
+              <p className='p-deco'>
                 <span>
+                  {" "}
+                  <MdDateRange size={22} />
                   {
                     (moment.locale("id-ID"),
-                    moment(dataDetailNews.created_at).fromNow())
+                    moment(dataDetailNews.created_at).format("L"))
                   }
                 </span>
-                &emsp;
-                <span>{dataDetailNews.news_category_id}</span>
-                <Card.Text
-                  dangerouslySetInnerHTML={{
-                    __html: dataDetailNews.content,
-                  }}></Card.Text>
-              </Card.Body>
-            </Card>
-          </Container>
+                &ensp;
+                <span>
+                  {" "}
+                  <HiClipboardList size={22} />{" "}
+                  {dataDetailNews.news_category_id}{" "}
+                </span>
+                &ensp;
+                <span>
+                  {" "}
+                  <FaRegEye size={22} /> {dataDetailNews.total_hit}x Dibaca{" "}
+                </span>
+              </p>
+              <Card.Text
+                dangerouslySetInnerHTML={{
+                  __html: dataDetailNews.content,
+                }}></Card.Text>
+            </Card.Body>
+          </Card>
         </Col>
-        <Col md={3}>
-          <h1>Popular Post</h1>
+        <Col>
+          <div className='populer-deco'>
+            <h3>Berita Populer</h3>
+            {console.log("console ini :" + DataPopuler)}
+            {DataPopuler &&
+              DataPopuler.map((item, index) => {
+                console.log("item", item);
+                return (
+                  <div className='box post-list'>
+                    <div className='content'>
+                      <div className='post'>
+                        <div className='left'>
+                          <img
+                            className='style-img-popular'
+                            src={item.image_file_data}
+                            alt='/'
+                          />
+                        </div>
+                        <div className='right'>
+                          <h5>{handleLength(item.title, 30)}</h5>
+                          <p className='style-intro'>
+                            <div
+                              dangerouslySetInnerHTML={{
+                                __html: handleLength(item.intro, 80),
+                              }}
+                            />
+                          </p>
+                          <p>
+                            <span>
+                              {" "}
+                              <MdDateRange size={22} />
+                              {
+                                (moment.locale("id-ID"),
+                                moment(item.created_at).format("L"))
+                              }
+                            </span>
+                            &ensp;
+                            <span>
+                              {" "}
+                              <HiClipboardList size={22} />{" "}
+                              {item.news_category_id}{" "}
+                            </span>
+                            &ensp;
+                            <span>
+                              {" "}
+                              <FaRegEye size={22} /> {item.total_hit}x Dibaca{" "}
+                            </span>
+                          </p>
+                          <Link
+                            to={`/artikel/DetailArtikel/${item.id}`}
+                            className='readmore'>
+                            Read More
+                          </Link>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                );
+              })}
+          </div>
         </Col>
       </Row>
     </div>

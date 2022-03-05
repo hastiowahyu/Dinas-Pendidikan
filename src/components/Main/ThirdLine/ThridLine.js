@@ -21,8 +21,8 @@ const ThridLine = () => {
   console.log(DataPimpinan);
 
   return (
-    <div className='utama'>
-      <Row className="Row-nya">
+    <div className='utama-kepala'>
+      <Row>
         <Col md={5}>
           <Container>
             <img
