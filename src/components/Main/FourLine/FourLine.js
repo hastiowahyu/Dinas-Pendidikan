@@ -7,6 +7,8 @@ import moment from "moment-with-locales-es6";
 import { MdDateRange } from "react-icons/md";
 import { HiClipboardList } from "react-icons/hi";
 import { Link } from "react-router-dom";
+import Box from "@mui/material/Box";
+import LinearProgress from "@mui/material/LinearProgress";
 
 const FourLine = () => {
   const [DataArtikel, setDataArtikel] = useState();
@@ -16,7 +18,7 @@ const FourLine = () => {
   useEffect(() => {
     axios
       .get(
-        "http://adminmesuji.embuncode.com/api/article?instansi_id=2&per_page=3&sort_type=asc&sort_by=created_at"
+        "http://adminmesuji.embuncode.com/api/article?instansi_id=7&per_page=3&sort_type=asc&sort_by=created_at"
       )
       .then(function (Umum) {
         setDataArtikel(Umum.data.data.data);
@@ -29,7 +31,7 @@ const FourLine = () => {
   useEffect(() => {
     axios
       .get(
-        "http://adminmesuji.embuncode.com/api/article?instansi_id=2&per_page=4&sort_type=desc&sort_by=total_hit"
+        "http://adminmesuji.embuncode.com/api/article?instansi_id=7&per_page=4&sort_type=desc&sort_by=total_hit"
       )
       .then(function (populer) {
         setDataPopuler(populer.data.data.data);
@@ -48,7 +50,8 @@ const FourLine = () => {
           </div>
 
           <div className='main-pop'>
-            {DataPopuler &&
+            {DataPopuler != null ? (
+              DataPopuler &&
               DataPopuler.map((item, index) => {
                 return (
                   <div class='cards-type'>
@@ -79,17 +82,22 @@ const FourLine = () => {
                     </div>
                   </div>
                 );
-              })}
+              })
+            ) : (
+              <Box sx={{ width: "100%" }}>
+                <LinearProgress />
+              </Box>
+            )}
           </div>
         </Col>
         <Col>
           <div className='style-btn hot-news'>
             <h1>Artikel Terbaru</h1>
           </div>
-          <hr />
+
           <div>
-            {console.log("console ini kategori:" + DataArtikel)}
-            {DataArtikel &&
+            {DataArtikel != null ? (
+              DataArtikel &&
               DataArtikel.map((item, index) => {
                 console.log("terbaru", item);
                 return (
@@ -128,7 +136,12 @@ const FourLine = () => {
                     <br />
                   </>
                 );
-              })}
+              })
+            ) : (
+              <Box sx={{ width: "100%" }}>
+                <LinearProgress />
+              </Box>
+            )}
           </div>
         </Col>
       </Row>

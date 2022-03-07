@@ -9,6 +9,7 @@ import { MdDateRange } from "react-icons/md";
 import { HiClipboardList } from "react-icons/hi";
 import { FaRegEye } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import { browserName} from "react-device-detect";
 
 const DetailArtikel = () => {
   const { id } = useParams();
@@ -31,7 +32,7 @@ const DetailArtikel = () => {
   useEffect(() => {
     axios
       .get(
-        "http://adminmesuji.embuncode.com/api/article?instansi_id=2&per_page=4&sort_by=total_hit"
+        "http://adminmesuji.embuncode.com/api/article?instansi_id=7&per_page=4&sort_by=total_hit"
       )
       .then(function (response) {
         console.log("console ini1: " + response.data.data.data);
@@ -49,6 +50,28 @@ const DetailArtikel = () => {
       return valeu.substring(0, lengths);
     }
   }
+
+   useEffect(() => {
+     const getIPAddress = async () => {
+       const res = await axios.get("https://geolocation-db.com/json/");
+       axios
+         .post(
+           "http://adminmesuji.embuncode.com/api/article/hit?artikel_id=" +
+             id +
+             "&ip=" +
+             res.data.IPv4 +
+             "&device=" +
+             browserName
+         )
+         .then(function (response) {
+           console.log("console ini2: " + response.data.data);
+         })
+         .catch(function (error) {
+           console.log(error);
+         });
+     };
+     getIPAddress();
+   }, []);
 
   return (
     <div className='main-detail'>

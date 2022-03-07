@@ -31,7 +31,7 @@ const Berita = () => {
     setDataResponses(null);
     axios
       .get(
-        "http://adminmesuji.embuncode.com/api/news?instansi_id=2&per_page=4&page=" +
+        "http://adminmesuji.embuncode.com/api/news?instansi_id=7&per_page=4&page=" +
           page
       )
       .then(function (response) {
@@ -73,7 +73,7 @@ const Berita = () => {
   useEffect(() => {
     axios
       .get(
-        "http://adminmesuji.embuncode.com/api/article?instansi_id=2&per_page=4&sort_by=total_hit"
+        "http://adminmesuji.embuncode.com/api/news?instansi_id=7&per_page=4&sort_by=total_hit"
       )
       .then(function (response) {
         console.log("console ini1: " + response.data.data.data);
@@ -86,7 +86,7 @@ const Berita = () => {
 
   useEffect(() => {
     axios
-      .get("http://adminmesuji.embuncode.com/api/article/categories/2")
+      .get("http://adminmesuji.embuncode.com/api/news/categories/7")
       .then(function (response) {
         console.log("console ini2: " + response.data.data);
         setDataKategori(response.data.data);

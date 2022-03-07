@@ -1,34 +1,42 @@
-.card-title {
-  height: 40px !important;
-}
 
-.card-text {
-  text-align: justify;
-  height: 100%;
-}
-
-.text-kepala {
-  color: blue;
-  font-style: italic;
-}
-
-.img-kepala {
-  max-width: 300px;
-  margin: auto;
-  border-radius: 10px;
-}
-
-.utama {
-  /* margin-top: 20px; */
-  border-top: 1px solid rgb(202, 202, 202);
-  border-bottom: 1px solid rgb(202, 202, 202);
-}
 
 .utama-kepala {
-  margin-top: 10px !important;
+  margin-top: 20px !important;
   height: 100% !important;
   /* padding-top: 100px; */
-  padding-top: 100px;
-  padding-bottom: 100px;
   background: rgba(214, 241, 245, 0.205);
+  display:flex;
+  justify-content: flex-end;
+  padding-top: 40px;
+}
+
+.foto-kepala {
+  max-width: 500px;
+  max-height: 500px;
+  border-radius: 10px;
+  object-fit: cover;
+  /* float: right; */
+  
+  transition: transform .2s;
+}
+.foto-kepala:hover{
+  transform: scale(1.1)
+}
+
+.nama-kpla {
+  padding-top: 35px;
+}
+
+.kata-penutup-news {
+  font-size: 16px;
+  margin-bottom: 15px;
+}
+
+.kepala-dinas {
+  font-size: 18px;
+  margin-bottom: 15px;
+}
+.rest{
+  padding-left: 10px;
+  padding-right: 100px !important;
 }

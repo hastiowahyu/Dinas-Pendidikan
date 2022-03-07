@@ -13,7 +13,7 @@ const GalleryVidio = () => {
 
   useEffect(() => {
     axios
-      .get("http://adminmesuji.embuncode.com/api/video-gallery?instansi_id=2")
+      .get("http://adminmesuji.embuncode.com/api/video-gallery?instansi_id=7")
       .then(function (response) {
         console.log("console ini video: " + response.data.data.data);
         setDataVideo(response.data.data.data);

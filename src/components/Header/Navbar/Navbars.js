@@ -5,9 +5,11 @@ import './Navbar.css';
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+import Box from "@mui/material/Box";
+import LinearProgress from "@mui/material/LinearProgress";
 
 const Navbars = (params) => {
-    const [DataResponse, setDataResponses] = useState(0);
+    const [DataResponse, setDataResponses] = useState(null);
     const axios = require("axios");
 
     useEffect(() => {
@@ -28,7 +30,8 @@ const Navbars = (params) => {
         <Navbar.Toggle aria-controls='basic-navbar-nav' />
         <Navbar.Collapse id='basic-navbar-nav'>
           <Nav className='m-auto'>
-            {DataResponse &&
+            {DataResponse != null ? (
+              DataResponse &&
               DataResponse.map((m, i) => {
                 console.log("DataResponse22", DataResponse);
                 return (
@@ -42,7 +45,10 @@ const Navbars = (params) => {
                                 console.log("Nama Children " + h.name);
                               }
                               return (
-                                <NavDropdown.Item eventKey='4.1' as={Link} to={h.url}>
+                                <NavDropdown.Item
+                                  eventKey='4.1'
+                                  as={Link}
+                                  to={h.url}>
                                   {h.name}
                                 </NavDropdown.Item>
                               );
@@ -54,7 +60,12 @@ const Navbars = (params) => {
                     )}
                   </>
                 );
-              })}
+              })
+            ) : (
+              <Box sx={{ width: "100%" }}>
+                <LinearProgress />
+              </Box>
+            )}
           </Nav>
         </Navbar.Collapse>
       </Navbar>

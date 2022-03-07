@@ -17,6 +17,8 @@ import ImageIcon from "@mui/icons-material/Image";
 import WorkIcon from "@mui/icons-material/Work";
 import BeachAccessIcon from "@mui/icons-material/BeachAccess";
 import ListIcon from "@mui/icons-material/List";
+import Box from "@mui/material/Box";
+import LinearProgress from "@mui/material/LinearProgress";
 
 const News = () => {
   const [DataResponse, setDataResponses] = useState();
@@ -26,7 +28,7 @@ const News = () => {
   const axios = require("axios");
   useEffect(() => {
     axios
-      .get("http://adminmesuji.embuncode.com/api/news?instansi_id=2&per_page=6")
+      .get("http://adminmesuji.embuncode.com/api/news?instansi_id=7&per_page=6")
       .then(function (Umum) {
         console.log("console ini0: " + Umum.data.data.data);
         setDataUmum(Umum.data.data.data);
@@ -39,7 +41,7 @@ const News = () => {
   useEffect(() => {
     axios
       .get(
-        "http://adminmesuji.embuncode.com/api/news?instansi_id=2&per_page=3 +"
+        "http://adminmesuji.embuncode.com/api/news?instansi_id=7&per_page=2 +"
       )
       .then(function (response) {
         console.log("console ini1: " + response.data.data.data);
@@ -52,7 +54,7 @@ const News = () => {
 
   useEffect(() => {
     axios
-      .get("http://adminmesuji.embuncode.com/api/news/categories/2")
+      .get("http://adminmesuji.embuncode.com/api/news/categories/7")
       .then(function (response) {
         console.log("console ini2: " + response.data.data);
         setDataKategori(response.data.data);
@@ -79,11 +81,12 @@ const News = () => {
 
           <div className='row'>
             {console.log("console ini :" + DataResponse)}
-            {DataResponse &&
+            {DataResponse != null ? (
+              DataResponse &&
               DataResponse.map((item, index) => {
                 console.log("item", item);
                 return (
-                  <div className='col-12 col-sm-12 col-md-12 col-lg-12 col-xl-4'>
+                  <div className='col-12 col-sm-12 col-md-12 col-lg-12 col-xl-6'>
                     <Card>
                       <Card.Img
                         variant='top'
@@ -118,7 +121,12 @@ const News = () => {
                     </Card>
                   </div>
                 );
-              })}
+              })
+            ) : (
+              <Box sx={{ width: "100%" }}>
+                <LinearProgress />
+              </Box>
+            )}
           </div>
         </div>
         <div className='col-12 col-md-4 layout-1833'>
@@ -129,7 +137,8 @@ const News = () => {
           <Container className='style-accordion'>
             <Accordion>
               {console.log("console ini kategori:" + DataUmum)}
-              {DataUmum &&
+              {DataUmum != null ? (
+                DataUmum &&
                 DataUmum.map((item, index) => {
                   console.log("terbaru", item);
                   return (
@@ -145,7 +154,12 @@ const News = () => {
                       </>
                     </>
                   );
-                })}
+                })
+              ) : (
+                <Box sx={{ width: "100%" }}>
+                  <LinearProgress />
+                </Box>
+              )}
             </Accordion>
             <div>
               <Link to={"/Beranda/Berita"}>
@@ -159,29 +173,6 @@ const News = () => {
           <div className='style-btn hot-news'>
             <h1>Kategori Berita</h1>
           </div>
-          {/* <ListGroup as='ol' numbered>
-            {console.log("console ini kategori33:" + dataKategori)}
-            {dataKategori &&
-              dataKategori.map((item, index) => {
-                console.log("kategori", item);
-                return (
-                  <>
-                    <ListGroup.Item
-                      as='li'
-                      className='d-flex justify-content-between align-items-start'>
-                      <div className='ms-2 me-auto'>
-                        <div className='fw-bold'>
-                          <a href='#'>{item.nama_kategori}</a>
-                        </div>
-                      </div>
-                      <Badge bg='primary' pill>
-                        {item.news_count}
-                      </Badge>
-                    </ListGroup.Item>
-                  </>
-                );
-              })}
-          </ListGroup> */}
           <List
             sx={{
               borderRadius: "10px",
@@ -191,10 +182,9 @@ const News = () => {
               paddingLeft: "5px",
               paddingRight: "5px",
             }}>
-            {console.log("console ini kategori33:" + dataKategori)}
-            {dataKategori &&
+            {dataKategori != null ? (
+              dataKategori &&
               dataKategori.map((item, index) => {
-                console.log("kategori", item);
                 return (
                   <>
                     <ListItem className='list-item-mui'>
@@ -210,7 +200,12 @@ const News = () => {
                     </ListItem>
                   </>
                 );
-              })}
+              })
+            ) : (
+              <Box sx={{ width: "100%" }}>
+                <LinearProgress />
+              </Box>
+            )}
           </List>
         </div>
       </Row>

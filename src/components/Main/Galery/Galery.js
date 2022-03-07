@@ -2,9 +2,11 @@ import React, { Fragment } from "react";
 import { Carousel } from "react-bootstrap";
 import "./Galery.css";
 import { useEffect, useState } from "react";
+import Box from "@mui/material/Box";
+import LinearProgress from "@mui/material/LinearProgress";
 
 const Galery = () => {
-  const [DataResponse, setDataResponses] = useState(0);
+  const [DataResponse, setDataResponses] = useState();
   const axios = require("axios");
 
   
@@ -12,7 +14,7 @@ const Galery = () => {
   useEffect(() => {
     axios
       .get(
-        "http://adminmesuji.embuncode.com/api/image-gallery?instansi_id=2&per_page=3"
+        "http://adminmesuji.embuncode.com/api/image-gallery?instansi_id=7&per_page=3"
       )
       .then(function (response) {
         console.log("console ini galery1: " + response.data.data.data);
@@ -27,7 +29,8 @@ const Galery = () => {
 
   return (
     <Carousel fade className='style-galery'>
-      {DataResponse &&
+      {DataResponse != null ? (
+        DataResponse &&
         DataResponse.map((item, idx) => {
           return item.image_gallery_item.map((itm, idx) => {
             return (
@@ -39,7 +42,12 @@ const Galery = () => {
               </Carousel.Item>
             );
           });
-        })}
+        })
+      ) : (
+        <Box sx={{ width: "100%" }}>
+          <LinearProgress />
+        </Box>
+      )}
     </Carousel>
   );
 };

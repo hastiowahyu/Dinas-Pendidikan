@@ -19,8 +19,10 @@
 }
 
 .list-item-mui{
-    border-bottom: 1px solid rgb(202, 202, 202);
-    border-top: 1px solid rgb(202, 202, 202);
+    /* border: 1px solid rgb(202, 202, 202); */
+    margin-bottom: 10px;
+    border-radius: 5px;
+    background-color: rgba(126, 125, 125, 0.068);
 }
 .style {
     display: grid;

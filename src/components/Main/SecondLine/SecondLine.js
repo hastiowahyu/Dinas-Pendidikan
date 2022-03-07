@@ -1,24 +1,21 @@
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import Card from "react-bootstrap/Card";
 import "./SecondLine.css";
-import { React, useEffect, useState, Fragment } from "react";
-import Button from "react-bootstrap/Button";
-import { ListGroup } from "react-bootstrap";
+import { React, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import moment from "moment-with-locales-es6";
+import Box from "@mui/material/Box";
+import LinearProgress from "@mui/material/LinearProgress";
 
 const SecondLine = () => {
-  const [DataPimpinan, setDataPimpinan] = useState(null);
-  const [DataResponse, setDataResponses] = useState(0);
-  const [BoxAlbum, setBoxAlbum] = useState([]);
-  const [DataDokumen, setDataDokumen] = useState([]);
+  const [BoxAlbum, setBoxAlbum] = useState();
+  const [DataDokumen, setDataDokumen] = useState();
 
   const axios = require("axios");
 
   useEffect(() => {
     axios
-      .get("http://adminmesuji.embuncode.com/api/image-gallery?instansi_id=2")
+      .get("http://adminmesuji.embuncode.com/api/image-gallery?instansi_id=7")
       .then(function (response) {
         rebuildAlbum(response.data.data.data);
       })
@@ -30,7 +27,7 @@ const SecondLine = () => {
   useEffect(() => {
     axios
       .get(
-        "http://adminmesuji.embuncode.com/api/dokumen?instansi_id=8&per_page=4"
+        "http://adminmesuji.embuncode.com/api/dokumen?instansi_id=7&per_page=4"
       )
       .then(function (dokumen) {
         console.log("console dokumen: " + dokumen.data.data.data);
@@ -72,7 +69,8 @@ const SecondLine = () => {
           </div>
 
           <div className='grid'>
-            {BoxAlbum &&
+            {BoxAlbum != null ? (
+              BoxAlbum &&
               BoxAlbum.map((item, index) => {
                 return (
                   <div>
@@ -88,9 +86,14 @@ const SecondLine = () => {
                     </figure>
                   </div>
                 );
-              })}
+              })
+            ) : (
+              <Box sx={{ width: "100%" }}>
+                <LinearProgress />
+              </Box>
+            )}
           </div>
-          <div className="khusus-gambar">
+          <div className='khusus-gambar'>
             <Link to={"/Beranda/GalleryFoto"}>
               <p className='tag-p'>Gambar Lainnya {">>"}</p>
             </Link>
@@ -101,7 +104,8 @@ const SecondLine = () => {
             <h3>Dokumen Terbaru</h3>
           </div>
           <div className='dokumen-bg'>
-            {DataDokumen &&
+            {DataDokumen != null ? (
+              DataDokumen &&
               DataDokumen.map((item, index) => {
                 return item.dokumen_item.map((itm, idx) => {
                   return (
@@ -145,7 +149,12 @@ const SecondLine = () => {
                     </>
                   );
                 });
-              })}
+              })
+            ) : (
+              <Box sx={{ width: "100%" }}>
+                <LinearProgress />
+              </Box>
+            )}
           </div>
           <div>
             <Link to={"/Beranda/Dokumen"}>

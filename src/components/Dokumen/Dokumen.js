@@ -10,7 +10,7 @@ function Dokumen() {
   const axios = require("axios");
   useEffect(() => {
     axios
-      .get("http://adminmesuji.embuncode.com/api/dokumen?instansi_id=8")
+      .get("http://adminmesuji.embuncode.com/api/dokumen?instansi_id=7")
       .then(function (dokumen) {
         console.log("dokumen: " + dokumen.data.data.data);
         setDataDokumen(dokumen.data.data.data);

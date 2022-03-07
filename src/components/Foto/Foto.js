@@ -14,7 +14,7 @@ const Foto = () => {
   useEffect(() => {
     axios
       .get(
-        "http://adminmesuji.embuncode.com/api/image-gallery?instansi_id=2&per_page=3"
+        "http://adminmesuji.embuncode.com/api/image-gallery?instansi_id=7&per_page=3"
       )
       .then(function (response) {
         console.log("console ini galery1: " + response.data.data.data);

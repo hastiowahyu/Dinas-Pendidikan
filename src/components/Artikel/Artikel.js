@@ -7,8 +7,12 @@ import moment from "moment-with-locales-es6";
 import { MdDateRange } from "react-icons/md";
 import { HiClipboardList } from "react-icons/hi";
 import { FaRegEye } from "react-icons/fa";
+import Spinner from "react-bootstrap/Spinner";
+import Box from "@mui/material/Box";
+import LinearProgress from "@mui/material/LinearProgress";
+
 const Artikel = () => {
-  const [DataResponse, setDataResponses] = useState(0);
+  const [DataResponse, setDataResponses] = useState();
   const [DataPopuler, setDataPopuler] = useState([]);
   const axios = require("axios");
   const [dataKategori, setDataKategori] = useState();
@@ -27,7 +31,7 @@ const Artikel = () => {
     setDataResponses(null);
     axios
       .get(
-        "http://adminmesuji.embuncode.com/api/article?instansi_id=2&per_page=4&page=" +
+        "http://adminmesuji.embuncode.com/api/article?instansi_id=7&per_page=4&page=" +
           page
       )
       .then(function (response) {
@@ -64,7 +68,7 @@ const Artikel = () => {
   useEffect(() => {
     axios
       .get(
-        "http://adminmesuji.embuncode.com/api/article?instansi_id=2&per_page=4&sort_by=total_hit"
+        "http://adminmesuji.embuncode.com/api/article?instansi_id=7&per_page=4&sort_by=total_hit"
       )
       .then(function (response) {
         console.log("console ini1: " + response.data.data.data);
@@ -77,7 +81,7 @@ const Artikel = () => {
 
   useEffect(() => {
     axios
-      .get("http://adminmesuji.embuncode.com/api/article/categories/2")
+      .get("http://adminmesuji.embuncode.com/api/article/categories/7")
       .then(function (response) {
         console.log("console ini2: " + response.data.data);
         setDataKategori(response.data.data);
@@ -93,78 +97,82 @@ const Artikel = () => {
           <h1> Artikel Terbaru___ </h1> <hr />
           <div>
             {console.log("first", DataResponse)}
-            {DataResponse != null
-              ? DataResponse &&
-                DataResponse.map((item, index) => {
-                  return index % 2 === 0 ? (
-                    <div className='blog-card'>
-                      <div className='meta'>
-                        <img
-                          className='photo'
-                          src={item.image_file_data}
-                          alt='/'
+            {DataResponse != null ? (
+              DataResponse &&
+              DataResponse.map((item, index) => {
+                return index % 2 === 0 ? (
+                  <div className='blog-card'>
+                    <div className='meta'>
+                      <img
+                        className='photo'
+                        src={item.image_file_data}
+                        alt='/'
+                      />
+                      <ul className='details'>
+                        <li className='date'>
+                          {
+                            (moment.locale("id-ID"),
+                            moment(item.created_at).format("L"))
+                          }
+                        </li>
+                        <li className='tags'>{item.news_category_id}</li>
+                        <li className='author'>{item.created_by}</li>
+                      </ul>
+                    </div>
+                    <div className='description'>
+                      <h2>{handleLength(item.title, 30)}</h2>
+                      <p>
+                        <div
+                          dangerouslySetInnerHTML={{
+                            __html: handleLength(item.content, 200),
+                          }}
                         />
-                        <ul className='details'>
-                          <li className='date'>
-                            {
-                              (moment.locale("id-ID"),
-                              moment(item.created_at).format("L"))
-                            }
-                          </li>
-                          <li className='tags'>{item.news_category_id}</li>
-                          <li className='author'>{item.created_by}</li>
-                        </ul>
-                      </div>
-                      <div className='description'>
-                        <h2>{handleLength(item.title, 30)}</h2>
-                        <p>
-                          <div
-                            dangerouslySetInnerHTML={{
-                              __html: handleLength(item.content, 200),
-                            }}
-                          />
-                        </p>
-                        <p className='read-more'>
-                          <Link to={`/artikel/DetailArtikel/${item.id}`}>
-                            Read More
-                          </Link>
-                        </p>
-                      </div>
+                      </p>
+                      <p className='read-more'>
+                        <Link to={`/artikel/DetailArtikel/${item.id}`}>
+                          Read More
+                        </Link>
+                      </p>
                     </div>
-                  ) : (
-                    <div className='blog-card alt'>
-                      <div className='meta'>
-                        <img className='photo' src={item.image_file_data} />
-                        <ul className='details'>
-                          <li className='date'>
-                            {
-                              (moment.locale("id-ID"),
-                              moment(item.created_at).format("L"))
-                            }
-                          </li>
-                          <li className='tags'>{item.news_category_id}</li>
-                          <li className='author'>{item.created_by}</li>
-                        </ul>
-                      </div>
-                      <div className='description'>
-                        <h2>{handleLength(item.title, 30)}</h2>
-                        <p>
-                          <div
-                            dangerouslySetInnerHTML={{
-                              __html: handleLength(item.content, 200),
-                            }}
-                          />
-                        </p>
-                        <p className='read-more'>
-                          <Link to={`/artikel/DetailArtikel/${item.id}`}>
-                            Read More
-                          </Link>
-                        </p>
-                      </div>
+                  </div>
+                ) : (
+                  <div className='blog-card alt'>
+                    <div className='meta'>
+                      <img className='photo' src={item.image_file_data} />
+                      <ul className='details'>
+                        <li className='date'>
+                          {
+                            (moment.locale("id-ID"),
+                            moment(item.created_at).format("L"))
+                          }
+                        </li>
+                        <li className='tags'>{item.news_category_id}</li>
+                        <li className='author'>{item.created_by}</li>
+                      </ul>
                     </div>
-                  );
-                })
-              : "loading ..."}
+                    <div className='description'>
+                      <h2>{handleLength(item.title, 30)}</h2>
+                      <p>
+                        <div
+                          dangerouslySetInnerHTML={{
+                            __html: handleLength(item.content, 200),
+                          }}
+                        />
+                      </p>
+                      <p className='read-more'>
+                        <Link to={`/artikel/DetailArtikel/${item.id}`}>
+                          Read More
+                        </Link>
+                      </p>
+                    </div>
+                  </div>
+                );
+              })
+            ) : (
+              <Box sx={{ width: "100%" }}>
+                <LinearProgress />
+              </Box>
+            )}
           </div>
           <Row>
             {console.log("items", Items)}
@@ -174,7 +182,7 @@ const Artikel = () => {
           </Row>
         </Col>
 
-        <Col md={6} >
+        <Col md={6}>
           <div className='main'>
             {/* Actual search box */}
             <div className='form-group has-search'>
