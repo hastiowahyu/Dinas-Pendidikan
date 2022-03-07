@@ -1,7 +1,6 @@
 import React, { Fragment } from "react";
 import "./ThridLine.css";
 import { useEffect, useState } from "react";
-import { Row, Col, Container } from "react-bootstrap";
 import CircularProgress from "@mui/material/CircularProgress";
 import Box from "@mui/material/Box";
 
@@ -42,9 +41,9 @@ const ThridLine = () => {
             <p>Tentang Instansi</p>
             <p>{DataPimpinan.tentang}</p>
             <div className='nama-kpla'>
-              <h2 className='kata-penutup-news'>
+              <h4 className='bagian_nama'>
                 Kepala {DataPimpinan.nama_instansi}
-              </h2>
+              </h4>
               <h2 className='kepala-dinas'>{DataPimpinan.nama_kepala}</h2>
             </div>
           </div>

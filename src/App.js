@@ -12,12 +12,13 @@ import Berita from "./components/Berita/Berita";
 import Dokumen from "./components/Dokumen/Dokumen";
 import { PDFViewer } from "./components/Dokumen/PDFViewer";
 import HalamanStatis from "./components/HalamanStatis/HalamanStatis";
-import GalleryVidio
- from "./components/GalleryVidio/GalleryVidio";
+import GalleryVidio  from "./components/GalleryVidio/GalleryVidio";
+ import Loading from "react-fullscreen-loading";
 
 function App() {
   return (
     <div className='body'>
+      <Loading loading={false} background='#2ecc71' loaderColor='#3498db' />
       <Header />
       <Routes>
         <Route exact path='/' element={<Main />} />

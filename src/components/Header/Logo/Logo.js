@@ -19,7 +19,7 @@ const Logo = () => {
   const axios = require("axios");
   useEffect(() => {
     axios
-      .get("http://adminmesuji.embuncode.com/api/instansi/detail/2")
+      .get("http://adminmesuji.embuncode.com/api/instansi/detail/7")
       .then(function (pimpinan) {
         setDataPimpinan(pimpinan.data.data);
         console.log("console kepala gambar: " + pimpinan.data.data);
@@ -35,17 +35,19 @@ const Logo = () => {
         <Row>
           <Col className='style-marque'>
             <Marquee>
-              --Selamat Datang DiDinas Pendidikan Lampung Timur--
+              --Selamat Datang Di {DataPimpinan.nama_instansi}--
             </Marquee>
           </Col>
-          {/* <Col md={4}>
-            <Socmed />
-          </Col> */}
         </Row>
         <hr></hr>
-        <Fragment>
-          <img className='style-image' src='/Disdik.svg' />
-        </Fragment>
+        <div className='pembungkus-logo'>
+          <div className='pembungkus-gambar'>
+            <img className='style-image' src={DataPimpinan.logo_instansi} />
+          </div>
+          <div className='text-logo'>
+            <h1 className='h-style'>{DataPimpinan.nama_instansi}</h1>
+          </div>
+        </div>
       </Col>
     </Row>
   );

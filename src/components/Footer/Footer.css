@@ -43,6 +43,9 @@ HTML CSSResult Skip Results Iframe ul {
   position: relative;
   z-index: 2;
 }
+.footer-text p{
+  text-align: justify;
+}
 .img-fluid{
   width: 200px !important;
   height: 250px !important;
@@ -58,10 +61,16 @@ HTML CSSResult Skip Results Iframe ul {
 
 .footer-logo {
   margin-bottom: 30px;
+  display: flex;
 }
+
 
 .footer-logo img {
   max-width: 300px;
+}
+.footer-logo .a-su {
+ 
+  margin: auto;
 }
 
 .footer-text p {

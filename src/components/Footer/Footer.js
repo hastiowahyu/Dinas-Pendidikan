@@ -75,7 +75,7 @@ const FooterKita = () => {
                 <div className='col-xl-4 col-lg-4 mb-50'>
                   <div className='footer-widget'>
                     <div className='footer-logo'>
-                      <a href='/'>
+                      <a href='/' className="a-su">
                         <img
                           src={DataFoter.logo_instansi}
                           className='img-fluid'
@@ -83,6 +83,7 @@ const FooterKita = () => {
                         />
                       </a>
                     </div>
+                    <h4>{DataFoter.nama_instansi}</h4>
                     <div className='footer-text'>
                       <p>{DataFoter.tentang}</p>
                     </div>

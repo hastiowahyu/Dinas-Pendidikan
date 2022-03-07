@@ -57,7 +57,7 @@ const DetailNews = () => {
          const res = await axios.get("https://geolocation-db.com/json/");
          axios
            .post(
-             "http://adminmesuji.embuncode.com/api/news/=" +
+             "http://adminmesuji.embuncode.com/api/news/hit?news_id=" +
                id +
                "&ip=" +
                res.data.IPv4 +
