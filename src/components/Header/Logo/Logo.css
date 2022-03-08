@@ -29,7 +29,7 @@
     justify-content: center !important;
   }
 }
-@media screen and (max-width: 560px) {
+@media screen and (max-width: 765px) {
  .text-logo h1{
    display: none ;
  }
@@ -51,6 +51,6 @@
     top: 10%;
     transform: translateY(20%);
     font-family: 'Concert One', cursive;
-    width: 500px;
+    width: 700px;
      font-size: 3vw
 }

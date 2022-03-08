@@ -46,6 +46,16 @@
   grid-column: 1;
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
+   transition: transform .2s;
+}
+.style-gambar:hover {
+  transform: scale(1.1)
+}
+.image-card-type{
+  transition: transform .2s;
+}
+.image-card-type:hover{
+    transform: scale(1.1)
 }
 
 figcaption {

@@ -81,7 +81,6 @@ const News = () => {
             {DataResponse != null ? (
               DataResponse &&
               DataResponse.map((item, index) => {
-                console.log("item", item);
                 return (
                   <div className='col-12 col-sm-12 col-md-12 col-lg-12 col-xl-6'>
                     <Card>
@@ -89,11 +88,13 @@ const News = () => {
                         variant='top'
                         src={item.image_file_data}
                         className='size-image'
-                        size-image
+                        // size-image
                       />
                       <Card.Body>
                         <Card.Title className='card-title'>
-                          {handleLength(item.title, 50)}....
+                          <Link to={`/news/DetailNews/${item.id}`}>
+                            {handleLength(item.title, 50)}....
+                          </Link>
                         </Card.Title>
                         <p className='card-date'>
                           <span>
@@ -137,7 +138,6 @@ const News = () => {
               {DataUmum != null ? (
                 DataUmum &&
                 DataUmum.map((item, index) => {
-                  console.log("terbaru", item);
                   return (
                     <>
                       <>

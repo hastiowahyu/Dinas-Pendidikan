@@ -1,27 +1,27 @@
-import React, { Fragment } from 'react';
+import React, { Fragment } from "react";
 import Navbar from "react-bootstrap/Navbar";
-import {Nav, NavDropdown, Form, FormControl,Button } from "react-bootstrap";
-import './Navbar.css';
-import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
-import axios from 'axios';
+import { Nav, NavDropdown, Form, FormControl, Button } from "react-bootstrap";
+import "./Navbar.css";
+import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import axios from "axios";
 import Box from "@mui/material/Box";
 import LinearProgress from "@mui/material/LinearProgress";
 
 const Navbars = (params) => {
-    const [DataResponse, setDataResponses] = useState(null);
-    const axios = require("axios");
+  const [DataResponse, setDataResponses] = useState(null);
+  const axios = require("axios");
 
-    useEffect(() => {
-      axios
-        .get("http://adminmesuji.embuncode.com/api/menus?instansi_id=7")
-        .then(function (response) {
-          setDataResponses(response.data);
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
-    }, []);
+  useEffect(() => {
+    axios
+      .get("http://adminmesuji.embuncode.com/api/menus?instansi_id=7")
+      .then(function (response) {
+        setDataResponses(response.data);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  }, []);
 
   return (
     <Fragment>
@@ -33,7 +33,6 @@ const Navbars = (params) => {
             {DataResponse != null ? (
               DataResponse &&
               DataResponse.map((m, i) => {
-                console.log("DataResponse22", DataResponse);
                 return (
                   <>
                     {m.children.length > 0 ? (

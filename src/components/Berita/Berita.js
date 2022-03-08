@@ -101,7 +101,6 @@ const Berita = () => {
         <Col md={6}>
           <h1> Berita Terbaru___ </h1> <hr />
           <div>
-            {console.log("Berita", DataResponse)}
             {DataResponse != null
               ? DataResponse &&
                 DataResponse.map((item, index) => {
@@ -180,7 +179,6 @@ const Berita = () => {
               : "loading ..."}
           </div>
           <Row>
-            {console.log("items", Items)}
             <Col className='text-center-costum'>
               <Pagination>{Items}</Pagination>
             </Col>
@@ -201,10 +199,9 @@ const Berita = () => {
           <h1>Berita Populer__</h1> <hr />
           <Row>
             <div>
-              {console.log("console ini :" + DataPopuler)}
+              {/* {console.log("console ini :" + DataPopuler)} */}
               {DataPopuler &&
                 DataPopuler.map((item, index) => {
-                  console.log("item", item);
                   return (
                     <div className='box post-list'>
                       <div className='content'>
@@ -217,7 +214,9 @@ const Berita = () => {
                             />
                           </div>
                           <div className='right'>
-                            <h5>{handleLength(item.title, 30)}</h5>
+                            <Link to={`/berita/DetailNews/${item.id}`}>
+                              <h5>{handleLength(item.title, 30)}</h5>
+                            </Link>
                             <p className='style-intro'>
                               <div
                                 dangerouslySetInnerHTML={{

@@ -14,6 +14,7 @@ import { PDFViewer } from "./components/Dokumen/PDFViewer";
 import HalamanStatis from "./components/HalamanStatis/HalamanStatis";
 import GalleryVidio  from "./components/GalleryVidio/GalleryVidio";
  import Loading from "react-fullscreen-loading";
+ 
 
 function App() {
   return (
@@ -40,6 +41,7 @@ function App() {
         <Route path='/vidio' element={<GalleryVidio />} />
       </Routes>
       <FooterKita />
+      
     </div>
   );
 }

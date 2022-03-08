@@ -26,7 +26,7 @@ const FourLine = () => {
       .catch(function (error) {
         console.log(error);
       });
-  });
+  }, []);
 
   useEffect(() => {
     axios
@@ -39,7 +39,7 @@ const FourLine = () => {
       .catch(function (error) {
         console.log(error);
       });
-  });
+  }, []);
 
   return (
     <Container>
@@ -56,10 +56,12 @@ const FourLine = () => {
                 return (
                   <div class='cards-type'>
                     <div class='card__image'>
-                      <img src={item.image_file_data} alt='' />
+                      <img src={item.image_file_data} alt='' className="image-card-type"/>
                     </div>
                     <div class='card__info'>
-                      <h5>{item.title}</h5>
+                      <Link to={`/Beranda/DetailArtikel/${item.id}`}>
+                        <h5>{item.title}</h5>
+                      </Link>
                       <p>{item.intro}</p>
                       <p>
                         <span>
@@ -99,18 +101,19 @@ const FourLine = () => {
             {DataArtikel != null ? (
               DataArtikel &&
               DataArtikel.map((item, index) => {
-                console.log("terbaru", item);
                 return (
                   <>
                     <Card>
                       <Card.Img
                         variant='top'
                         src={item.image_file_data}
-                        className='ukuran-img'
+                        className='ukuran-img image-card-type'
                       />
                       <Card.Body>
                         <Card.Title className='title-nya'>
-                          {item.title}
+                          <Link to={`/Beranda/DetailArtikel/${item.id}`}>
+                            {item.title}
+                          </Link>
                         </Card.Title>
                         <p>
                           <span>

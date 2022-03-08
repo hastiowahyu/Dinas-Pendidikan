@@ -45,7 +45,7 @@ const Logo = () => {
             <img className='style-image' src={DataPimpinan.logo_instansi} />
           </div>
           <div className='text-logo'>
-            <h1 className='h-style'>{DataPimpinan.nama_instansi}</h1>
+            <h1>{DataPimpinan.nama_instansi}{" "}Kabupaten Lampung Timur</h1>
           </div>
         </div>
       </Col>

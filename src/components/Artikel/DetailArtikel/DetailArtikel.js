@@ -9,7 +9,7 @@ import { MdDateRange } from "react-icons/md";
 import { HiClipboardList } from "react-icons/hi";
 import { FaRegEye } from "react-icons/fa";
 import { Link } from "react-router-dom";
-import { browserName} from "react-device-detect";
+import { browserName } from "react-device-detect";
 
 const DetailArtikel = () => {
   const { id } = useParams();
@@ -51,27 +51,27 @@ const DetailArtikel = () => {
     }
   }
 
-   useEffect(() => {
-     const getIPAddress = async () => {
-       const res = await axios.get("https://geolocation-db.com/json/");
-       axios
-         .post(
-           "http://adminmesuji.embuncode.com/api/article/hit?artikel_id=" +
-             id +
-             "&ip=" +
-             res.data.IPv4 +
-             "&device=" +
-             browserName
-         )
-         .then(function (response) {
-           console.log("console ini2: " + response.data.data);
-         })
-         .catch(function (error) {
-           console.log(error);
-         });
-     };
-     getIPAddress();
-   }, []);
+  useEffect(() => {
+    const getIPAddress = async () => {
+      const res = await axios.get("https://geolocation-db.com/json/");
+      axios
+        .post(
+          "http://adminmesuji.embuncode.com/api/article/hit?artikel_id=" +
+            id +
+            "&ip=" +
+            res.data.IPv4 +
+            "&device=" +
+            browserName
+        )
+        .then(function (response) {
+          console.log("console ini2: " + response.data.data);
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+    };
+    getIPAddress();
+  }, []);
 
   return (
     <div className='main-detail'>
@@ -83,7 +83,7 @@ const DetailArtikel = () => {
               <Card.Title className='txt-deco'>
                 {dataDetailArtikel.title}
               </Card.Title>
-              <p className="p-deco">
+              <p className='p-deco'>
                 <span>
                   {" "}
                   <MdDateRange size={22} />
@@ -117,7 +117,6 @@ const DetailArtikel = () => {
             {console.log("console ini :" + DataPopuler)}
             {DataPopuler &&
               DataPopuler.map((item, index) => {
-                console.log("item", item);
                 return (
                   <div className='box post-list'>
                     <div className='content'>
@@ -130,7 +129,9 @@ const DetailArtikel = () => {
                           />
                         </div>
                         <div className='right'>
-                          <h5>{handleLength(item.title, 30)}</h5>
+                          <a href={`/artikel/DetailArtikel/${item.id}`}>
+                            <h5>{handleLength(item.title, 30)}</h5>
+                          </a>
                           <p className='style-intro'>
                             <div
                               dangerouslySetInnerHTML={{
@@ -159,11 +160,11 @@ const DetailArtikel = () => {
                               <FaRegEye size={22} /> {item.total_hit}x Dibaca{" "}
                             </span>
                           </p>
-                          <Link
-                            to={`/artikel/DetailArtikel/${item.id}`}
+                          <a href={`/artikel/DetailArtikel/${item.id}`}
+                            // to={`/artikel/DetailArtikel/${item.id}`}
                             className='readmore'>
                             Read More
-                          </Link>
+                          </a>
                         </div>
                       </div>
                     </div>

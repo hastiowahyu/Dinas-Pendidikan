@@ -261,7 +261,13 @@ h1{
 }
 .style-img-popular{
   width: 210px;
+  transition: transform .2s;
+  border-radius: 3px;
 }
+.style-img-popular:hover {
+ transform: scale(1.1)
+}
+
 .style-intro{
   height: 100%;
 }

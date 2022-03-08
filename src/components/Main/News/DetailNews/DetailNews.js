@@ -52,27 +52,27 @@ const DetailNews = () => {
     }
   }
 
-     useEffect(() => {
-       const getIPAddress = async () => {
-         const res = await axios.get("https://geolocation-db.com/json/");
-         axios
-           .post(
-             "http://adminmesuji.embuncode.com/api/news/hit?news_id=" +
-               id +
-               "&ip=" +
-               res.data.IPv4 +
-               "&device=" +
-               browserName
-           )
-           .then(function (response) {
-             console.log("console ini2: " + response.data.data);
-           })
-           .catch(function (error) {
-             console.log(error);
-           });
-       };
-       getIPAddress();
-     }, []);
+  useEffect(() => {
+    const getIPAddress = async () => {
+      const res = await axios.get("https://geolocation-db.com/json/");
+      axios
+        .post(
+          "http://adminmesuji.embuncode.com/api/news/hit?news_id=" +
+            id +
+            "&ip=" +
+            res.data.IPv4 +
+            "&device=" +
+            browserName
+        )
+        .then(function (response) {
+          console.log("console ini2: " + response.data.data);
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+    };
+    getIPAddress();
+  }, []);
   return (
     <div className='main-detail'>
       <Row>
@@ -130,7 +130,9 @@ const DetailNews = () => {
                           />
                         </div>
                         <div className='right'>
-                          <h5>{handleLength(item.title, 30)}</h5>
+                          <a href={`/berita/DetailNews/${item.id}`}>
+                            <h5>{handleLength(item.title, 30)}</h5>
+                          </a>
                           <p className='style-intro'>
                             <div
                               dangerouslySetInnerHTML={{
@@ -159,11 +161,11 @@ const DetailNews = () => {
                               <FaRegEye size={22} /> {item.total_hit}x Dibaca{" "}
                             </span>
                           </p>
-                          <Link
-                            to={`/artikel/DetailArtikel/${item.id}`}
+                          <a
+                            href={`/berita/DetailNews/${item.id}`}
                             className='readmore'>
                             Read More
-                          </Link>
+                          </a>
                         </div>
                       </div>
                     </div>

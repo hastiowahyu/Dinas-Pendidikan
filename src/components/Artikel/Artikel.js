@@ -197,10 +197,8 @@ const Artikel = () => {
           <h1>Artikel Populer__</h1> <hr />
           <Row>
             <div>
-              {console.log("console ini :" + DataPopuler)}
               {DataPopuler &&
                 DataPopuler.map((item, index) => {
-                  console.log("item", item);
                   return (
                     <div className='box post-list'>
                       <div className='content'>
@@ -213,7 +211,9 @@ const Artikel = () => {
                             />
                           </div>
                           <div className='right'>
-                            <h5>{handleLength(item.title, 30)}</h5>
+                            <Link to={`/artikel/DetailArtikel/${item.id}`}>
+                              <h5>{handleLength(item.title, 30)}</h5>
+                            </Link>
                             <p className='style-intro'>
                               <div
                                 dangerouslySetInnerHTML={{
@@ -260,10 +260,8 @@ const Artikel = () => {
             <h1>Kategori___</h1>
             <hr />
             <ListGroup as='ol' numbered>
-              {console.log("console ini kategori33:" + dataKategori)}
               {dataKategori &&
                 dataKategori.map((item, index) => {
-                  console.log("kategori", item);
                   return (
                     <>
                       <ListGroup.Item
