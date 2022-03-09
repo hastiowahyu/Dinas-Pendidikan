@@ -16,11 +16,14 @@ import Avatar from "@mui/material/Avatar";
 import ListIcon from "@mui/icons-material/List";
 import Box from "@mui/material/Box";
 import LinearProgress from "@mui/material/LinearProgress";
+import { useDispatch, useSelector } from 'react-redux'
+import { decrement, increment } from '../../../Counter'
 
 const News = () => {
   const [DataResponse, setDataResponses] = useState();
   const [DataUmum, setDataUmum] = useState();
   const [dataKategori, setDataKategori] = useState();
+  const dispatch = useDispatch()
 
   const axios = require("axios");
   useEffect(() => {
@@ -29,6 +32,8 @@ const News = () => {
       .then(function (Umum) {
         console.log("console ini0: " + Umum.data.data.data);
         setDataUmum(Umum.data.data.data);
+
+        dispatch(increment())
       })
       .catch(function (error) {
         console.log(error);
@@ -43,6 +48,8 @@ const News = () => {
       .then(function (response) {
         console.log("console ini1: " + response.data.data.data);
         setDataResponses(response.data.data.data);
+
+        dispatch(increment())
       })
       .catch(function (error) {
         console.log(error);
@@ -55,6 +62,8 @@ const News = () => {
       .then(function (response) {
         console.log("console ini2: " + response.data.data);
         setDataKategori(response.data.data);
+
+        dispatch(increment())
       })
       .catch(function (error) {
         console.log(error);

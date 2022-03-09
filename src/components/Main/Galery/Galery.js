@@ -4,12 +4,14 @@ import "./Galery.css";
 import { useEffect, useState } from "react";
 import Box from "@mui/material/Box";
 import LinearProgress from "@mui/material/LinearProgress";
+import { useDispatch, useSelector } from 'react-redux'
+import { decrement, increment } from '../../../Counter'
 
 const Galery = () => {
   const [DataResponse, setDataResponses] = useState();
   const axios = require("axios");
-
   
+  const dispatch = useDispatch()
 
   useEffect(() => {
     axios
@@ -19,6 +21,9 @@ const Galery = () => {
       .then(function (response) {
         console.log("console ini galery1: " + response.data.data.data);
         setDataResponses(response.data.data.data);
+
+        dispatch(increment())
+
       })
       .catch(function (error) {
         console.log(error);

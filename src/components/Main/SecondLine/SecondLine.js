@@ -6,11 +6,13 @@ import { Link } from "react-router-dom";
 import moment from "moment-with-locales-es6";
 import Box from "@mui/material/Box";
 import LinearProgress from "@mui/material/LinearProgress";
+import { useDispatch, useSelector } from 'react-redux'
+import { decrement, increment } from '../../../Counter'
 
 const SecondLine = () => {
   const [BoxAlbum, setBoxAlbum] = useState();
   const [DataDokumen, setDataDokumen] = useState();
-
+  const dispatch = useDispatch()
   const axios = require("axios");
 
   useEffect(() => {
@@ -18,6 +20,8 @@ const SecondLine = () => {
       .get("http://adminmesuji.embuncode.com/api/image-gallery?instansi_id=7")
       .then(function (response) {
         rebuildAlbum(response.data.data.data);
+
+        dispatch(increment())
       })
       .catch(function (error) {
         console.log(error);
@@ -32,6 +36,8 @@ const SecondLine = () => {
       .then(function (dokumen) {
         console.log("console dokumen: " + dokumen.data.data.data);
         setDataDokumen(dokumen.data.data.data);
+
+        dispatch(increment())
       })
       .catch(function (error) {
         console.log(error);
