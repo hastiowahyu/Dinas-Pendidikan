@@ -16,14 +16,14 @@ import Avatar from "@mui/material/Avatar";
 import ListIcon from "@mui/icons-material/List";
 import Box from "@mui/material/Box";
 import LinearProgress from "@mui/material/LinearProgress";
-import { useDispatch, useSelector } from 'react-redux'
-import { decrement, increment } from '../../../Counter'
+import { useDispatch, useSelector } from 'react-redux' // 1
+import { decrement, increment } from '../../../Counter' // 2
 
 const News = () => {
   const [DataResponse, setDataResponses] = useState();
   const [DataUmum, setDataUmum] = useState();
   const [dataKategori, setDataKategori] = useState();
-  const dispatch = useDispatch()
+  const dispatch = useDispatch() // 3
 
   const axios = require("axios");
   useEffect(() => {
@@ -33,7 +33,7 @@ const News = () => {
         console.log("console ini0: " + Umum.data.data.data);
         setDataUmum(Umum.data.data.data);
 
-        dispatch(increment())
+        dispatch(increment()) // 4
       })
       .catch(function (error) {
         console.log(error);
