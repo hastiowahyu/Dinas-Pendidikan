@@ -30,9 +30,9 @@ const Navbars = (params) => {
         <Navbar.Toggle aria-controls='basic-navbar-nav' />
         <Navbar.Collapse id='basic-navbar-nav'>
           <Nav className='m-auto'>
-            {DataResponse != null ? (
-              DataResponse &&
+            {DataResponse &&
               DataResponse.map((m, i) => {
+                console.log("DataResponse22", DataResponse);
                 return (
                   <>
                     {m.children.length > 0 ? (
@@ -44,12 +44,45 @@ const Navbars = (params) => {
                                 console.log("Nama Children " + h.name);
                               }
                               return (
-                                <NavDropdown.Item
-                                  eventKey='4.1'
-                                  as={Link}
-                                  to={h.url}>
-                                  {h.name}
-                                </NavDropdown.Item>
+                                <>
+                                  {h.children.length > 0 ? (
+                                    <>
+                                      <NavDropdown title={h.name}>
+                                        {h.children &&
+                                          h.children.map((j, o) => {
+                                            return (
+                                              <>
+                                                {j.children.length > 0 ? (
+                                                  <>
+                                                    <NavDropdown title={j.name}>
+                                                      {j.children &&
+                                                        j.children.map(
+                                                          (k, l) => {
+                                                            return (
+                                                              <NavDropdown.Item
+                                                                eventKey='4.1'
+                                                                href={k.url}>
+                                                                {k.name}
+                                                              </NavDropdown.Item>
+                                                            );
+                                                          }
+                                                        )}
+                                                    </NavDropdown>
+                                                  </>
+                                                ) : (
+                                                  <Nav.Link href={j.url}>
+                                                    {j.name}
+                                                  </Nav.Link>
+                                                )}
+                                              </>
+                                            );
+                                          })}
+                                      </NavDropdown>
+                                    </>
+                                  ) : (
+                                    <Nav.Link href={h.url}>{h.name}</Nav.Link>
+                                  )}
+                                </>
                               );
                             })}
                         </NavDropdown>
@@ -59,12 +92,7 @@ const Navbars = (params) => {
                     )}
                   </>
                 );
-              })
-            ) : (
-              <Box sx={{ width: "100%" }}>
-                <LinearProgress />
-              </Box>
-            )}
+              })}
           </Nav>
         </Navbar.Collapse>
       </Navbar>

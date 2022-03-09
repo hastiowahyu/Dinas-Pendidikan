@@ -5,7 +5,7 @@ import CircularProgress from "@mui/material/CircularProgress";
 import Box from "@mui/material/Box";
 
 const ThridLine = () => {
-  const [DataPimpinan, setDataPimpinan] = useState(null);
+  const [DataPimpinan, setDataPimpinan] = useState([]);
   const axios = require("axios");
 
   useEffect(() => {

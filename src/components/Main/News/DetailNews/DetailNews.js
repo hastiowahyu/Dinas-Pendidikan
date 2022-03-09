@@ -8,8 +8,10 @@ import moment from "moment-with-locales-es6";
 import { MdDateRange } from "react-icons/md";
 import { HiClipboardList } from "react-icons/hi";
 import { FaRegEye } from "react-icons/fa";
-import { Link } from "react-router-dom";
 import { browserName } from "react-device-detect";
+import { useDispatch, useSelector } from "react-redux"; // CLUE
+import Loading from "react-fullscreen-loading"; // CLUE
+import { increment } from "./../../../../Counter"; // CLUE
 
 const DetailNews = () => {
   const { id } = useParams();
@@ -18,10 +20,23 @@ const DetailNews = () => {
   const [dataDetailNews, setDataDetailNews] = useState(0);
   const [DataPopuler, setDataPopuler] = useState([]);
 
+  // CLUE
+  const [LoaderComplete, setLoaderComplete] = useState(true);
+  const count = useSelector((state) => state.counter.value);
+  const dispatch = useDispatch(); // 3
+  useEffect(() => {
+    console.log("LoaderComplete", LoaderComplete);
+    if (count == 1) {
+      setLoaderComplete(false);
+    }
+  }, [count, LoaderComplete]);
+  // CLUE
+
   useEffect(() => {
     axios
       .get("http://adminmesuji.embuncode.com/api/news/" + id)
       .then(function (response) {
+        dispatch(increment()); // 4
         console.log("console detail: " + response.data.data);
         setDataDetailNews(response.data.data);
       })
@@ -117,7 +132,6 @@ const DetailNews = () => {
             {console.log("console ini :" + DataPopuler)}
             {DataPopuler &&
               DataPopuler.map((item, index) => {
-                console.log("item", item);
                 return (
                   <div className='box post-list'>
                     <div className='content'>

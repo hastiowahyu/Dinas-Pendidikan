@@ -8,8 +8,10 @@ import moment from "moment-with-locales-es6";
 import { MdDateRange } from "react-icons/md";
 import { HiClipboardList } from "react-icons/hi";
 import { FaRegEye } from "react-icons/fa";
-import { Link } from "react-router-dom";
 import { browserName } from "react-device-detect";
+import { useDispatch, useSelector } from "react-redux"; // CLUE
+import Loading from "react-fullscreen-loading"; // CLUE
+import { increment } from "./../../../Counter"; // CLUE
 
 const DetailArtikel = () => {
   const { id } = useParams();
@@ -18,10 +20,23 @@ const DetailArtikel = () => {
   const [dataDetailArtikel, setDataDetailArtikel] = useState(0);
   const [DataPopuler, setDataPopuler] = useState([]);
 
+  // CLUE
+  const [LoaderComplete, setLoaderComplete] = useState(true);
+  const count = useSelector((state) => state.counter.value);
+  const dispatch = useDispatch(); // 3
+  useEffect(() => {
+    console.log("LoaderComplete", LoaderComplete);
+    if (count == 1) {
+      setLoaderComplete(false);
+    }
+  }, [count, LoaderComplete]);
+  // CLUE
+
   useEffect(() => {
     axios
       .get("http://adminmesuji.embuncode.com/api/article/" + id)
       .then(function (response) {
+        dispatch(increment()); // 4
         console.log("console detail: " + response.data.data);
         setDataDetailArtikel(response.data.data);
       })
@@ -75,6 +90,11 @@ const DetailArtikel = () => {
 
   return (
     <div className='main-detail'>
+      <Loading
+        loading={LoaderComplete}
+        background='#ffff'
+        loaderColor='#3498db'
+      />
       <Row>
         <Col md={6}>
           <Card className='card-deco'>
@@ -160,7 +180,8 @@ const DetailArtikel = () => {
                               <FaRegEye size={22} /> {item.total_hit}x Dibaca{" "}
                             </span>
                           </p>
-                          <a href={`/artikel/DetailArtikel/${item.id}`}
+                          <a
+                            href={`/artikel/DetailArtikel/${item.id}`}
                             // to={`/artikel/DetailArtikel/${item.id}`}
                             className='readmore'>
                             Read More

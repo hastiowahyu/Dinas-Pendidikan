@@ -7,13 +7,12 @@ import moment from "moment-with-locales-es6";
 import { MdDateRange } from "react-icons/md";
 import { HiClipboardList } from "react-icons/hi";
 import { FaRegEye } from "react-icons/fa";
-import Spinner from "react-bootstrap/Spinner";
 import Box from "@mui/material/Box";
 import LinearProgress from "@mui/material/LinearProgress";
 
-import { useDispatch, useSelector } from 'react-redux' // CLUE
-import Loading from 'react-fullscreen-loading'; // CLUE
-import { decrement, increment } from '../../Counter' // CLUE
+import { useDispatch, useSelector } from "react-redux"; // CLUE
+import Loading from "react-fullscreen-loading"; // CLUE
+import { increment } from "../../Counter"; // CLUE
 
 const Artikel = () => {
   const [DataResponse, setDataResponses] = useState();
@@ -28,12 +27,12 @@ const Artikel = () => {
 
   // CLUE
   const [LoaderComplete, setLoaderComplete] = useState(true);
-  const count = useSelector((state) => state.counter.value)
-  const dispatch = useDispatch() // 3
+  const count = useSelector((state) => state.counter.value);
+  const dispatch = useDispatch(); // 3
   useEffect(() => {
-    console.log('LoaderComplete', LoaderComplete)
+    console.log("LoaderComplete", LoaderComplete);
     if (count == 1) {
-      setLoaderComplete(false)
+      setLoaderComplete(false);
     }
   }, [count, LoaderComplete]);
   // CLUE
@@ -51,7 +50,7 @@ const Artikel = () => {
           page
       )
       .then(function (response) {
-        dispatch(increment()) // 4
+        dispatch(increment()); // 4
         setDataResponses(response.data.data.data);
         items = [];
         for (let number = 1; number <= response.data.data.last_page; number++) {
@@ -110,14 +109,17 @@ const Artikel = () => {
   return (
     <div className='style-artikel'>
       {/* CLUE  */}
-       <Loading loading={LoaderComplete} background="#ffff" loaderColor="#3498db" />
+      <Loading
+        loading={LoaderComplete}
+        background='#ffff'
+        loaderColor='#3498db'
+      />
       <Row>
         <Col md={6}>
           <h1> Artikel Terbaru___ </h1> <hr />
           <div>
             {console.log("first", DataResponse)}
-            {DataResponse != null ? (
-              DataResponse &&
+            {DataResponse &&
               DataResponse.map((item, index) => {
                 return index % 2 === 0 ? (
                   <div className='blog-card'>
@@ -139,7 +141,9 @@ const Artikel = () => {
                       </ul>
                     </div>
                     <div className='description'>
-                      <h2>{handleLength(item.title, 30)}</h2>
+                      <a href={`/artikel/DetailArtikel/${item.id}`}>
+                        <h2>{handleLength(item.title, 30)}</h2>
+                      </a>
                       <p>
                         <div
                           dangerouslySetInnerHTML={{
@@ -148,9 +152,9 @@ const Artikel = () => {
                         />
                       </p>
                       <p className='read-more'>
-                        <Link to={`/artikel/DetailArtikel/${item.id}`}>
+                        <a href={`/artikel/DetailArtikel/${item.id}`}>
                           Read More
-                        </Link>
+                        </a>
                       </p>
                     </div>
                   </div>
@@ -179,19 +183,14 @@ const Artikel = () => {
                         />
                       </p>
                       <p className='read-more'>
-                        <Link to={`/artikel/DetailArtikel/${item.id}`}>
+                        <a href={`/artikel/DetailArtikel/${item.id}`}>
                           Read More
-                        </Link>
+                        </a>
                       </p>
                     </div>
                   </div>
                 );
-              })
-            ) : (
-              <Box sx={{ width: "100%" }}>
-                <LinearProgress />
-              </Box>
-            )}
+              })}
           </div>
           <Row>
             {console.log("items", Items)}
@@ -261,11 +260,11 @@ const Artikel = () => {
                                 <FaRegEye size={22} /> {item.total_hit}x Dibaca{" "}
                               </span>
                             </p>
-                            <Link
-                              to={`/artikel/DetailArtikel/${item.id}`}
+                            <a
+                              href={`/artikel/DetailArtikel/${item.id}`}
                               className='readmore'>
                               Read More
-                            </Link>
+                            </a>
                           </div>
                         </div>
                       </div>

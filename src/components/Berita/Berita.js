@@ -143,7 +143,10 @@ const Berita = () => {
                       </ul>
                     </div>
                     <div className='description'>
-                      <h2>{handleLength(item.title, 30)}</h2>
+                      <a href={`/berita/DetailNews/${item.id}`}>
+                        <h2>{handleLength(item.title, 30)}</h2>
+                      </a>
+
                       <p>
                         <div
                           dangerouslySetInnerHTML={{
@@ -152,9 +155,7 @@ const Berita = () => {
                         />
                       </p>
                       <p className='read-more'>
-                        <Link to={`/berita/DetailNews/${item.id}`}>
-                          Read More
-                        </Link>
+                        <a href={`/berita/DetailNews/${item.id}`}>Read More</a>
                       </p>
                     </div>
                   </div>
@@ -187,9 +188,7 @@ const Berita = () => {
                         />
                       </p>
                       <p className='read-more'>
-                        <Link to={`/berita/DetailNews/${item.id}`}>
-                          Read More
-                        </Link>
+                        <a href={`/berita/DetailNews/${item.id}`}>Read More</a>
                       </p>
                     </div>
                   </div>
@@ -210,7 +209,7 @@ const Berita = () => {
               <input
                 type='text'
                 className='form-control'
-                placeholder='Cari Artikel'
+                placeholder='Cari Berita'
               />
             </div>
           </div>
@@ -232,9 +231,9 @@ const Berita = () => {
                             />
                           </div>
                           <div className='right'>
-                            <Link to={`/berita/DetailNews/${item.id}`}>
+                            <a href={`/berita/DetailNews/${item.id}`}>
                               <h5>{handleLength(item.title, 30)}</h5>
-                            </Link>
+                            </a>
                             <p className='style-intro'>
                               <div
                                 dangerouslySetInnerHTML={{
@@ -263,11 +262,11 @@ const Berita = () => {
                                 <FaRegEye size={22} /> {item.total_hit}x Dibaca{" "}
                               </span>
                             </p>
-                            <Link
-                              to={`/berita/DetailNews/${item.id}`}
+                            <a
+                              href={`/berita/DetailNews/${item.id}`}
                               className='readmore'>
                               Read More
-                            </Link>
+                            </a>
                           </div>
                         </div>
                       </div>
@@ -284,7 +283,6 @@ const Berita = () => {
               {console.log("console ini kategori33:" + dataKategori)}
               {dataKategori &&
                 dataKategori.map((item, index) => {
-                  console.log("kategori", item);
                   return (
                     <>
                       <ListGroup.Item
