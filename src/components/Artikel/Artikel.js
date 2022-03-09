@@ -11,6 +11,10 @@ import Spinner from "react-bootstrap/Spinner";
 import Box from "@mui/material/Box";
 import LinearProgress from "@mui/material/LinearProgress";
 
+import { useDispatch, useSelector } from 'react-redux' // CLUE
+import Loading from 'react-fullscreen-loading'; // CLUE
+import { decrement, increment } from '../../Counter' // CLUE
+
 const Artikel = () => {
   const [DataResponse, setDataResponses] = useState();
   const [DataPopuler, setDataPopuler] = useState([]);
@@ -21,6 +25,18 @@ const Artikel = () => {
   let items = [];
   const [, updateState] = React.useState();
   const forceUpdtae = React.useCallback(() => updateState({}), []);
+
+  // CLUE
+  const [LoaderComplete, setLoaderComplete] = useState(true);
+  const count = useSelector((state) => state.counter.value)
+  const dispatch = useDispatch() // 3
+  useEffect(() => {
+    console.log('LoaderComplete', LoaderComplete)
+    if (count == 1) {
+      setLoaderComplete(false)
+    }
+  }, [count, LoaderComplete]);
+  // CLUE
 
   useEffect(() => {
     gettingData(1);
@@ -35,6 +51,7 @@ const Artikel = () => {
           page
       )
       .then(function (response) {
+        dispatch(increment()) // 4
         setDataResponses(response.data.data.data);
         items = [];
         for (let number = 1; number <= response.data.data.last_page; number++) {
@@ -92,6 +109,8 @@ const Artikel = () => {
   }, []);
   return (
     <div className='style-artikel'>
+      {/* CLUE  */}
+       <Loading loading={LoaderComplete} background="#2ecc71" loaderColor="#3498db" />
       <Row>
         <Col md={6}>
           <h1> Artikel Terbaru___ </h1> <hr />
