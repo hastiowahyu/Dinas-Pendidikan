@@ -10,6 +10,9 @@ import moment from "moment-with-locales-es6";
 import { MdDateRange } from "react-icons/md";
 import { HiClipboardList } from "react-icons/hi";
 import { FaRegEye } from "react-icons/fa";
+import { useDispatch, useSelector } from "react-redux"; // CLUE
+import Loading from "react-fullscreen-loading"; // CLUE
+import { decrement, increment } from "./../../Counter"; // CLUE
 
 const Berita = () => {
   const [DataResponse, setDataResponses] = useState(0);
@@ -21,6 +24,17 @@ const Berita = () => {
   let items = [];
   const [, updateState] = React.useState();
   const forceUpdtae = React.useCallback(() => updateState({}), []);
+  // CLUE
+  const [LoaderComplete, setLoaderComplete] = useState(true);
+  const count = useSelector((state) => state.counter.value);
+  const dispatch = useDispatch(); // 3
+  useEffect(() => {
+    console.log("LoaderComplete", LoaderComplete);
+    if (count == 1) {
+      setLoaderComplete(false);
+    }
+  }, [count, LoaderComplete]);
+  // CLUE
 
   useEffect(() => {
     gettingData(1);
@@ -35,6 +49,7 @@ const Berita = () => {
           page
       )
       .then(function (response) {
+        dispatch(increment()); // 4
         setDataResponses(response.data.data.data);
         items = [];
         for (let number = 1; number <= response.data.data.last_page; number++) {
@@ -97,86 +112,89 @@ const Berita = () => {
   }, []);
   return (
     <div className='style-artikel'>
+      <Loading
+        loading={LoaderComplete}
+        background='#ffff'
+        loaderColor='#3498db'
+      />
       <Row>
         <Col md={6}>
           <h1> Berita Terbaru___ </h1> <hr />
           <div>
-            {DataResponse != null
-              ? DataResponse &&
-                DataResponse.map((item, index) => {
-                  return index % 2 === 0 ? (
-                    <div className='blog-card'>
-                      <div className='meta'>
-                        <img
-                          className='photo'
-                          src={item.image_file_data}
-                          alt='/'
-                        />
-                        <ul className='details'>
-                          <li className='date'>
-                            {
-                              (moment.locale("id-ID"),
-                              moment(item.created_at).format("L"))
-                            }
-                          </li>
-                          <li className='tags'>{item.news_category_id}</li>
-                          <li className='author'>{item.created_by}</li>
-                        </ul>
-                      </div>
-                      <div className='description'>
-                        <h2>{handleLength(item.title, 30)}</h2>
-                        <p>
-                          <div
-                            dangerouslySetInnerHTML={{
-                              __html: handleLength(item.intro, 200),
-                            }}
-                          />
-                        </p>
-                        <p className='read-more'>
-                          <Link to={`/berita/DetailNews/${item.id}`}>
-                            Read More
-                          </Link>
-                        </p>
-                      </div>
+            {DataResponse &&
+              DataResponse.map((item, index) => {
+                return index % 2 === 0 ? (
+                  <div className='blog-card'>
+                    <div className='meta'>
+                      <img
+                        className='photo'
+                        src={item.image_file_data}
+                        alt='/'
+                      />
+                      <ul className='details'>
+                        <li className='date'>
+                          {
+                            (moment.locale("id-ID"),
+                            moment(item.created_at).format("L"))
+                          }
+                        </li>
+                        <li className='tags'>{item.news_category_id}</li>
+                        <li className='author'>{item.created_by}</li>
+                      </ul>
                     </div>
-                  ) : (
-                    <div className='blog-card alt'>
-                      <div className='meta'>
-                        <img
-                          className='photo'
-                          src={item.image_file_data}
-                          alt='/'
+                    <div className='description'>
+                      <h2>{handleLength(item.title, 30)}</h2>
+                      <p>
+                        <div
+                          dangerouslySetInnerHTML={{
+                            __html: handleLength(item.intro, 200),
+                          }}
                         />
-                        <ul className='details'>
-                          <li className='date'>
-                            {
-                              (moment.locale("id-ID"),
-                              moment(item.created_at).format("L"))
-                            }
-                          </li>
-                          <li className='tags'>{item.news_category_id}</li>
-                          <li className='author'>{item.created_by}</li>
-                        </ul>
-                      </div>
-                      <div className='description'>
-                        <h2>{handleLength(item.title, 30)}</h2>
-                        <p>
-                          <div
-                            dangerouslySetInnerHTML={{
-                              __html: handleLength(item.intro, 200),
-                            }}
-                          />
-                        </p>
-                        <p className='read-more'>
-                          <Link to={`/berita/DetailNews/${item.id}`}>
-                            Read More
-                          </Link>
-                        </p>
-                      </div>
+                      </p>
+                      <p className='read-more'>
+                        <Link to={`/berita/DetailNews/${item.id}`}>
+                          Read More
+                        </Link>
+                      </p>
                     </div>
-                  );
-                })
-              : "loading ..."}
+                  </div>
+                ) : (
+                  <div className='blog-card alt'>
+                    <div className='meta'>
+                      <img
+                        className='photo'
+                        src={item.image_file_data}
+                        alt='/'
+                      />
+                      <ul className='details'>
+                        <li className='date'>
+                          {
+                            (moment.locale("id-ID"),
+                            moment(item.created_at).format("L"))
+                          }
+                        </li>
+                        <li className='tags'>{item.news_category_id}</li>
+                        <li className='author'>{item.created_by}</li>
+                      </ul>
+                    </div>
+                    <div className='description'>
+                      <h2>{handleLength(item.title, 30)}</h2>
+                      <p>
+                        <div
+                          dangerouslySetInnerHTML={{
+                            __html: handleLength(item.intro, 200),
+                          }}
+                        />
+                      </p>
+                      <p className='read-more'>
+                        <Link to={`/berita/DetailNews/${item.id}`}>
+                          Read More
+                        </Link>
+                      </p>
+                    </div>
+                  </div>
+                );
+              })}
           </div>
           <Row>
             <Col className='text-center-costum'>

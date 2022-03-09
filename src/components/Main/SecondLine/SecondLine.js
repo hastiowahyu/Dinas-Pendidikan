@@ -6,13 +6,13 @@ import { Link } from "react-router-dom";
 import moment from "moment-with-locales-es6";
 import Box from "@mui/material/Box";
 import LinearProgress from "@mui/material/LinearProgress";
-import { useDispatch, useSelector } from 'react-redux'
-import { decrement, increment } from '../../../Counter'
+import { useDispatch, useSelector } from "react-redux";
+import { decrement, increment } from "../../../Counter";
 
 const SecondLine = () => {
   const [BoxAlbum, setBoxAlbum] = useState();
   const [DataDokumen, setDataDokumen] = useState();
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const axios = require("axios");
 
   useEffect(() => {
@@ -21,7 +21,7 @@ const SecondLine = () => {
       .then(function (response) {
         rebuildAlbum(response.data.data.data);
 
-        dispatch(increment())
+        dispatch(increment());
       })
       .catch(function (error) {
         console.log(error);
@@ -37,7 +37,7 @@ const SecondLine = () => {
         console.log("console dokumen: " + dokumen.data.data.data);
         setDataDokumen(dokumen.data.data.data);
 
-        dispatch(increment())
+        dispatch(increment());
       })
       .catch(function (error) {
         console.log(error);
@@ -75,8 +75,7 @@ const SecondLine = () => {
           </div>
 
           <div className='grid'>
-            {BoxAlbum != null ? (
-              BoxAlbum &&
+            {BoxAlbum &&
               BoxAlbum.map((item, index) => {
                 return (
                   <div>
@@ -92,12 +91,7 @@ const SecondLine = () => {
                     </figure>
                   </div>
                 );
-              })
-            ) : (
-              <Box sx={{ width: "100%" }}>
-                <LinearProgress />
-              </Box>
-            )}
+              })}
           </div>
           <div className='khusus-gambar'>
             <Link to={"/Beranda/GalleryFoto"}>
@@ -110,8 +104,7 @@ const SecondLine = () => {
             <h3>Dokumen Terbaru</h3>
           </div>
           <div className='dokumen-bg'>
-            {DataDokumen != null ? (
-              DataDokumen &&
+            {DataDokumen &&
               DataDokumen.map((item, index) => {
                 return item.dokumen_item.map((itm, idx) => {
                   return (
@@ -155,12 +148,7 @@ const SecondLine = () => {
                     </>
                   );
                 });
-              })
-            ) : (
-              <Box sx={{ width: "100%" }}>
-                <LinearProgress />
-              </Box>
-            )}
+              })}
           </div>
           <div>
             <Link to={"/Beranda/Dokumen"}>

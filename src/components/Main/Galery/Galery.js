@@ -4,14 +4,14 @@ import "./Galery.css";
 import { useEffect, useState } from "react";
 import Box from "@mui/material/Box";
 import LinearProgress from "@mui/material/LinearProgress";
-import { useDispatch, useSelector } from 'react-redux'
-import { decrement, increment } from '../../../Counter'
+import { useDispatch, useSelector } from "react-redux";
+import { decrement, increment } from "../../../Counter";
 
 const Galery = () => {
   const [DataResponse, setDataResponses] = useState();
   const axios = require("axios");
-  
-  const dispatch = useDispatch()
+
+  const dispatch = useDispatch();
 
   useEffect(() => {
     axios
@@ -22,20 +22,16 @@ const Galery = () => {
         console.log("console ini galery1: " + response.data.data.data);
         setDataResponses(response.data.data.data);
 
-        dispatch(increment())
-
+        dispatch(increment());
       })
       .catch(function (error) {
         console.log(error);
       });
   }, []);
 
-  
-
   return (
     <Carousel fade className='style-galery'>
-      {DataResponse != null ? (
-        DataResponse &&
+      {DataResponse &&
         DataResponse.map((item, idx) => {
           return item.image_gallery_item.map((itm, idx) => {
             return (
@@ -47,12 +43,7 @@ const Galery = () => {
               </Carousel.Item>
             );
           });
-        })
-      ) : (
-        <Box sx={{ width: "100%" }}>
-          <LinearProgress />
-        </Box>
-      )}
+        })}
     </Carousel>
   );
 };

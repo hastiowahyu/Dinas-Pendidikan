@@ -110,7 +110,7 @@ const Artikel = () => {
   return (
     <div className='style-artikel'>
       {/* CLUE  */}
-       <Loading loading={LoaderComplete} background="#2ecc71" loaderColor="#3498db" />
+       <Loading loading={LoaderComplete} background="#ffff" loaderColor="#3498db" />
       <Row>
         <Col md={6}>
           <h1> Artikel Terbaru___ </h1> <hr />

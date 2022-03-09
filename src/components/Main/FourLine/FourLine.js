@@ -50,13 +50,16 @@ const FourLine = () => {
           </div>
 
           <div className='main-pop'>
-            {DataPopuler != null ? (
-              DataPopuler &&
+            {DataPopuler &&
               DataPopuler.map((item, index) => {
                 return (
                   <div class='cards-type'>
                     <div class='card__image'>
-                      <img src={item.image_file_data} alt='' className="image-card-type"/>
+                      <img
+                        src={item.image_file_data}
+                        alt=''
+                        className='image-card-type'
+                      />
                     </div>
                     <div class='card__info'>
                       <Link to={`/Beranda/DetailArtikel/${item.id}`}>
@@ -84,12 +87,7 @@ const FourLine = () => {
                     </div>
                   </div>
                 );
-              })
-            ) : (
-              <Box sx={{ width: "100%" }}>
-                <LinearProgress />
-              </Box>
-            )}
+              })}
           </div>
         </Col>
         <Col>
@@ -98,8 +96,7 @@ const FourLine = () => {
           </div>
 
           <div>
-            {DataArtikel != null ? (
-              DataArtikel &&
+            {DataArtikel &&
               DataArtikel.map((item, index) => {
                 return (
                   <>
@@ -139,12 +136,7 @@ const FourLine = () => {
                     <br />
                   </>
                 );
-              })
-            ) : (
-              <Box sx={{ width: "100%" }}>
-                <LinearProgress />
-              </Box>
-            )}
+              })}
           </div>
         </Col>
       </Row>

@@ -6,10 +6,22 @@ import { useState } from "react";
 import Box from "@mui/material/Box";
 import { Row, Col } from "react-bootstrap";
 import moment from "moment-with-locales-es6";
+import { useDispatch, useSelector } from 'react-redux' // CLUE
+import Loading from 'react-fullscreen-loading'; // CLUE
+import { decrement, increment } from "./../../Counter" // CLUE
 
 const Foto = () => {
   const [DataResponse, setDataResponses] = useState(0);
   const axios = require("axios");
+    const [LoaderComplete, setLoaderComplete] = useState(true);
+    const count = useSelector((state) => state.counter.value);
+    const dispatch = useDispatch(); // 3
+    useEffect(() => {
+      console.log("LoaderComplete", LoaderComplete);
+      if (count == 1) {
+        setLoaderComplete(false);
+      }
+    }, [count, LoaderComplete]);
 
   useEffect(() => {
     axios
@@ -17,6 +29,7 @@ const Foto = () => {
         "http://adminmesuji.embuncode.com/api/image-gallery?instansi_id=7&per_page=3"
       )
       .then(function (response) {
+        dispatch(increment()) // 4
         console.log("console ini galery1: " + response.data.data.data);
         setDataResponses(response.data.data.data);
       })
@@ -27,6 +40,11 @@ const Foto = () => {
 
   return (
     <Fragment>
+      <Loading
+        loading={LoaderComplete}
+        background='#ffff'
+        loaderColor='#3498db'
+      />
       <div id='landing'>
         <div id='landing-text'>
           <div id='landing-text-inner'>

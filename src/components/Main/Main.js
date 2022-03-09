@@ -22,8 +22,12 @@ const Main = () => {
   }, [count, LoaderComplete]);
 
   return (
-    <div className="style-main">
-      <Loading loading={LoaderComplete} background="#2ecc71" loaderColor="#3498db" />
+    <div className='style-main'>
+      <Loading
+        loading={LoaderComplete}
+        background='	#FFFFFF'
+        loaderColor='#3498db'
+      />
       <Galery />
       <div className='style-main'>
         <News />

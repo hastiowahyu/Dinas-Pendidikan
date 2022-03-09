@@ -16,14 +16,14 @@ import Avatar from "@mui/material/Avatar";
 import ListIcon from "@mui/icons-material/List";
 import Box from "@mui/material/Box";
 import LinearProgress from "@mui/material/LinearProgress";
-import { useDispatch, useSelector } from 'react-redux' // 1
-import { decrement, increment } from '../../../Counter' // 2
+import { useDispatch, useSelector } from "react-redux"; // 1
+import { decrement, increment } from "../../../Counter"; // 2
 
 const News = () => {
   const [DataResponse, setDataResponses] = useState();
   const [DataUmum, setDataUmum] = useState();
   const [dataKategori, setDataKategori] = useState();
-  const dispatch = useDispatch() // 3
+  const dispatch = useDispatch(); // 3
 
   const axios = require("axios");
   useEffect(() => {
@@ -33,7 +33,7 @@ const News = () => {
         console.log("console ini0: " + Umum.data.data.data);
         setDataUmum(Umum.data.data.data);
 
-        dispatch(increment()) // 4
+        dispatch(increment()); // 4
       })
       .catch(function (error) {
         console.log(error);
@@ -49,7 +49,7 @@ const News = () => {
         console.log("console ini1: " + response.data.data.data);
         setDataResponses(response.data.data.data);
 
-        dispatch(increment())
+        dispatch(increment());
       })
       .catch(function (error) {
         console.log(error);
@@ -63,7 +63,7 @@ const News = () => {
         console.log("console ini2: " + response.data.data);
         setDataKategori(response.data.data);
 
-        dispatch(increment())
+        dispatch(increment());
       })
       .catch(function (error) {
         console.log(error);
@@ -87,8 +87,7 @@ const News = () => {
 
           <div className='row'>
             {console.log("console ini :" + DataResponse)}
-            {DataResponse != null ? (
-              DataResponse &&
+            {DataResponse &&
               DataResponse.map((item, index) => {
                 return (
                   <div className='col-12 col-sm-12 col-md-12 col-lg-12 col-xl-6'>
@@ -128,12 +127,7 @@ const News = () => {
                     </Card>
                   </div>
                 );
-              })
-            ) : (
-              <Box sx={{ width: "100%" }}>
-                <LinearProgress />
-              </Box>
-            )}
+              })}
           </div>
         </div>
         <div className='col-12 col-md-4 layout-1833'>
@@ -144,8 +138,7 @@ const News = () => {
           <Container className='style-accordion'>
             <Accordion>
               {console.log("console ini kategori:" + DataUmum)}
-              {DataUmum != null ? (
-                DataUmum &&
+              {DataUmum &&
                 DataUmum.map((item, index) => {
                   return (
                     <>
@@ -160,12 +153,7 @@ const News = () => {
                       </>
                     </>
                   );
-                })
-              ) : (
-                <Box sx={{ width: "100%" }}>
-                  <LinearProgress />
-                </Box>
-              )}
+                })}
             </Accordion>
             <div>
               <Link to={"/Beranda/Berita"}>
@@ -188,8 +176,7 @@ const News = () => {
               paddingLeft: "5px",
               paddingRight: "5px",
             }}>
-            {dataKategori != null ? (
-              dataKategori &&
+            {dataKategori &&
               dataKategori.map((item, index) => {
                 return (
                   <>
@@ -206,12 +193,7 @@ const News = () => {
                     </ListItem>
                   </>
                 );
-              })
-            ) : (
-              <Box sx={{ width: "100%" }}>
-                <LinearProgress />
-              </Box>
-            )}
+              })}
           </List>
         </div>
       </Row>

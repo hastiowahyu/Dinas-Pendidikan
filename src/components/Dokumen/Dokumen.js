@@ -3,24 +3,44 @@ import { Document, Page } from "react-pdf";
 import { Container } from "react-bootstrap";
 import "./Dokumen.css";
 import moment from "moment-with-locales-es6";
+import { useDispatch, useSelector } from 'react-redux' // CLUE
+import Loading from 'react-fullscreen-loading'; // CLUE
+import { decrement, increment } from "./../../Counter" // CLUE
 
 function Dokumen() {
   const [DataDokumen, setDataDokumen] = useState([]);
+  // CLUE
+  const [LoaderComplete, setLoaderComplete] = useState(true);
+  const count = useSelector((state) => state.counter.value);
+  const dispatch = useDispatch(); // 3
+  useEffect(() => {
+    console.log("LoaderComplete", LoaderComplete);
+    if (count == 1) {
+      setLoaderComplete(false);
+    }
+  }, [count, LoaderComplete]);
+  // CLUE
 
   const axios = require("axios");
   useEffect(() => {
     axios
       .get("http://adminmesuji.embuncode.com/api/dokumen?instansi_id=7")
       .then(function (dokumen) {
+         dispatch(increment()) // 4
         console.log("dokumen: " + dokumen.data.data.data);
         setDataDokumen(dokumen.data.data.data);
       })
       .catch(function (error) {
         console.log(error);
       });
-  },);
+  });
   return (
     <div>
+      <Loading
+        loading={LoaderComplete}
+        background='#ffff'
+        loaderColor='#3498db'
+      />
       {DataDokumen &&
         DataDokumen.map((item, index) => {
           return item.dokumen_item.map((itm, idx) => {
@@ -32,7 +52,6 @@ function Dokumen() {
                       <img
                         className='d-flex mr-3 image-dok'
                         src='./dokumen.jpg'
-                        
                       />
                       <div className='media-body'>
                         <h5 className='mt-0'>
