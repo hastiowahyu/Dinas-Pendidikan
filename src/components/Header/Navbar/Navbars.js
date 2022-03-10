@@ -87,6 +87,8 @@ const Navbars = (params) => {
                             })}
                         </NavDropdown>
                       </>
+                    ) : m.static_page != null ? (
+                      <Nav.Link href={'static/' + m.static_page}>{m.name}</Nav.Link>
                     ) : (
                       <Nav.Link href={m.url}>{m.name}</Nav.Link>
                     )}

@@ -1,0 +1,92 @@
+.header-statis{
+  background: #090952;
+  display: flex;
+  justify-content: center;
+  width: 95%;
+  margin: 20px auto;
+}
+
+.h-dua {
+  color: #e6e6d1;
+  font-size: 2em;
+  font-weight: lighter;
+  background: #090952;
+  padding: 1%;
+  text-indent: 30px;
+  letter-spacing: 2px;
+}
+
+.h-tiga {
+  margin-bottom: 30px;
+  letter-spacing: 2px;
+  margin: 0 auto;
+  max-width: 80%;
+}
+
+.h-empat {
+  display: inline-block;
+  letter-spacing: 2px;
+  max-width: 80%;
+}
+.h-lima {
+  font-size: 1.2em;
+  letter-spacing: 1px;
+  color: #63633d;
+}
+
+.main-statis {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  text-align: center;
+}
+
+.section-statis {
+  flex-direction: column;
+  width: 70%;
+}
+
+.article-statis {
+  flex-direction: column;
+  flex-wrap: wrap;
+  width: 25%;
+  border-right: 1px solid #63633d;
+}
+
+.p-statis {
+  width: 90%;
+  margin: 20px auto;
+  word-spacing: 4px;
+  text-indent: 30px;
+  text-align: justify;
+  color: gray;
+}
+
+.img-statis {
+  width: 70%;
+  box-shadow: 5px 5px 10px grey;
+}
+
+@media (max-width:1243px) {
+  .main-statis {
+    flex-direction: column;
+  }
+
+  .section-statis {
+    width: 100%;
+    order: 1;
+  }
+
+  .article-statis {
+    width: 85%;
+    order: 2;
+    text-align: center;
+    margin: 0 auto;
+    border-right: 0px;
+  }
+
+  .h-2 {
+    font-size: 1.5em;
+  }
+}

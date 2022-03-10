@@ -20,8 +20,6 @@ const ThridLine = () => {
       });
   }, []);
 
-  console.log(DataPimpinan);
-
   return (
     <div className='utama-kepala'>
       <div className='row mb-5'>

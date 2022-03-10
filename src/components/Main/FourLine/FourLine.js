@@ -7,8 +7,6 @@ import moment from "moment-with-locales-es6";
 import { MdDateRange } from "react-icons/md";
 import { HiClipboardList } from "react-icons/hi";
 import { Link } from "react-router-dom";
-import Box from "@mui/material/Box";
-import LinearProgress from "@mui/material/LinearProgress";
 
 const FourLine = () => {
   const [DataArtikel, setDataArtikel] = useState();
@@ -79,9 +77,9 @@ const FourLine = () => {
                         </span>
                       </p>
                       <p className='read-more-nya'>
-                        <Link to={`/Beranda/DetailArtikel/${item.id}`}>
+                        <a href={`/Beranda/DetailArtikel/${item.id}`}>
                           Read More
-                        </Link>
+                        </a>
                       </p>
                       <hr />
                     </div>
@@ -127,9 +125,9 @@ const FourLine = () => {
                         </p>
                         <Card.Text>{item.intro}</Card.Text>
                         <p className='read-more-nya'>
-                          <Link to={`/Beranda/DetailArtikel/${item.id}`}>
+                          <a href={`/Beranda/DetailArtikel/${item.id}`}>
                             Read More
-                          </Link>
+                          </a>
                         </p>
                       </Card.Body>
                     </Card>

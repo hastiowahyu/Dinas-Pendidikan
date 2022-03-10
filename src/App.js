@@ -12,15 +12,15 @@ import Berita from "./components/Berita/Berita";
 import Dokumen from "./components/Dokumen/Dokumen";
 import { PDFViewer } from "./components/Dokumen/PDFViewer";
 import HalamanStatis from "./components/HalamanStatis/HalamanStatis";
-import GalleryVidio  from "./components/GalleryVidio/GalleryVidio";
- import Loading from "react-fullscreen-loading";
- 
+import GalleryVidio from "./components/GalleryVidio/GalleryVidio";
+import Loading from "react-fullscreen-loading";
+import Socmed from "./components/Socmed/Socmed";
 
 function App() {
   return (
-    <div className='body'>
-      <Loading loading={false} background='#2ecc71' loaderColor='#3498db' />
+    <div className='home'>
       <Header />
+      <Socmed />
       <Routes>
         <Route exact path='/' element={<Main />} />
         <Route path='/beranda' element={<Main />} />
@@ -39,9 +39,9 @@ function App() {
         <Route path='/Beranda/Berita' element={<Berita />} />
         <Route path='/Beranda/DetailArtikel/:id' element={<DetailArtikel />} />
         <Route path='/vidio' element={<GalleryVidio />} />
+        <Route path='/tohome' element={<Main />} />
       </Routes>
       <FooterKita />
-      
     </div>
   );
 }
