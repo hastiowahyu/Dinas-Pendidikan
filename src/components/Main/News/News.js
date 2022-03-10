@@ -1,53 +1,28 @@
 import Card from "react-bootstrap/Card";
 import "./News.css";
 import React, { useEffect, useState, Fragment } from "react";
-import ListGroup from "react-bootstrap/ListGroup";
-import Accordion from "react-bootstrap/Accordion";
-import { Badge, Container, Row, Button } from "react-bootstrap";
+import { Container, Row } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import moment from "moment-with-locales-es6";
 import { MdDateRange } from "react-icons/md";
 import { HiClipboardList } from "react-icons/hi";
-import List from "@mui/material/List";
-import ListItem from "@mui/material/ListItem";
-import ListItemText from "@mui/material/ListItemText";
-import ListItemAvatar from "@mui/material/ListItemAvatar";
-import Avatar from "@mui/material/Avatar";
-import ListIcon from "@mui/icons-material/List";
-import Box from "@mui/material/Box";
-import LinearProgress from "@mui/material/LinearProgress";
+import { FaRegEye } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux"; // 1
 import { decrement, increment } from "../../../Counter"; // 2
 
 const News = () => {
-  const [DataResponse, setDataResponses] = useState();
-  const [DataUmum, setDataUmum] = useState();
-  const [dataKategori, setDataKategori] = useState();
+  const [DataTerbaru, setDataTerbaru] = useState();
+  const [DataPopuler, setDataPopuler] = useState();
+  const [dataAll, setDataAll] = useState();
   const dispatch = useDispatch(); // 3
 
   const axios = require("axios");
   useEffect(() => {
     axios
-      .get("http://adminmesuji.embuncode.com/api/news?instansi_id=7&per_page=6")
-      .then(function (Umum) {
-        console.log("console ini0: " + Umum.data.data.data);
-        setDataUmum(Umum.data.data.data);
-
-        dispatch(increment()); // 4
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
-  }, []);
-
-  useEffect(() => {
-    axios
-      .get(
-        "http://adminmesuji.embuncode.com/api/news?instansi_id=7&per_page=2 +"
-      )
-      .then(function (response) {
-        console.log("console ini1: " + response.data.data.data);
-        setDataResponses(response.data.data.data);
+      .get("http://adminmesuji.embuncode.com/api/news?instansi_id=7&sort_by=created_at&sort_type=desc&per_page=2")
+      .then(function (Terbaru) {
+        console.log("console ini1: " + Terbaru.data.data.data);
+        setDataTerbaru(Terbaru.data.data.data);
 
         dispatch(increment());
       })
@@ -58,10 +33,22 @@ const News = () => {
 
   useEffect(() => {
     axios
-      .get("http://adminmesuji.embuncode.com/api/news/categories/7")
-      .then(function (response) {
-        console.log("console ini2: " + response.data.data);
-        setDataKategori(response.data.data);
+      .get("http://adminmesuji.embuncode.com/api/news?instansi_id=7&sort_by=total_hit&sort_type=desc&per_page=5")
+      .then(function (Populer) {
+        setDataPopuler(Populer.data.data.data);
+
+        dispatch(increment()); // 4
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  }, []);
+
+  useEffect(() => {
+    axios
+      .get("http://adminmesuji.embuncode.com/api/article?instansi_id=7&per_page=5")
+      .then(function (All) {
+        setDataAll(All.data.data.data);
 
         dispatch(increment());
       })
@@ -80,49 +67,41 @@ const News = () => {
   return (
     <Fragment>
       <Row>
+        {/* berita terbaru */}
         <div className='col-12 col-md-5 layout-1833'>
           <div className='style-btn hot-news'>
             <h1 className='text-size'>Berita Terbaru</h1>
           </div>
-
           <div className='row'>
-            {console.log("console ini :" + DataResponse)}
-            {DataResponse &&
-              DataResponse.map((item, index) => {
+            {DataTerbaru &&
+              DataTerbaru.map((item, index) => {
                 return (
                   <div className='col-12 col-sm-12 col-md-12 col-lg-12 col-xl-6'>
                     <Card>
-                      <Card.Img
-                        variant='top'
-                        src={item.image_file_data}
-                        className='size-image'
-                        // size-image
-                      />
+                      <Card.Img variant='top' src={item.image_file_data} className='size-image' />
                       <Card.Body>
                         <Card.Title className='card-title'>
-                          <Link to={`/news/DetailNews/${item.id}`}>
-                            {handleLength(item.title, 50)}....
-                          </Link>
+                          <Link to={`/news/DetailNews/${item.id}`}>{handleLength(item.title, 50)}....</Link>
                         </Card.Title>
-                        <p className='card-date'>
+                        <p>
                           <span>
                             {" "}
                             <MdDateRange size={20} />
-                            {moment(item.created_at).format("L")}
+                            {(moment.locale("id-ID"), moment(item.created_at).format("L"))}{" "}
                           </span>
-                          &nbsp;
+                          |
                           <span>
                             {" "}
-                            <HiClipboardList size={20} />{" "}
-                            {item.news_category_id}{" "}
+                            <HiClipboardList size={20} /> {item.news_category_id}{" "}
+                          </span>
+                          |
+                          <span>
+                            {" "}
+                            <FaRegEye size={20} /> {item.total_hit}x dibaca{" "}
                           </span>
                         </p>
-                        <Card.Text className='card-text'>
-                          {handleLength(item.intro, 120)}....{" "}
-                        </Card.Text>
-                        <Link to={`/news/DetailNews/${item.id}`}>
-                          Read More
-                        </Link>
+                        <Card.Text className='card-text'>{handleLength(item.intro, 120)}.... </Card.Text>
+                        <Link to={`/news/DetailNews/${item.id}`}>Read More</Link>
                       </Card.Body>
                     </Card>
                   </div>
@@ -130,71 +109,78 @@ const News = () => {
               })}
           </div>
         </div>
+        {/* berita populer */}
         <div className='col-12 col-md-4 layout-1833'>
           <div className='style-btn hot-news'>
             <h1>Berita Populer </h1>
           </div>
+          <Container>
+            <div className='list-news-container'>
+              <div className='main-content'>
+                <ul className='list-news'>
+                  {DataPopuler &&
+                    DataPopuler.map((item, index) => {
+                      return (
+                        <li className='list-news__item ' key={index}>
+                          <a href={`/news/DetailNews/${item.id}`}>
+                            <h3 className='news__title'>{handleLength(item.title, 57)}</h3>
+                          </a>
 
-          <Container className='style-accordion'>
-            <Accordion>
-              {console.log("console ini kategori:" + DataUmum)}
-              {DataUmum &&
-                DataUmum.map((item, index) => {
-                  return (
-                    <>
-                      <>
-                        <Accordion.Item eventKey={index}>
-                          <Accordion.Header>{item.title}</Accordion.Header>
-
-                          <Link to={`/news/DetailNews/${item.id}`}>
-                            <Accordion.Body>{item.intro}</Accordion.Body>
-                          </Link>
-                        </Accordion.Item>
-                      </>
-                    </>
-                  );
-                })}
-            </Accordion>
+                          <p className='news__info'>
+                            <span>{moment(item.created_at).startOf("hour").fromNow()}</span>
+                            <span className='news__cmt'>{item.total_hit}x dibaca</span>
+                            <span className='news__cmt'>{item.news_category_id}</span>
+                          </p>
+                        </li>
+                      );
+                    })}
+                </ul>
+              </div>
+            </div>
+          </Container>
+        </div>
+        {/* berita All */}
+        <div className='col-12 col-md-3 layout-1833' md={3}>
+          <div className='list-news-container-dua'>
+            <div className='main-content-dua'>
+              <ul className='list-news'>
+                {dataAll &&
+                  dataAll.map((item, index) => {
+                    return (
+                      <li className='list-news__item ' key={index}>
+                        <a href={`/news/DetailNews/${item.id}`}>
+                          <h3 className='news__title'>{handleLength(item.title, 57)}</h3>
+                        </a>
+                        <p>
+                          <span>
+                            {" "}
+                            <MdDateRange size={20} />
+                            {(moment.locale("id-ID"), moment(item.created_at).format("L"))}{" "}
+                          </span>
+                          |
+                          <span>
+                            {" "}
+                            <HiClipboardList size={20} /> {item.news_category_id}{" "}
+                          </span>
+                          |
+                          <span>
+                            {" "}
+                            <FaRegEye size={20} /> {item.total_hit}x dibaca{" "}
+                          </span>
+                        </p>
+                      </li>
+                    );
+                  })}
+              </ul>
+            </div>
+          </div>
+          <div>
             <div>
               <Link to={"/Beranda/Berita"}>
                 <p className='tag-p'>Berita Lainnya{">>"}</p>
               </Link>
             </div>
-          </Container>
-        </div>
-
-        <div className='col-12 col-md-3 layout-1833' md={3}>
-          <div className='style-btn hot-news'>
-            <h1>Kategori Berita</h1>
           </div>
-          <List
-            sx={{
-              borderRadius: "10px",
-              width: "100%",
-              maxWidth: "100%",
-              bgcolor: "rgba(224, 246, 255, 0.63)",
-              paddingLeft: "5px",
-              paddingRight: "5px",
-            }}>
-            {dataKategori &&
-              dataKategori.map((item, index) => {
-                return (
-                  <>
-                    <ListItem className='list-item-mui'>
-                      <ListItemAvatar>
-                        <Avatar>
-                          <ListIcon />
-                        </Avatar>
-                      </ListItemAvatar>
-                      <ListItemText primary={item.nama_kategori} />
-                      <Badge bg='primary' pill>
-                        {item.news_count}
-                      </Badge>
-                    </ListItem>
-                  </>
-                );
-              })}
-          </List>
         </div>
       </Row>
     </Fragment>

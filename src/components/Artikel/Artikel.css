@@ -282,8 +282,6 @@ h1{
   margin-right: 30px;
 }
 
-/* Bootstrap 4 text input with search icon */
-
 .has-search .form-control {
   padding-left: 2.375rem;
   width: 100% !important;
@@ -292,11 +290,21 @@ h1{
 .has-search .form-control-feedback {
   position: absolute;
   z-index: 2;
-  /* display: block; */
   width: 2.375rem;
   height: 2.375rem;
   line-height: 2.375rem;
   text-align: center;
   pointer-events: none;
   color: #aaa;
+}
+
+/* css untuk kategori */
+.list-item-mui {
+  /* border: 1px solid rgb(202, 202, 202); */
+  margin-bottom: 10px;
+  border-radius: 5px;
+  background-color: rgba(126, 125, 125, 0.068);
+}
+.row-populer{
+  margin-top: 50px !important;
 }

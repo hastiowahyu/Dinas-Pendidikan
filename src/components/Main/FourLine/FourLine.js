@@ -7,6 +7,7 @@ import moment from "moment-with-locales-es6";
 import { MdDateRange } from "react-icons/md";
 import { HiClipboardList } from "react-icons/hi";
 import { Link } from "react-router-dom";
+import { FaRegEye } from "react-icons/fa";
 
 const FourLine = () => {
   const [DataArtikel, setDataArtikel] = useState();
@@ -15,11 +16,9 @@ const FourLine = () => {
   const axios = require("axios");
   useEffect(() => {
     axios
-      .get(
-        "http://adminmesuji.embuncode.com/api/article?instansi_id=7&per_page=3&sort_type=asc&sort_by=created_at"
-      )
-      .then(function (Umum) {
-        setDataArtikel(Umum.data.data.data);
+      .get("http://adminmesuji.embuncode.com/api/article?instansi_id=7&per_page=3&sort_type=desc&sort_by=created_at")
+      .then(function (Terbaru) {
+        setDataArtikel(Terbaru.data.data.data);
       })
       .catch(function (error) {
         console.log(error);
@@ -46,7 +45,6 @@ const FourLine = () => {
           <div className='style-btn hot-news'>
             <h1>Artikel Populer</h1>
           </div>
-
           <div className='main-pop'>
             {DataPopuler &&
               DataPopuler.map((item, index) => {
@@ -67,13 +65,21 @@ const FourLine = () => {
                       <p>
                         <span>
                           {" "}
-                          <MdDateRange size={22} />
-                          {moment(item.created_at).format("L")}
+                          <MdDateRange size={20} />
+                          {
+                            (moment.locale("id-ID"),
+                            moment(item.created_at).format("L"))
+                          }{" "}
                         </span>
-                        &emsp;
+                        |
                         <span>
                           {" "}
-                          <HiClipboardList size={22} /> {item.news_category_id}{" "}
+                          <HiClipboardList size={20} /> {item.news_category_id}{" "}
+                        </span>
+                        |
+                        <span>
+                          {" "}
+                          <FaRegEye size={20} /> {item.total_hit}x dibaca{" "}
                         </span>
                       </p>
                       <p className='read-more-nya'>
@@ -88,11 +94,11 @@ const FourLine = () => {
               })}
           </div>
         </Col>
+
         <Col>
           <div className='style-btn hot-news'>
             <h1>Artikel Terbaru</h1>
           </div>
-
           <div>
             {DataArtikel &&
               DataArtikel.map((item, index) => {
@@ -106,21 +112,29 @@ const FourLine = () => {
                       />
                       <Card.Body>
                         <Card.Title className='title-nya'>
-                          <Link to={`/Beranda/DetailArtikel/${item.id}`}>
+                          <a href={`/Beranda/DetailArtikel/${item.id}`}>
                             {item.title}
-                          </Link>
+                          </a>
                         </Card.Title>
                         <p>
                           <span>
                             {" "}
-                            <MdDateRange size={22} />
-                            {moment(item.created_at).format("L")}
+                            <MdDateRange size={20} />
+                            {
+                              (moment.locale("id-ID"),
+                              moment(item.created_at).format("L"))
+                            }{" "}
                           </span>
-                          &nbsp;
+                          |
                           <span>
                             {" "}
-                            <HiClipboardList size={22} />{" "}
+                            <HiClipboardList size={20} />{" "}
                             {item.news_category_id}{" "}
+                          </span>
+                          |
+                          <span>
+                            {" "}
+                            <FaRegEye size={20} /> {item.total_hit}x dibaca{" "}
                           </span>
                         </p>
                         <Card.Text>{item.intro}</Card.Text>

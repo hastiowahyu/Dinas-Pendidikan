@@ -7,9 +7,6 @@ import moment from "moment-with-locales-es6";
 import { MdDateRange } from "react-icons/md";
 import { HiClipboardList } from "react-icons/hi";
 import { FaRegEye } from "react-icons/fa";
-import Box from "@mui/material/Box";
-import LinearProgress from "@mui/material/LinearProgress";
-
 import { useDispatch, useSelector } from "react-redux"; // CLUE
 import Loading from "react-fullscreen-loading"; // CLUE
 import { increment } from "../../Counter"; // CLUE

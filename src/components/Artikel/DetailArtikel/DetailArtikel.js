@@ -20,6 +20,7 @@ const DetailArtikel = () => {
   const [dataDetailArtikel, setDataDetailArtikel] = useState(0);
   const [DataPopuler, setDataPopuler] = useState([]);
 
+  //====== untuk menghitung API yang sedang diproses, untuk menentukan loading full screen======//
   // CLUE
   const [LoaderComplete, setLoaderComplete] = useState(true);
   const count = useSelector((state) => state.counter.value);
@@ -32,25 +33,24 @@ const DetailArtikel = () => {
   }, [count, LoaderComplete]);
   // CLUE
 
+  //====== get API for Detail Artikel======//
   useEffect(() => {
     axios
       .get("http://adminmesuji.embuncode.com/api/article/" + id)
       .then(function (response) {
         dispatch(increment()); // 4
-        console.log("console detail: " + response.data.data);
         setDataDetailArtikel(response.data.data);
       })
       .catch(function (error) {
         console.log(error);
       });
   }, [axios]);
+
+  //====== get API untuk artikel terpopuler======//
   useEffect(() => {
     axios
-      .get(
-        "http://adminmesuji.embuncode.com/api/article?instansi_id=7&per_page=4&sort_by=total_hit"
-      )
+      .get("http://adminmesuji.embuncode.com/api/article?instansi_id=7&per_page=4&sort_by=total_hit")
       .then(function (response) {
-        console.log("console ini1: " + response.data.data.data);
         setDataPopuler(response.data.data.data);
       })
       .catch(function (error) {
@@ -66,18 +66,12 @@ const DetailArtikel = () => {
     }
   }
 
+  //====== get API untuk menambah jumlah pembaca======//
   useEffect(() => {
     const getIPAddress = async () => {
       const res = await axios.get("https://geolocation-db.com/json/");
       axios
-        .post(
-          "http://adminmesuji.embuncode.com/api/article/hit?artikel_id=" +
-            id +
-            "&ip=" +
-            res.data.IPv4 +
-            "&device=" +
-            browserName
-        )
+        .post("http://adminmesuji.embuncode.com/api/article/hit?artikel_id=" + id + "&ip=" + res.data.IPv4 + "&device=" + browserName)
         .then(function (response) {
           console.log("console ini2: " + response.data.data);
         })
@@ -90,33 +84,24 @@ const DetailArtikel = () => {
 
   return (
     <div className='main-detail'>
-      <Loading
-        loading={LoaderComplete}
-        background='#ffff'
-        loaderColor='#3498db'
-      />
+      {/* ====== menampilkan Loading full screen didetail artikel====== */}
+      <Loading loading={LoaderComplete} background='#ffff' loaderColor='#3498db' />
       <Row>
         <Col md={6}>
           <Card className='card-deco'>
             <Card.Img variant='top' src={dataDetailArtikel.image_file_data} />
             <Card.Body>
-              <Card.Title className='txt-deco'>
-                {dataDetailArtikel.title}
-              </Card.Title>
+              <Card.Title className='txt-deco'>{dataDetailArtikel.title}</Card.Title>
               <p className='p-deco'>
                 <span>
                   {" "}
                   <MdDateRange size={22} />
-                  {
-                    (moment.locale("id-ID"),
-                    moment(dataDetailArtikel.created_at).format("L"))
-                  }
+                  {(moment.locale("id-ID"), moment(dataDetailArtikel.created_at).format("L"))}
                 </span>
                 &ensp;
                 <span>
                   {" "}
-                  <HiClipboardList size={22} />{" "}
-                  {dataDetailArtikel.news_category_id}{" "}
+                  <HiClipboardList size={22} /> {dataDetailArtikel.news_category_id}{" "}
                 </span>
                 &ensp;
                 <span>
@@ -142,11 +127,7 @@ const DetailArtikel = () => {
                     <div className='content'>
                       <div className='post'>
                         <div className='left'>
-                          <img
-                            className='style-img-popular'
-                            src={item.image_file_data}
-                            alt='/'
-                          />
+                          <img className='style-img-popular' src={item.image_file_data} alt='/' />
                         </div>
                         <div className='right'>
                           <a href={`/artikel/DetailArtikel/${item.id}`}>
@@ -163,16 +144,12 @@ const DetailArtikel = () => {
                             <span>
                               {" "}
                               <MdDateRange size={22} />
-                              {
-                                (moment.locale("id-ID"),
-                                moment(item.created_at).format("L"))
-                              }
+                              {(moment.locale("id-ID"), moment(item.created_at).format("L"))}
                             </span>
                             &ensp;
                             <span>
                               {" "}
-                              <HiClipboardList size={22} />{" "}
-                              {item.news_category_id}{" "}
+                              <HiClipboardList size={22} /> {item.news_category_id}{" "}
                             </span>
                             &ensp;
                             <span>

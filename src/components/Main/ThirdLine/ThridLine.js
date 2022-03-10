@@ -1,8 +1,6 @@
-import React, { Fragment } from "react";
+import React from "react";
 import "./ThridLine.css";
 import { useEffect, useState } from "react";
-import CircularProgress from "@mui/material/CircularProgress";
-import Box from "@mui/material/Box";
 
 const ThridLine = () => {
   const [DataPimpinan, setDataPimpinan] = useState([]);
@@ -24,12 +22,7 @@ const ThridLine = () => {
     <div className='utama-kepala'>
       <div className='row mb-5'>
         <div className='col-md-4 itu-nya'>
-          <img
-            src={DataPimpinan.foto_kepala}
-            width={"100%"}
-            className='foto-kepala'
-            alt='Foto Kepala'
-          />
+          <img src={DataPimpinan.foto_kepala} width={"100%"} className='foto-kepala' alt='Foto Kepala' />
         </div>
         <div className='col-md-8 rest'>
           <h2 className='kata-pembuka-news'>{DataPimpinan.nama_instansi}</h2>
