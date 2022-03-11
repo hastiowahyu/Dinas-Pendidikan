@@ -2,26 +2,32 @@ import React, { useEffect, useState } from "react";
 import "./Artikel.css";
 import { Row, Col, Pagination, Badge } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import ListGroup from "react-bootstrap/ListGroup";
 import moment from "moment-with-locales-es6";
 import { MdDateRange } from "react-icons/md";
 import { HiClipboardList } from "react-icons/hi";
 import { FaRegEye } from "react-icons/fa";
+import List from "@mui/material/List";
+import ListItem from "@mui/material/ListItem";
+import ListItemText from "@mui/material/ListItemText";
+import ListItemAvatar from "@mui/material/ListItemAvatar";
+import Avatar from "@mui/material/Avatar";
+import ListIcon from "@mui/icons-material/List";
 import { useDispatch, useSelector } from "react-redux"; // CLUE
 import Loading from "react-fullscreen-loading"; // CLUE
 import { increment } from "../../Counter"; // CLUE
 
 const Artikel = () => {
-  const [DataResponse, setDataResponses] = useState();
+  const [DataTerbaru, setDataTerbaru] = useState();
   const [DataPopuler, setDataPopuler] = useState([]);
-  const axios = require("axios");
   const [dataKategori, setDataKategori] = useState();
+  const axios = require("axios");
 
   const [Items, setItems] = useState([]);
   let items = [];
   const [, updateState] = React.useState();
   const forceUpdtae = React.useCallback(() => updateState({}), []);
 
+  //====== menghitung API yang sedang diproses, untuk menentukan loading full screen======//
   // CLUE
   const [LoaderComplete, setLoaderComplete] = useState(true);
   const count = useSelector((state) => state.counter.value);
@@ -38,24 +44,19 @@ const Artikel = () => {
     gettingData(1);
   }, []);
 
+  // ======Get Api untuk artikel dan set fungsu paginasi======//
   let tooglePaginate = true;
   function gettingData(page) {
-    setDataResponses(null);
+    setDataTerbaru(null);
     axios
-      .get(
-        "http://adminmesuji.embuncode.com/api/article?instansi_id=7&per_page=4&page=" +
-          page
-      )
+      .get("http://adminmesuji.embuncode.com/api/article?instansi_id=7&per_page=4&sort_type=desc&sort_by=created_at&page=" + page)
       .then(function (response) {
         dispatch(increment()); // 4
-        setDataResponses(response.data.data.data);
+        setDataTerbaru(response.data.data.data);
         items = [];
         for (let number = 1; number <= response.data.data.last_page; number++) {
           items.push(
-            <Pagination.Item
-              onClick={() => gettingData(number)}
-              key={number}
-              active={number == response.data.data.current_page}>
+            <Pagination.Item onClick={() => gettingData(number)} key={number} active={number == response.data.data.current_page}>
               {number}
             </Pagination.Item>
           );
@@ -78,11 +79,10 @@ const Artikel = () => {
     }
   }
 
+  // ======Get Api untuk artikel populer======//
   useEffect(() => {
     axios
-      .get(
-        "http://adminmesuji.embuncode.com/api/article?instansi_id=7&per_page=4&sort_by=total_hit"
-      )
+      .get("http://adminmesuji.embuncode.com/api/article?instansi_id=7&per_page=4&sort_by=total_hit")
       .then(function (response) {
         console.log("console ini1: " + response.data.data.data);
         setDataPopuler(response.data.data.data);
@@ -92,6 +92,7 @@ const Artikel = () => {
       });
   }, []);
 
+  // ======Get Api untuk kategori artikel======//
   useEffect(() => {
     axios
       .get("http://adminmesuji.embuncode.com/api/article/categories/7")
@@ -105,34 +106,22 @@ const Artikel = () => {
   }, []);
   return (
     <div className='style-artikel'>
-      {/* CLUE  */}
-      <Loading
-        loading={LoaderComplete}
-        background='#ffff'
-        loaderColor='#3498db'
-      />
+      {/* ====== menampilkan Loading full screen page artikel====== */}
+      <Loading loading={LoaderComplete} background='#ffff' loaderColor='#3498db' />
+
+      {/* ====== menampilkan list artikel terbaru====== */}
       <Row>
         <Col md={6}>
           <h1> Artikel Terbaru___ </h1> <hr />
           <div>
-            {console.log("first", DataResponse)}
-            {DataResponse &&
-              DataResponse.map((item, index) => {
+            {DataTerbaru &&
+              DataTerbaru.map((item, index) => {
                 return index % 2 === 0 ? (
                   <div className='blog-card'>
                     <div className='meta'>
-                      <img
-                        className='photo'
-                        src={item.image_file_data}
-                        alt='/'
-                      />
+                      <img className='photo' src={item.image_file_data} alt='/' />
                       <ul className='details'>
-                        <li className='date'>
-                          {
-                            (moment.locale("id-ID"),
-                            moment(item.created_at).format("L"))
-                          }
-                        </li>
+                        <li className='date'>{(moment.locale("id-ID"), moment(item.created_at).format("L"))}</li>
                         <li className='tags'>{item.news_category_id}</li>
                         <li className='author'>{item.created_by}</li>
                       </ul>
@@ -149,9 +138,7 @@ const Artikel = () => {
                         />
                       </p>
                       <p className='read-more'>
-                        <a href={`/artikel/DetailArtikel/${item.id}`}>
-                          Read More
-                        </a>
+                        <a href={`/artikel/DetailArtikel/${item.id}`}>Read More</a>
                       </p>
                     </div>
                   </div>
@@ -160,12 +147,7 @@ const Artikel = () => {
                     <div className='meta'>
                       <img className='photo' src={item.image_file_data} />
                       <ul className='details'>
-                        <li className='date'>
-                          {
-                            (moment.locale("id-ID"),
-                            moment(item.created_at).format("L"))
-                          }
-                        </li>
+                        <li className='date'>{(moment.locale("id-ID"), moment(item.created_at).format("L"))}</li>
                         <li className='tags'>{item.news_category_id}</li>
                         <li className='author'>{item.created_by}</li>
                       </ul>
@@ -180,9 +162,7 @@ const Artikel = () => {
                         />
                       </p>
                       <p className='read-more'>
-                        <a href={`/artikel/DetailArtikel/${item.id}`}>
-                          Read More
-                        </a>
+                        <a href={`/artikel/DetailArtikel/${item.id}`}>Read More</a>
                       </p>
                     </div>
                   </div>
@@ -198,17 +178,48 @@ const Artikel = () => {
         </Col>
 
         <Col md={6}>
+          {/* ====== Menampilkan Actual search box artikel =======*/}
           <div className='main'>
-            {/* Actual search box */}
             <div className='form-group has-search'>
               <span className='fa fa-search form-control-feedback' />
-              <input
-                type='text'
-                className='form-control'
-                placeholder='Cari Artikel'
-              />
+              <input type='text' className='form-control' placeholder='Cari Artikel' />
             </div>
           </div>
+          {/* ====== Menampilkan Kategori Artikel ======= */}
+          <Row>
+            <h3>Kategori Artikel</h3>
+            <List
+              sx={{
+                borderRadius: "10px",
+                width: "900px",
+                maxWidth: "100%",
+                bgcolor: "rgba(224, 246, 255, 0.63)",
+                paddingLeft: "5px",
+                paddingRight: "5px",
+              }}>
+              {dataKategori &&
+                dataKategori.map((item, index) => {
+                  return (
+                    <>
+                      <Link to='#'>
+                        <ListItem className='list-item-mui'>
+                          <ListItemAvatar>
+                            <Avatar>
+                              <ListIcon />
+                            </Avatar>
+                          </ListItemAvatar>
+                          <ListItemText primary={item.nama_kategori} />
+                          <Badge bg='primary' pill>
+                            {item.artikel_count}
+                          </Badge>
+                        </ListItem>
+                      </Link>
+                    </>
+                  );
+                })}
+            </List>
+          </Row>
+          {/* ====== menampilkan list artikel populer ====== */}
           <h1>Artikel Populer__</h1> <hr />
           <Row>
             <div>
@@ -219,11 +230,7 @@ const Artikel = () => {
                       <div className='content'>
                         <div className='post'>
                           <div className='left'>
-                            <img
-                              className='style-img-popular'
-                              src={item.image_file_data}
-                              alt='/'
-                            />
+                            <img className='style-img-popular' src={item.image_file_data} alt='/' />
                           </div>
                           <div className='right'>
                             <Link to={`/artikel/DetailArtikel/${item.id}`}>
@@ -240,16 +247,12 @@ const Artikel = () => {
                               <span>
                                 {" "}
                                 <MdDateRange size={22} />
-                                {
-                                  (moment.locale("id-ID"),
-                                  moment(item.created_at).format("L"))
-                                }
+                                {(moment.locale("id-ID"), moment(item.created_at).format("L"))}
                               </span>
                               &ensp;
                               <span>
                                 {" "}
-                                <HiClipboardList size={22} />{" "}
-                                {item.news_category_id}{" "}
+                                <HiClipboardList size={22} /> {item.news_category_id}{" "}
                               </span>
                               &ensp;
                               <span>
@@ -257,9 +260,7 @@ const Artikel = () => {
                                 <FaRegEye size={22} /> {item.total_hit}x Dibaca{" "}
                               </span>
                             </p>
-                            <a
-                              href={`/artikel/DetailArtikel/${item.id}`}
-                              className='readmore'>
+                            <a href={`/artikel/DetailArtikel/${item.id}`} className='readmore'>
                               Read More
                             </a>
                           </div>
@@ -269,32 +270,6 @@ const Artikel = () => {
                   );
                 })}
             </div>
-          </Row>
-          <Row>
-            <hr />
-            <h1>Kategori___</h1>
-            <hr />
-            <ListGroup as='ol' numbered>
-              {dataKategori &&
-                dataKategori.map((item, index) => {
-                  return (
-                    <>
-                      <ListGroup.Item
-                        as='li'
-                        className='d-flex justify-content-between align-items-start'>
-                        <div className='ms-2 me-auto'>
-                          <div className='fw-bold'>
-                            <a href='#'>{item.nama_kategori}</a>
-                          </div>
-                        </div>
-                        <Badge bg='primary' pill>
-                          {item.artikel_count}
-                        </Badge>
-                      </ListGroup.Item>
-                    </>
-                  );
-                })}
-            </ListGroup>
           </Row>
         </Col>
       </Row>

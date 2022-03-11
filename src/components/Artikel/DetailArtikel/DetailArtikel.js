@@ -86,6 +86,8 @@ const DetailArtikel = () => {
     <div className='main-detail'>
       {/* ====== menampilkan Loading full screen didetail artikel====== */}
       <Loading loading={LoaderComplete} background='#ffff' loaderColor='#3498db' />
+
+      {/* ====== menampilkan detail artikel====== */}
       <Row>
         <Col md={6}>
           <Card className='card-deco'>
@@ -116,6 +118,8 @@ const DetailArtikel = () => {
             </Card.Body>
           </Card>
         </Col>
+
+        {/* ====== menampilkan artikel populer didetail artikel====== */}
         <Col>
           <div className='populer-deco'>
             <h3>Artikel Populer</h3>
@@ -157,10 +161,7 @@ const DetailArtikel = () => {
                               <FaRegEye size={22} /> {item.total_hit}x Dibaca{" "}
                             </span>
                           </p>
-                          <a
-                            href={`/artikel/DetailArtikel/${item.id}`}
-                            // to={`/artikel/DetailArtikel/${item.id}`}
-                            className='readmore'>
+                          <a href={`/artikel/DetailArtikel/${item.id}`} className='readmore'>
                             Read More
                           </a>
                         </div>

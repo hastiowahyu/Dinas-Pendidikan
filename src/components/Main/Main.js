@@ -24,7 +24,7 @@ const Main = () => {
   return (
     <div className='style-main'>
       <Loading
-        loading={LoaderComplete}
+        loading={false}
         background='	#FFFFFF'
         loaderColor='#3498db'
       />

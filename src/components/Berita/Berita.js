@@ -20,7 +20,7 @@ import Loading from "react-fullscreen-loading"; // CLUE
 import { increment } from "./../../Counter"; // CLUE
 
 const Berita = () => {
-  const [DataResponse, setDataResponses] = useState(0);
+  const [DataTerbaru, setDataTerbaru] = useState(0);
   const [DataPopuler, setDataPopuler] = useState([]);
   const axios = require("axios");
   const [dataKategori, setDataKategori] = useState();
@@ -29,6 +29,8 @@ const Berita = () => {
   let items = [];
   const [, updateState] = React.useState();
   const forceUpdtae = React.useCallback(() => updateState({}), []);
+  
+  //====== menghitung API yang sedang diproses, untuk menentukan loading full screen======//
   // CLUE
   const [LoaderComplete, setLoaderComplete] = useState(true);
   const count = useSelector((state) => state.counter.value);
@@ -45,14 +47,15 @@ const Berita = () => {
     gettingData(1);
   }, []);
 
+  // ======Get Api untuk beita dan set fungsu paginasi======//
   let tooglePaginate = true;
   function gettingData(page) {
-    setDataResponses(null);
+    setDataTerbaru(null);
     axios
-      .get("http://adminmesuji.embuncode.com/api/news?instansi_id=7&per_page=4&page=" + page)
+      .get("http://adminmesuji.embuncode.com/api/news?instansi_id=7&sort_by=created_at&sort_type=desc&per_page=4&page=" + page)
       .then(function (response) {
         dispatch(increment()); // 4
-        setDataResponses(response.data.data.data);
+        setDataTerbaru(response.data.data.data);
         items = [];
         for (let number = 1; number <= response.data.data.last_page; number++) {
           items.push(
@@ -83,10 +86,10 @@ const Berita = () => {
     var date = new Date(timeResponse);
     return date.toLocaleString("en-GB", { hour12: false });
   }
-
+  // ======Get Api untuk berita populer======//
   useEffect(() => {
     axios
-      .get("http://adminmesuji.embuncode.com/api/news?instansi_id=7&per_page=4&sort_by=total_hit")
+      .get("http://adminmesuji.embuncode.com/api/news?instansi_id=7&sort_by=total_hit&sort_type=desc&per_page=4")
       .then(function (response) {
         console.log("console ini1: " + response.data.data.data);
         setDataPopuler(response.data.data.data);
@@ -96,6 +99,7 @@ const Berita = () => {
       });
   }, []);
 
+  // ======Get Api untuk kategori berita======//
   useEffect(() => {
     axios
       .get("http://adminmesuji.embuncode.com/api/news/categories/7")
@@ -109,13 +113,15 @@ const Berita = () => {
   }, []);
   return (
     <div className='style-artikel'>
+      {/* ====== menampilkan Loading full screen dipage artikel====== */}
       <Loading loading={LoaderComplete} background='#ffff' loaderColor='#3498db' />
+      {/* ====== menampilkan list berita terbaru====== */}
       <Row>
         <Col md={6}>
           <h1> Berita Terbaru </h1>
           <div>
-            {DataResponse &&
-              DataResponse.map((item, index) => {
+            {DataTerbaru &&
+              DataTerbaru.map((item, index) => {
                 return index % 2 === 0 ? (
                   <div className='blog-card'>
                     <div className='meta'>
@@ -177,19 +183,20 @@ const Berita = () => {
           </Row>
         </Col>
         <Col md={6}>
+          {/* ====== Menampilkan Actual search box berita =======*/}
           <div className='main'>
-            {/* Actual search box */}
             <div className='form-group has-search'>
               <span className='fa fa-search form-control-feedback' />
               <input type='text' className='form-control' placeholder='Cari Berita' />
             </div>
           </div>
+          {/* ====== Menampilkan Kategori Berita ======= */}
           <Row>
             <h3>Kategori Berita</h3>
             <List
               sx={{
                 borderRadius: "10px",
-                width: "100%",
+                width: "900px",
                 maxWidth: "100%",
                 bgcolor: "rgba(224, 246, 255, 0.63)",
                 paddingLeft: "5px",
@@ -217,10 +224,10 @@ const Berita = () => {
                 })}
             </List>
           </Row>
+          {/* ====== Menampilkan List Berita Populer ======= */}
           <Row className='row-populer'>
             <h3>Berita Populer</h3> <hr />
             <div>
-              {/* {console.log("console ini :" + DataPopuler)} */}
               {DataPopuler &&
                 DataPopuler.map((item, index) => {
                   return (
