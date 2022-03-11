@@ -17,6 +17,7 @@ const News = () => {
   const dispatch = useDispatch(); // 3
 
   const axios = require("axios");
+  // ====== Get API for berita terbaru diberanda======//
   useEffect(() => {
     axios
       .get("http://adminmesuji.embuncode.com/api/news?instansi_id=7&sort_by=created_at&sort_type=desc&per_page=2")
@@ -31,6 +32,7 @@ const News = () => {
       });
   }, []);
 
+  // ====== Get API for beriita populer diberanda======//
   useEffect(() => {
     axios
       .get("http://adminmesuji.embuncode.com/api/news?instansi_id=7&sort_by=total_hit&sort_type=desc&per_page=5")
@@ -44,6 +46,7 @@ const News = () => {
       });
   }, []);
 
+  // ====== Get API for berita umum diberanda======//
   useEffect(() => {
     axios
       .get("http://adminmesuji.embuncode.com/api/article?instansi_id=7&per_page=5")

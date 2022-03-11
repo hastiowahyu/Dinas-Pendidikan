@@ -4,11 +4,12 @@ import "./Dokumen.css";
 import moment from "moment-with-locales-es6";
 import { useDispatch, useSelector } from "react-redux"; // CLUE
 import Loading from "react-fullscreen-loading"; // CLUE
-import { decrement, increment } from "./../../Counter"; // CLUE
+import { increment } from "./../../Counter"; // CLUE
 import FieldAPI from "../FieldAPI/FieldAPI";
 
 function Dokumen() {
   const [DataDokumen, setDataDokumen] = useState([]);
+  //====== untuk menghitung API yang sedang diproses, untuk menentukan loading full screen======//
   // CLUE
   const [LoaderComplete, setLoaderComplete] = useState(true);
   const count = useSelector((state) => state.counter.value);
@@ -22,6 +23,8 @@ function Dokumen() {
   // CLUE
 
   const axios = require("axios");
+
+  //====== get API for Document======//
   useEffect(() => {
     axios
       .get("http://adminmesuji.embuncode.com/api/dokumen?instansi_id=7")
@@ -36,57 +39,42 @@ function Dokumen() {
   }, []);
   return (
     <div>
-      <Loading
-        loading={LoaderComplete}
-        background='#ffff'
-        loaderColor='#3498db'
-      />
-      {DataDokumen.length > 0
-        ? DataDokumen &&
-          DataDokumen.map((item, index) => {
-            return item.dokumen_item.map((itm, idx) => {
-              return (
-                <Container>
-                  <div className='row offerList'>
-                    <div className='col-md-12'>
-                      <div className='media p-2'>
-                        <img
-                          className='d-flex mr-3 image-dok'
-                          src='./dokumen.jpg'
-                        />
-                        <div className='media-body'>
-                          <h5 className='mt-0'>
-                            <a
-                              href={
-                                "/pdf/" +
-                                item.slug +
-                                "/" +
-                                itm.dokumen_file_name.replace(/\s/g, "")
-                              }>
-                              {itm.dokumen_file_name}
-                            </a>
-                          </h5>
-                          <p className='text_grey mb-0 '>
-                            <span className='text_blue'>
-                              Created on: {moment(itm.created_at).format("L")}
-                            </span>
+      {/* ====== menampilkan Loading full screen didetail artikel====== */}
+      <Loading loading={LoaderComplete} background='#ffff' loaderColor='#3498db' />
 
-                            <span className='text_blue'> Created by: </span>
-                            {itm.created_by}
-                          </p>
-                          <span className='badge badge-pill badge-primary'>
-                            {" "}
-                            Update By: {itm.updated_by}
-                          </span>
-                        </div>
+      {/* ====== menampilkan seluruh dokumen====== */}
+      {DataDokumen.length > 0 ? (
+        DataDokumen &&
+        DataDokumen.map((item, index) => {
+          return item.dokumen_item.map((itm, idx) => {
+            return (
+              <Container>
+                <div className='row offerList'>
+                  <div className='col-md-12'>
+                    <div className='media p-2'>
+                      <img className='d-flex mr-3 image-dok' src='./dokumen.jpg' />
+                      <div className='media-body'>
+                        <h5 className='mt-0'>
+                          <a href={"/pdf/" + item.slug + "/" + itm.dokumen_file_name.replace(/\s/g, "")}>{itm.dokumen_file_name}</a>
+                        </h5>
+                        <p className='text_grey mb-0 '>
+                          <span className='text_blue'>Created on: {moment(itm.created_at).format("L")}</span>
+
+                          <span className='text_blue'> Created by: </span>
+                          {itm.created_by}
+                        </p>
+                        <span className='badge badge-pill badge-primary'> Update By: {itm.updated_by}</span>
                       </div>
                     </div>
                   </div>
-                </Container>
-              );
-            });
-          })
-        : (<FieldAPI />)}
+                </div>
+              </Container>
+            );
+          });
+        })
+      ) : (
+        <FieldAPI />
+      )}
     </div>
   );
 }

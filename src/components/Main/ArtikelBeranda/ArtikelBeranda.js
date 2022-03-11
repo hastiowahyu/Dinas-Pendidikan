@@ -1,5 +1,5 @@
 import React from "react";
-import "./FourLine.css";
+import "./ArtikelBeranda.css";
 import { useEffect, useState } from "react";
 import Card from "react-bootstrap/Card";
 import { Col, Container, Row } from "react-bootstrap";
@@ -9,11 +9,12 @@ import { HiClipboardList } from "react-icons/hi";
 import { Link } from "react-router-dom";
 import { FaRegEye } from "react-icons/fa";
 
-const FourLine = () => {
+const ArtikelBeranda = () => {
   const [DataArtikel, setDataArtikel] = useState();
   const [DataPopuler, setDataPopuler] = useState();
 
   const axios = require("axios");
+  // ====== Get API for artikel terbaru diberanda======//
   useEffect(() => {
     axios
       .get("http://adminmesuji.embuncode.com/api/article?instansi_id=7&per_page=3&sort_type=desc&sort_by=created_at")
@@ -24,12 +25,10 @@ const FourLine = () => {
         console.log(error);
       });
   }, []);
-
+  // ====== Get API for artikel terbaru diberanda======//
   useEffect(() => {
     axios
-      .get(
-        "http://adminmesuji.embuncode.com/api/article?instansi_id=7&per_page=4&sort_type=desc&sort_by=total_hit"
-      )
+      .get("http://adminmesuji.embuncode.com/api/article?instansi_id=7&per_page=4&sort_type=desc&sort_by=total_hit")
       .then(function (populer) {
         setDataPopuler(populer.data.data.data);
       })
@@ -41,6 +40,7 @@ const FourLine = () => {
   return (
     <Container>
       <Row>
+        {/* ====== Menampilkan artikel populer diberanda====== */}
         <Col md={6}>
           <div className='style-btn hot-news'>
             <h1>Artikel Populer</h1>
@@ -51,11 +51,7 @@ const FourLine = () => {
                 return (
                   <div class='cards-type'>
                     <div class='card__image'>
-                      <img
-                        src={item.image_file_data}
-                        alt=''
-                        className='image-card-type'
-                      />
+                      <img src={item.image_file_data} alt='' className='image-card-type' />
                     </div>
                     <div class='card__info'>
                       <Link to={`/Beranda/DetailArtikel/${item.id}`}>
@@ -66,10 +62,7 @@ const FourLine = () => {
                         <span>
                           {" "}
                           <MdDateRange size={20} />
-                          {
-                            (moment.locale("id-ID"),
-                            moment(item.created_at).format("L"))
-                          }{" "}
+                          {(moment.locale("id-ID"), moment(item.created_at).format("L"))}{" "}
                         </span>
                         |
                         <span>
@@ -83,9 +76,7 @@ const FourLine = () => {
                         </span>
                       </p>
                       <p className='read-more-nya'>
-                        <a href={`/Beranda/DetailArtikel/${item.id}`}>
-                          Read More
-                        </a>
+                        <a href={`/Beranda/DetailArtikel/${item.id}`}>Read More</a>
                       </p>
                       <hr />
                     </div>
@@ -94,7 +85,7 @@ const FourLine = () => {
               })}
           </div>
         </Col>
-
+        {/* ====== Menampilkan artikel terbaru diberanda====== */}
         <Col>
           <div className='style-btn hot-news'>
             <h1>Artikel Terbaru</h1>
@@ -105,31 +96,21 @@ const FourLine = () => {
                 return (
                   <>
                     <Card>
-                      <Card.Img
-                        variant='top'
-                        src={item.image_file_data}
-                        className='ukuran-img image-card-type'
-                      />
+                      <Card.Img variant='top' src={item.image_file_data} className='ukuran-img image-card-type' />
                       <Card.Body>
                         <Card.Title className='title-nya'>
-                          <a href={`/Beranda/DetailArtikel/${item.id}`}>
-                            {item.title}
-                          </a>
+                          <a href={`/Beranda/DetailArtikel/${item.id}`}>{item.title}</a>
                         </Card.Title>
                         <p>
                           <span>
                             {" "}
                             <MdDateRange size={20} />
-                            {
-                              (moment.locale("id-ID"),
-                              moment(item.created_at).format("L"))
-                            }{" "}
+                            {(moment.locale("id-ID"), moment(item.created_at).format("L"))}{" "}
                           </span>
                           |
                           <span>
                             {" "}
-                            <HiClipboardList size={20} />{" "}
-                            {item.news_category_id}{" "}
+                            <HiClipboardList size={20} /> {item.news_category_id}{" "}
                           </span>
                           |
                           <span>
@@ -139,9 +120,7 @@ const FourLine = () => {
                         </p>
                         <Card.Text>{item.intro}</Card.Text>
                         <p className='read-more-nya'>
-                          <a href={`/Beranda/DetailArtikel/${item.id}`}>
-                            Read More
-                          </a>
+                          <a href={`/Beranda/DetailArtikel/${item.id}`}>Read More</a>
                         </p>
                       </Card.Body>
                     </Card>
@@ -156,4 +135,4 @@ const FourLine = () => {
   );
 };
 
-export default FourLine;
+export default ArtikelBeranda;

@@ -56,29 +56,27 @@ const Navbars = (params) => {
                                                   <>
                                                     <NavDropdown title={j.name}>
                                                       {j.children &&
-                                                        j.children.map(
-                                                          (k, l) => {
-                                                            return (
-                                                              <NavDropdown.Item
-                                                                eventKey='4.1'
-                                                                href={k.url}>
-                                                                {k.name}
-                                                              </NavDropdown.Item>
-                                                            );
-                                                          }
-                                                        )}
+                                                        j.children.map((k, l) => {
+                                                          return (
+                                                            <NavDropdown.Item eventKey='4.1' href={k.url}>
+                                                              {k.name}
+                                                            </NavDropdown.Item>
+                                                          );
+                                                        })}
                                                     </NavDropdown>
                                                   </>
+                                                ) : m.static_page != null ? (
+                                                  <Nav.Link href={"/" + m.static_page}>{m.name}</Nav.Link>
                                                 ) : (
-                                                  <Nav.Link href={j.url}>
-                                                    {j.name}
-                                                  </Nav.Link>
+                                                  <Nav.Link href={j.url}>{j.name}</Nav.Link>
                                                 )}
                                               </>
                                             );
                                           })}
                                       </NavDropdown>
                                     </>
+                                  ) : m.static_page != null ? (
+                                    <Nav.Link href={"/" + m.static_page}>{m.name}</Nav.Link>
                                   ) : (
                                     <Nav.Link href={h.url}>{h.name}</Nav.Link>
                                   )}
@@ -88,7 +86,7 @@ const Navbars = (params) => {
                         </NavDropdown>
                       </>
                     ) : m.static_page != null ? (
-                      <Nav.Link href={'static/' + m.static_page}>{m.name}</Nav.Link>
+                      <Nav.Link href={'/' + m.static_page}>{m.name}</Nav.Link>
                     ) : (
                       <Nav.Link href={m.url}>{m.name}</Nav.Link>
                     )}

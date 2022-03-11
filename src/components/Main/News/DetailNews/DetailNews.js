@@ -32,6 +32,7 @@ const DetailNews = () => {
   }, [count, LoaderComplete]);
   // CLUE
 
+  //====== get API for Detail berita======//
   useEffect(() => {
     axios
       .get("http://adminmesuji.embuncode.com/api/news/" + id)
@@ -45,11 +46,10 @@ const DetailNews = () => {
       });
   }, [axios]);
 
+  //====== get API untuk berita terpopuler======//
   useEffect(() => {
     axios
-      .get(
-        "http://adminmesuji.embuncode.com/api/news?instansi_id=7&per_page=4&sort_type=desc&sort_by=total_hit"
-      )
+      .get("http://adminmesuji.embuncode.com/api/news?instansi_id=7&per_page=4&sort_type=desc&sort_by=total_hit")
       .then(function (response) {
         console.log("console ini1: " + response.data.data.data);
         setDataPopuler(response.data.data.data);
@@ -67,18 +67,12 @@ const DetailNews = () => {
     }
   }
 
+  //====== get API untuk menambah jumlah pembaca======//
   useEffect(() => {
     const getIPAddress = async () => {
       const res = await axios.get("https://geolocation-db.com/json/");
       axios
-        .post(
-          "http://adminmesuji.embuncode.com/api/news/hit?news_id=" +
-            id +
-            "&ip=" +
-            res.data.IPv4 +
-            "&device=" +
-            browserName
-        )
+        .post("http://adminmesuji.embuncode.com/api/news/hit?news_id=" + id + "&ip=" + res.data.IPv4 + "&device=" + browserName)
         .then(function (response) {
           console.log("console ini2: " + response.data.data);
         })
@@ -90,28 +84,26 @@ const DetailNews = () => {
   }, []);
   return (
     <div className='main-detail'>
+      {/* ====== menampilkan Loading full screen didetail berita====== */}
+
+      {/* ====== menampilkan detail berita====== */}
+      <Loading loading={LoaderComplete} background='#ffff' loaderColor='#3498db' />
       <Row>
         <Col md={6}>
           <Card className='card-deco'>
             <Card.Img variant='top' src={dataDetailNews.image_file_data} />
             <Card.Body>
-              <Card.Title className='txt-deco'>
-                {dataDetailNews.title}
-              </Card.Title>
+              <Card.Title className='txt-deco'>{dataDetailNews.title}</Card.Title>
               <p className='p-deco'>
                 <span>
                   {" "}
                   <MdDateRange size={22} />
-                  {
-                    (moment.locale("id-ID"),
-                    moment(dataDetailNews.created_at).format("L"))
-                  }
+                  {(moment.locale("id-ID"), moment(dataDetailNews.created_at).format("L"))}
                 </span>
                 &ensp;
                 <span>
                   {" "}
-                  <HiClipboardList size={22} />{" "}
-                  {dataDetailNews.news_category_id}{" "}
+                  <HiClipboardList size={22} /> {dataDetailNews.news_category_id}{" "}
                 </span>
                 &ensp;
                 <span>
@@ -126,6 +118,8 @@ const DetailNews = () => {
             </Card.Body>
           </Card>
         </Col>
+
+        {/* ====== menampilkan berita populer didetail artikel====== */}
         <Col>
           <div className='populer-deco'>
             <h3>Berita Populer</h3>
@@ -137,11 +131,7 @@ const DetailNews = () => {
                     <div className='content'>
                       <div className='post'>
                         <div className='left'>
-                          <img
-                            className='style-img-popular'
-                            src={item.image_file_data}
-                            alt='/'
-                          />
+                          <img className='style-img-popular' src={item.image_file_data} alt='/' />
                         </div>
                         <div className='right'>
                           <a href={`/berita/DetailNews/${item.id}`}>
@@ -158,16 +148,12 @@ const DetailNews = () => {
                             <span>
                               {" "}
                               <MdDateRange size={22} />
-                              {
-                                (moment.locale("id-ID"),
-                                moment(item.created_at).format("L"))
-                              }
+                              {(moment.locale("id-ID"), moment(item.created_at).format("L"))}
                             </span>
                             &ensp;
                             <span>
                               {" "}
-                              <HiClipboardList size={22} />{" "}
-                              {item.news_category_id}{" "}
+                              <HiClipboardList size={22} /> {item.news_category_id}{" "}
                             </span>
                             &ensp;
                             <span>
@@ -175,9 +161,7 @@ const DetailNews = () => {
                               <FaRegEye size={22} /> {item.total_hit}x Dibaca{" "}
                             </span>
                           </p>
-                          <a
-                            href={`/berita/DetailNews/${item.id}`}
-                            className='readmore'>
+                          <a href={`/berita/DetailNews/${item.id}`} className='readmore'>
                             Read More
                           </a>
                         </div>

@@ -1,18 +1,16 @@
 import React, { Fragment } from "react";
 import { Carousel } from "react-bootstrap";
-import "./Galery.css";
+import "./GaleryCarousel.css";
 import { useEffect, useState } from "react";
-import Box from "@mui/material/Box";
-import LinearProgress from "@mui/material/LinearProgress";
 import { useDispatch, useSelector } from "react-redux";
 import { decrement, increment } from "../../../Counter";
 
 const Galery = () => {
   const [DataResponse, setDataResponses] = useState();
   const axios = require("axios");
-
   const dispatch = useDispatch();
 
+// ====== Get API foto untuk ditampilkan di carousel ======
   useEffect(() => {
     axios
       .get(

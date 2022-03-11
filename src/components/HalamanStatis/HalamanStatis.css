@@ -1,9 +1,15 @@
+@import url('https://fonts.googleapis.com/css2?family=Concert+One&family=Dancing+Script&family=Supermercado+One&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Secular+One&display=swap');
+
 .header-statis{
   background: #090952;
   display: flex;
   justify-content: center;
   width: 95%;
   margin: 20px auto;
+}
+.h-satu{ 
+  font-family: 'Secular One', sans-serif;
 }
 
 .h-dua {
@@ -32,6 +38,7 @@
   font-size: 1.2em;
   letter-spacing: 1px;
   color: #63633d;
+  margin-top: 40px;
 }
 
 .main-statis {
@@ -40,11 +47,13 @@
   flex-wrap: wrap;
   justify-content: center;
   text-align: center;
+  margin-bottom: 20px;
 }
 
 .section-statis {
   flex-direction: column;
   width: 70%;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
 
 .article-statis {
@@ -52,13 +61,15 @@
   flex-wrap: wrap;
   width: 25%;
   border-right: 1px solid #63633d;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  padding-top: 20px;
 }
 
 .p-statis {
   width: 90%;
   margin: 20px auto;
-  word-spacing: 4px;
-  text-indent: 30px;
+  /* word-spacing: 4px; */
+  /* text-indent: 30px; */
   text-align: justify;
   color: gray;
 }
@@ -79,11 +90,12 @@
   }
 
   .article-statis {
-    width: 85%;
+    width: 90%;
     order: 2;
     text-align: center;
     margin: 0 auto;
     border-right: 0px;
+    margin-top: 25px;
   }
 
   .h-2 {

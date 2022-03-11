@@ -9,7 +9,7 @@ const Logo = () => {
   console.log("url", lastPart);
   const logoRef = useRef();
   useEffect(() => {
-    if (lastPart == "foto" || lastPart == "vidio" || lastPart == "pdf") {
+    if (lastPart == "foto" || lastPart == "vidio" || lastPart == "pdf" || lastPart == "ProfileDisdik") {
       console.log("logoRef", logoRef);
       logoRef.current.hidden = true;
     }

@@ -1,15 +1,13 @@
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import "./SecondLine.css";
+import "./FotoDokumenBeranda.css";
 import { React, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import moment from "moment-with-locales-es6";
-import Box from "@mui/material/Box";
-import LinearProgress from "@mui/material/LinearProgress";
 import { useDispatch, useSelector } from "react-redux";
 import { decrement, increment } from "../../../Counter";
 
-const SecondLine = () => {
+const FotoDokumenBeranda = () => {
   const [BoxAlbum, setBoxAlbum] = useState();
   const [DataDokumen, setDataDokumen] = useState();
   const dispatch = useDispatch();
@@ -137,4 +135,4 @@ const SecondLine = () => {
   );
 };
 
-export default SecondLine;
+export default FotoDokumenBeranda;

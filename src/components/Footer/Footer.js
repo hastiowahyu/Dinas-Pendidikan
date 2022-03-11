@@ -8,6 +8,7 @@ const FooterKita = () => {
   const [DataInstansi, setDataInstansi] = useState([]);
 
   const axios = require("axios");
+  //====== get API for Detail Instansi======//
   useEffect(() => {
     axios
       .get("http://adminmesuji.embuncode.com/api/instansi/detail/7")
@@ -19,6 +20,7 @@ const FooterKita = () => {
       });
   }, []);
 
+  //====== get API for daftar instansi======//
   useEffect(() => {
     axios
       .get("http://adminmesuji.embuncode.com/api/instansi")
@@ -71,11 +73,7 @@ const FooterKita = () => {
                 <div className='footer-widget'>
                   <div className='footer-logo'>
                     <a href='/' className='a-su'>
-                      <img
-                        src={DataFoter.logo_instansi}
-                        className='img-fluid'
-                        alt='logo'
-                      />
+                      <img src={DataFoter.logo_instansi} className='img-fluid' alt='logo' />
                     </a>
                   </div>
                   <h4>{DataFoter.nama_instansi}</h4>
@@ -129,8 +127,7 @@ const FooterKita = () => {
               <div className=' text-center text-lg-left'>
                 <div className='copyright-text'>
                   <p>
-                    &copy; {new Date().getFullYear()} Copyright:{" "}
-                    {DataFoter.nama_instansi}| All Rights Reserved.
+                    &copy; {new Date().getFullYear()} Copyright: {DataFoter.nama_instansi}| All Rights Reserved.
                     {"-"} <a href='https://www.instagram.com/hastio.wu/'>710</a>
                     {"-"}
                   </p>

@@ -40,24 +40,16 @@ const GalleryVidio = () => {
 
   return (
     <Fragment>
-      <Loading
-        loading={LoaderComplete}
-        background='#ffff'
-        loaderColor='#3498db'
-      />
+      <Loading loading={LoaderComplete} background='#ffff' loaderColor='#3498db' />
       <div id='landing'>
         <div id='landing-text'>
           <div id='landing-text-inner'>
             <h1>SELAMAT DATANG DIGALERI</h1>
-            <h2>DISDIK LAMPUNG TIMUR</h2>
-            <a href='#vidio' className='btn' id='view-work'>
-              View Video
-            </a>
+            <h2>DINAS PENDIDIKAN LAMPUNG TIMUR</h2>
           </div>
         </div>
         <div id='landing-image' />
       </div>
-
       <div>
         <Box className='style-box'>
           <p className='text-box'>VIDEO DISDIK</p>
@@ -69,23 +61,10 @@ const GalleryVidio = () => {
             DataVideo.map((item, index) => {
               return item.image_gallery_item.map((itm, idx) => {
                 return (
-                  <Col
-                    md={6}
-                    sm={12}
-                    xs={12}
-                    lg={4}
-                    key={idx}
-                    className='style-vid'>
+                  <Col md={6} sm={12} xs={12} lg={4} key={idx} className='style-vid'>
                     <div className='tile-videos'>
-                      <iframe
-                        id='player'
-                        type='text/html'
-                        src={`https://www.youtube.com/embed/${itm.video_url}?`}
-                        className='player-wrapper'
-                        style={{ width: "100%", height: "100%" }}
-                        frameBorder='0'></iframe>
+                      <iframe id='player' type='text/html' src={`https://www.youtube.com/embed/${itm.video_url}?`} className='player-wrapper' style={{ width: "100%", height: "100%" }} frameBorder='0'></iframe>
                       <div className='text-videos'>
-                        <p>{item.description}</p>
                         <p className='animate-text-videos'>{itm.description}</p>
                       </div>
                     </div>

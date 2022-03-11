@@ -14,7 +14,8 @@ import { PDFViewer } from "./components/Dokumen/PDFViewer";
 import HalamanStatis from "./components/HalamanStatis/HalamanStatis";
 import GalleryVidio from "./components/GalleryVidio/GalleryVidio";
 import Loading from "react-fullscreen-loading";
-import Socmed from "./components/Socmed/Socmed";
+import Socmed from "./components/FixedSocmed/Socmed";
+import ProfileDisdik from "./components/ProfileDinas/ProfileDisdik";
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
         <Route exact path='/' element={<Main />} />
         <Route path='/beranda' element={<Main />} />
         <Route path='/artikel' element={<Artikel />} />
+        <Route path='/ProfileDisdik' element={<ProfileDisdik />} />
         <Route path='/artikel/DetailArtikel/:id' element={<DetailArtikel />} />
         <Route path='/foto' element={<Foto />} />
         <Route path='/news/DetailNews/:id' element={<DetailNews />} />
@@ -34,7 +36,7 @@ function App() {
         <Route path='/berita/DetailNews/:id' element={<DetailNews />} />
         <Route path='/Dokumen' element={<Dokumen />} />
         <Route path='/pdf/:slug/:filename' element={<PDFViewer />} />
-        <Route path='/static/:id' element={<HalamanStatis />} />
+        <Route path='/:id' element={<HalamanStatis />} />
         <Route path='/Beranda/Dokumen' element={<Dokumen />} />
         <Route path='/Beranda/Berita' element={<Berita />} />
         <Route path='/Beranda/DetailArtikel/:id' element={<DetailArtikel />} />

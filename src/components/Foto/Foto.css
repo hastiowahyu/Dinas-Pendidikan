@@ -173,22 +173,6 @@ h2 {
     color: #888;
 }
 
-.btn {
-    padding: 0.5rem 2rem;
-    border: 1px #ccc solid;
-    display: inline-block;
-    margin: 2rem 0 0;
-    border-radius: 50px !important;
-    text-decoration: none;
-    color: #333;
-    outline: 0;
-    transition: background 400ms ease;
-}
-
-.btn:hover {
-    background: #f4f4f4;
-}
-
 #landing-image {
     background: url(https://source.unsplash.com/_T4w3JDm6ug);
     background-position: center;
@@ -232,11 +216,6 @@ h2 {
 }
 
 /* screen sizes 700px and up */
-@media(min-width: 700px) {
-    .btn {
-        padding: 1rem 3rem;
-    }
-}
 .style-box{
   background-color: #090952;
   height: 50px;
@@ -327,4 +306,101 @@ margin-bottom: 20px;
 }
 .untuk-vidio{
   margin-top: 50px;
+}
+
+/* galery ak */
+[id^='lightbox-'] {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  opacity: 0;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  z-index: 5;
+}
+
+[id^='lightbox-']:target {
+  opacity: 1;
+  pointer-events: inherit;
+}
+[id^='lightbox-'] .content {
+  max-width: 100%;
+  position: relative;
+  color: #fff;
+}
+[id^='lightbox-'] .content:hover>.title {
+  opacity: 1;
+  transform: translateY(1px);
+}
+
+[id^='lightbox-'] .content:hover>.title::after {
+  opacity: 1;
+}
+
+[id^='lightbox-'] .content>* {
+  transition: all 450ms ease-in-out;
+}
+
+[id^='lightbox-'] .title {
+  display: block;
+  margin: 0;
+  padding: 1em;
+  position: absolute;
+  bottom: 0px;
+  width: 100%;
+  transform: translateY(5%);
+  font-size: 1.5em;
+  opacity: 0;
+}
+
+[id^='lightbox-'] .title::after {
+  content: ' ';
+  background-color: rgba(0, 0, 0, 0.4);
+  bottom: 0px;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  transition: all 350ms ease-in-out 250ms;
+  opacity: 0;
+  transform-origin: bottom;
+  mix-blend-mode: soft-light;
+}
+
+[id^='lightbox-'] img {
+  min-height: 80vh;
+  max-width: 100vw;
+  margin: 0;
+  padding: 0;
+  object-fit: cover;
+}
+
+[id^='lightbox-'] a.close {
+  width: 3em;
+  height: 3em;
+  position: absolute;
+  right: 0;
+  top: 0;
+  background-color: rgba(54, 54, 54, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 1;
+  transform-origin: right top;
+  text-decoration: none;
+  color: #fff;
+}
+
+[id^='lightbox-'] a.close::after {
+  content: 'X';
+}
+@media (max-width: 415px) {
+  [id^='lightbox-'] img {
+    min-height: 20vh;
+  }
 }
