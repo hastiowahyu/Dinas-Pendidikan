@@ -1,5 +1,5 @@
 .style-artikel{
-  margin: 10px;
+  margin: 30px 10px 10px 10px;
 }
 .blog-card {
   display: flex;
@@ -226,6 +226,18 @@ h1{
   }
 }
 
+.kategori-list-article:hover {
+  color: #0d6efd;
+  cursor: pointer;
+}
+
+.kategori-list-article-active {
+  color: #0d6efd !important;
+  cursor: no-drop !important;
+  font-weight: 800 !important;
+}
+
+
 /* css untuk artikel terbaru */
 
 .post-list .post {
@@ -273,12 +285,20 @@ h1{
 }
 
 /* css cari */
-
+.pembungkus-search{
+  background-color: white;
+  height: 100px;
+  border-radius: 10px;
+  border-top: 5px solid blue;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+  width: 80%;
+}
 .main {
   width: 50%;
-  margin-top: 50px;
+  transform: translateY(80%);
   margin-left: auto;
-  margin-right: 30px;
+  margin-right: auto; 
+   
 }
 
 .has-search .form-control {
@@ -295,6 +315,11 @@ h1{
   text-align: center;
   pointer-events: none;
   color: #aaa;
+}
+@media screen and (max-width: 767px) {
+   .pembungkus-search {
+    width: 100%;
+  }
 }
 
 /* css untuk kategori */

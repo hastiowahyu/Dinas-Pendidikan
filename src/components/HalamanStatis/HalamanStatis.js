@@ -7,9 +7,9 @@ import moment from "moment-with-locales-es6";
 import { MdDateRange } from "react-icons/md";
 import { HiClipboardList } from "react-icons/hi";
 import { FaRegEye } from "react-icons/fa";
-import { useDispatch, useSelector } from "react-redux"; // CLUE
-import Loading from "react-fullscreen-loading"; // CLUE
-import { increment } from "./../../Counter"; // CLUE
+import { useDispatch, useSelector } from "react-redux";
+import Loading from "react-fullscreen-loading";
+import { increment } from "./../../Counter";
 
 const HalamanStatis = () => {
   const { id } = useParams();
@@ -18,7 +18,6 @@ const HalamanStatis = () => {
   const [DataPopuler, setDataPopuler] = useState();
 
   //====== menghitung API yang sedang diproses, untuk menentukan loading full screen======//
-  // CLUE
   const [LoaderComplete, setLoaderComplete] = useState(true);
   const count = useSelector((state) => state.counter.value);
   const dispatch = useDispatch(); // 3
@@ -28,7 +27,6 @@ const HalamanStatis = () => {
       setLoaderComplete(false);
     }
   }, [count, LoaderComplete]);
-  // CLUE
 
   //====== get API for static page======//
   useEffect(() => {

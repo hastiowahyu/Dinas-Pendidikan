@@ -2,8 +2,8 @@ import React, { Fragment } from "react";
 import { Carousel } from "react-bootstrap";
 import "./GaleryCarousel.css";
 import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { decrement, increment } from "../../../Counter";
+import { useDispatch } from "react-redux";
+import { increment } from "../../../Counter";
 
 const Galery = () => {
   const [DataResponse, setDataResponses] = useState();

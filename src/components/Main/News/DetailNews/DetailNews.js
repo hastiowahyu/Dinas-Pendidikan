@@ -9,9 +9,9 @@ import { MdDateRange } from "react-icons/md";
 import { HiClipboardList } from "react-icons/hi";
 import { FaRegEye } from "react-icons/fa";
 import { browserName } from "react-device-detect";
-import { useDispatch, useSelector } from "react-redux"; // CLUE
-import Loading from "react-fullscreen-loading"; // CLUE
-import { increment } from "./../../../../Counter"; // CLUE
+import { useDispatch, useSelector } from "react-redux";
+import Loading from "react-fullscreen-loading";
+import { increment } from "./../../../../Counter";
 
 const DetailNews = () => {
   const { id } = useParams();
@@ -19,18 +19,15 @@ const DetailNews = () => {
   const axios = require("axios");
   const [dataDetailNews, setDataDetailNews] = useState(0);
   const [DataPopuler, setDataPopuler] = useState([]);
-
-  // CLUE
   const [LoaderComplete, setLoaderComplete] = useState(true);
   const count = useSelector((state) => state.counter.value);
-  const dispatch = useDispatch(); // 3
+  const dispatch = useDispatch();
   useEffect(() => {
     console.log("LoaderComplete", LoaderComplete);
     if (count == 1) {
       setLoaderComplete(false);
     }
   }, [count, LoaderComplete]);
-  // CLUE
 
   //====== get API for Detail berita======//
   useEffect(() => {
@@ -85,9 +82,8 @@ const DetailNews = () => {
   return (
     <div className='main-detail'>
       {/* ====== menampilkan Loading full screen didetail berita====== */}
-
-      {/* ====== menampilkan detail berita====== */}
       <Loading loading={LoaderComplete} background='#ffff' loaderColor='#3498db' />
+      {/* ====== menampilkan detail berita====== */}
       <Row>
         <Col md={6}>
           <Card className='card-deco'>

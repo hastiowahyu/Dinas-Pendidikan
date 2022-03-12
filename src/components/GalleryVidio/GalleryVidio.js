@@ -6,30 +6,28 @@ import { useState } from "react";
 import Box from "@mui/material/Box";
 import { Row, Col } from "react-bootstrap";
 import moment from "moment-with-locales-es6";
-import { useDispatch, useSelector } from "react-redux"; // CLUE
-import Loading from "react-fullscreen-loading"; // CLUE
-import { decrement, increment } from "./../../Counter"; // CLUE
+import { useDispatch, useSelector } from "react-redux"; 
+import Loading from "react-fullscreen-loading"; 
+import { decrement, increment } from "./../../Counter"; 
 
 const GalleryVidio = () => {
   const [DataVideo, setDataVideo] = useState([]);
   const axios = require("axios");
-  // CLUE
   const [LoaderComplete, setLoaderComplete] = useState(true);
   const count = useSelector((state) => state.counter.value);
-  const dispatch = useDispatch(); // 3
+  const dispatch = useDispatch();
   useEffect(() => {
     console.log("LoaderComplete", LoaderComplete);
     if (count == 1) {
       setLoaderComplete(false);
     }
   }, [count, LoaderComplete]);
-  // CLUE
 
   useEffect(() => {
     axios
       .get("http://adminmesuji.embuncode.com/api/video-gallery?instansi_id=7")
       .then(function (response) {
-        dispatch(increment()); // 4
+        dispatch(increment());
         console.log("console ini video: " + response.data.data.data);
         setDataVideo(response.data.data.data);
       })

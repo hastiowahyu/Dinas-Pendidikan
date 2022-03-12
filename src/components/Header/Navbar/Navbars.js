@@ -65,8 +65,8 @@ const Navbars = (params) => {
                                                         })}
                                                     </NavDropdown>
                                                   </>
-                                                ) : m.static_page != null ? (
-                                                  <Nav.Link href={"/" + m.static_page}>{m.name}</Nav.Link>
+                                                ) : j.static_page != null ? (
+                                                  <Link to={"/static/" + j.static_page}>{j.name}</Link>
                                                 ) : (
                                                   <Nav.Link href={j.url}>{j.name}</Nav.Link>
                                                 )}
@@ -75,10 +75,12 @@ const Navbars = (params) => {
                                           })}
                                       </NavDropdown>
                                     </>
-                                  ) : m.static_page != null ? (
-                                    <Nav.Link href={"/" + m.static_page}>{m.name}</Nav.Link>
+                                  ) : h.static_page != null ? (
+                                    <Link to={"/static/" + h.static_page}>{h.name}</Link>
                                   ) : (
-                                    <Nav.Link href={h.url}>{h.name}</Nav.Link>
+                                    <Nav.Link href={h.url}>
+                                      {h.name} {console.log("m.static_page", h.static_page)}
+                                    </Nav.Link>
                                   )}
                                 </>
                               );
@@ -86,7 +88,7 @@ const Navbars = (params) => {
                         </NavDropdown>
                       </>
                     ) : m.static_page != null ? (
-                      <Nav.Link href={'/' + m.static_page}>{m.name}</Nav.Link>
+                      <Link to={"/static/" + m.static_page}>{m.name}</Link>
                     ) : (
                       <Nav.Link href={m.url}>{m.name}</Nav.Link>
                     )}

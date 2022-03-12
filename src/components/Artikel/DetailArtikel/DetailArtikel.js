@@ -9,9 +9,9 @@ import { MdDateRange } from "react-icons/md";
 import { HiClipboardList } from "react-icons/hi";
 import { FaRegEye } from "react-icons/fa";
 import { browserName } from "react-device-detect";
-import { useDispatch, useSelector } from "react-redux"; // CLUE
-import Loading from "react-fullscreen-loading"; // CLUE
-import { increment } from "./../../../Counter"; // CLUE
+import { useDispatch, useSelector } from "react-redux";
+import Loading from "react-fullscreen-loading"; 
+import { increment } from "./../../../Counter"; 
 
 const DetailArtikel = () => {
   const { id } = useParams();
@@ -21,17 +21,15 @@ const DetailArtikel = () => {
   const [DataPopuler, setDataPopuler] = useState([]);
 
   //====== untuk menghitung API yang sedang diproses, untuk menentukan loading full screen======//
-  // CLUE
   const [LoaderComplete, setLoaderComplete] = useState(true);
   const count = useSelector((state) => state.counter.value);
-  const dispatch = useDispatch(); // 3
+  const dispatch = useDispatch();
   useEffect(() => {
     console.log("LoaderComplete", LoaderComplete);
     if (count == 1) {
       setLoaderComplete(false);
     }
   }, [count, LoaderComplete]);
-  // CLUE
 
   //====== get API for Detail Artikel======//
   useEffect(() => {

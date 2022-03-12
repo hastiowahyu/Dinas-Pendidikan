@@ -12,14 +12,15 @@ import ListItemText from "@mui/material/ListItemText";
 import ListItemAvatar from "@mui/material/ListItemAvatar";
 import Avatar from "@mui/material/Avatar";
 import ListIcon from "@mui/icons-material/List";
-import { useDispatch, useSelector } from "react-redux"; // CLUE
-import Loading from "react-fullscreen-loading"; // CLUE
-import { increment } from "../../Counter"; // CLUE
+import { useDispatch, useSelector } from "react-redux";
+import Loading from "react-fullscreen-loading";
+import { increment } from "../../Counter";
 
 const Artikel = () => {
   const [DataTerbaru, setDataTerbaru] = useState();
   const [DataPopuler, setDataPopuler] = useState([]);
   const [dataKategori, setDataKategori] = useState();
+  const [ArticleCategories, setArticleCategories] = useState();
   const axios = require("axios");
 
   const [Items, setItems] = useState([]);
@@ -28,30 +29,34 @@ const Artikel = () => {
   const forceUpdtae = React.useCallback(() => updateState({}), []);
 
   //====== menghitung API yang sedang diproses, untuk menentukan loading full screen======//
-  // CLUE
+
   const [LoaderComplete, setLoaderComplete] = useState(true);
   const count = useSelector((state) => state.counter.value);
-  const dispatch = useDispatch(); // 3
+  const dispatch = useDispatch();
   useEffect(() => {
     console.log("LoaderComplete", LoaderComplete);
     if (count == 1) {
       setLoaderComplete(false);
     }
   }, [count, LoaderComplete]);
-  // CLUE
 
   useEffect(() => {
     gettingData(1);
   }, []);
-
-  // ======Get Api untuk artikel dan set fungsu paginasi======//
+  // ======Get Api untuk artikel dan set fungsu paginasi + view article category======//
   let tooglePaginate = true;
-  function gettingData(page) {
+  function gettingData(page, slug) {
     setDataTerbaru(null);
+    let url = "";
+    if (slug == null) {
+      url = "http://adminmesuji.embuncode.com/api/article?instansi_id=7&per_page=4&page=" + page;
+    } else {
+      url = "http://adminmesuji.embuncode.com/api/article?instansi_id=7&per_page=4&slug=" + slug + "&page=" + page;
+    }
     axios
-      .get("http://adminmesuji.embuncode.com/api/article?instansi_id=7&per_page=4&sort_type=desc&sort_by=created_at&page=" + page)
+      .get(url)
       .then(function (response) {
-        dispatch(increment()); // 4
+        dispatch(increment());
         setDataTerbaru(response.data.data.data);
         items = [];
         for (let number = 1; number <= response.data.data.last_page; number++) {
@@ -69,6 +74,13 @@ const Artikel = () => {
       .catch(function (error) {
         console.log(error);
       });
+  }
+  function handleArticleChange(artikelSlug) {
+    console.log("artikelSlug", artikelSlug);
+
+    gettingData(1, artikelSlug);
+
+    setArticleCategories(artikelSlug);
   }
 
   function handleLength(valeu, lengths) {
@@ -108,11 +120,20 @@ const Artikel = () => {
     <div className='style-artikel'>
       {/* ====== menampilkan Loading full screen page artikel====== */}
       <Loading loading={LoaderComplete} background='#ffff' loaderColor='#3498db' />
-
       {/* ====== menampilkan list artikel terbaru====== */}
       <Row>
         <Col md={6}>
-          <h1> Artikel Terbaru___ </h1> <hr />
+          {/* ====== Menampilkan Actual search box artikel =======*/}
+          <div className='pembungkus-search'>
+            <div className='main'>
+              <div className='form-group has-search'>
+                <span className='fa fa-search form-control-feedback' />
+                <input type='text' className='form-control' placeholder='Cari Artikel' />
+              </div>
+            </div>
+          </div>
+          {/* ====== menampilkan list artikel terbaru====== */}
+          <h1> Artikel Terbaru</h1> <hr />
           <div>
             {DataTerbaru &&
               DataTerbaru.map((item, index) => {
@@ -178,13 +199,6 @@ const Artikel = () => {
         </Col>
 
         <Col md={6}>
-          {/* ====== Menampilkan Actual search box artikel =======*/}
-          <div className='main'>
-            <div className='form-group has-search'>
-              <span className='fa fa-search form-control-feedback' />
-              <input type='text' className='form-control' placeholder='Cari Artikel' />
-            </div>
-          </div>
           {/* ====== Menampilkan Kategori Artikel ======= */}
           <Row>
             <h3>Kategori Artikel</h3>
@@ -201,8 +215,8 @@ const Artikel = () => {
                 dataKategori.map((item, index) => {
                   return (
                     <>
-                      <Link to='#'>
-                        <ListItem className='list-item-mui'>
+                      {ArticleCategories === item.slug ? (
+                        <ListItem as='li' onClick={() => handleArticleChange(item.slug)} className='d-flex justify-content-between align-items-start kategori-list-article kategori-list-article-active  list-item-mui' key={index}>
                           <ListItemAvatar>
                             <Avatar>
                               <ListIcon />
@@ -213,7 +227,19 @@ const Artikel = () => {
                             {item.artikel_count}
                           </Badge>
                         </ListItem>
-                      </Link>
+                      ) : (
+                        <ListItem as='li' onClick={() => handleArticleChange(item.slug)} className='d-flex justify-content-between align-items-start kategori-list-article list-item-mui'>
+                          <ListItemAvatar>
+                            <Avatar>
+                              <ListIcon />
+                            </Avatar>
+                          </ListItemAvatar>
+                          <ListItemText primary={item.nama_kategori} />
+                          <Badge bg='primary' pill>
+                            {item.artikel_count}
+                          </Badge>
+                        </ListItem>
+                      )}
                     </>
                   );
                 })}

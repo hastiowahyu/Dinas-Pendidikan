@@ -5,16 +5,16 @@ import { useEffect } from "react";
 import { useState } from "react";
 import Box from "@mui/material/Box";
 import moment from "moment-with-locales-es6";
-import { useDispatch, useSelector } from "react-redux"; // CLUE
-import Loading from "react-fullscreen-loading"; // CLUE
-import { decrement, increment } from "./../../Counter"; // CLUE
+import { useDispatch, useSelector } from "react-redux";
+import Loading from "react-fullscreen-loading";
+import { decrement, increment } from "./../../Counter"; 
 
 const Foto = () => {
   const [DataFoto, setDataFoto] = useState(0);
   const axios = require("axios");
   const [LoaderComplete, setLoaderComplete] = useState(true);
   const count = useSelector((state) => state.counter.value);
-  const dispatch = useDispatch(); // 3
+  const dispatch = useDispatch();
   useEffect(() => {
     console.log("LoaderComplete", LoaderComplete);
     if (count == 1) {
@@ -26,7 +26,7 @@ const Foto = () => {
     axios
       .get("http://adminmesuji.embuncode.com/api/image-gallery?instansi_id=7&per_page=3")
       .then(function (response) {
-        dispatch(increment()); // 4
+        dispatch(increment());
         console.log("console ini galery1: " + response.data.data.data);
         setDataFoto(response.data.data.data);
       })

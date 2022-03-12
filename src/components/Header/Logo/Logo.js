@@ -1,4 +1,4 @@
-import React, { Fragment, useRef, useEffect, useState } from "react";
+import React, {useRef, useEffect, useState } from "react";
 import "./Logo.css";
 import { Row, Col } from "react-bootstrap";
 import Marquee from "react-fast-marquee";

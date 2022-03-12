@@ -16,11 +16,13 @@ import GalleryVidio from "./components/GalleryVidio/GalleryVidio";
 import Loading from "react-fullscreen-loading";
 import Socmed from "./components/FixedSocmed/Socmed";
 import ProfileDisdik from "./components/ProfileDinas/ProfileDisdik";
+import Cobaan from "./components/ProfileDinas/Cobaan"
 
 function App() {
   return (
     <div className='home'>
       <Header />
+      <Cobaan />
       <Socmed />
       <Routes>
         <Route exact path='/' element={<Main />} />
@@ -32,11 +34,11 @@ function App() {
         <Route path='/news/DetailNews/:id' element={<DetailNews />} />
         <Route path='/News/Artikel' element={<Artikel />} />
         <Route path='/Beranda/GalleryFoto' element={<Foto />} />
-        <Route path='/Berita' element={<Berita />} />
-        <Route path='/berita/DetailNews/:id' element={<DetailNews />} />
+        <Route exact path='/Berita' element={<Berita />} />
+        <Route exact path='/berita/DetailNews/:id' element={<DetailNews />} />
         <Route path='/Dokumen' element={<Dokumen />} />
         <Route path='/pdf/:slug/:filename' element={<PDFViewer />} />
-        <Route path='/:id' element={<HalamanStatis />} />
+        <Route exact path='/static/:id' element={<HalamanStatis />} />
         <Route path='/Beranda/Dokumen' element={<Dokumen />} />
         <Route path='/Beranda/Berita' element={<Berita />} />
         <Route path='/Beranda/DetailArtikel/:id' element={<DetailArtikel />} />
@@ -44,6 +46,7 @@ function App() {
         <Route path='/tohome' element={<Main />} />
       </Routes>
       <FooterKita />
+      
     </div>
   );
 }

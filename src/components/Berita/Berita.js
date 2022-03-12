@@ -15,44 +15,59 @@ import ListItemText from "@mui/material/ListItemText";
 import ListItemAvatar from "@mui/material/ListItemAvatar";
 import Avatar from "@mui/material/Avatar";
 import ListIcon from "@mui/icons-material/List";
-import { useDispatch, useSelector } from "react-redux"; // CLUE
-import Loading from "react-fullscreen-loading"; // CLUE
-import { increment } from "./../../Counter"; // CLUE
+import { useDispatch, useSelector } from "react-redux";
+import Loading from "react-fullscreen-loading";
+import { increment } from "./../../Counter";
 
 const Berita = () => {
   const [DataTerbaru, setDataTerbaru] = useState(0);
   const [DataPopuler, setDataPopuler] = useState([]);
-  const axios = require("axios");
   const [dataKategori, setDataKategori] = useState();
+  const [ArticleCategories, setArticleCategories] = useState();
+  const axios = require("axios");
 
   const [Items, setItems] = useState([]);
   let items = [];
   const [, updateState] = React.useState();
   const forceUpdtae = React.useCallback(() => updateState({}), []);
-  
+
   //====== menghitung API yang sedang diproses, untuk menentukan loading full screen======//
-  // CLUE
   const [LoaderComplete, setLoaderComplete] = useState(true);
   const count = useSelector((state) => state.counter.value);
-  const dispatch = useDispatch(); // 3
+  const dispatch = useDispatch();
   useEffect(() => {
     console.log("LoaderComplete", LoaderComplete);
     if (count == 1) {
       setLoaderComplete(false);
     }
   }, [count, LoaderComplete]);
-  // CLUE
 
   useEffect(() => {
     gettingData(1);
   }, []);
 
-  // ======Get Api untuk beita dan set fungsu paginasi======//
+  // ======Get Api untuk beita dan set fungsi paginasi======//
   let tooglePaginate = true;
-  function gettingData(page) {
+
+  //clueAwal
+  function gettingData(page, slug, title) {
+    let urlTitle = "";
+    if (title != null) {
+      urlTitle = "&title=" + title;
+    } else {
+      urlTitle = "";
+    }
     setDataTerbaru(null);
+    let url = "";
+    if (slug == null) {
+      url = "http://adminmesuji.embuncode.com/api/news?instansi_id=7" + urlTitle + "&per_page=4&page=" + page; //clue
+    } else {
+      url = "http://adminmesuji.embuncode.com/api/news?instansi_id=7" + urlTitle + "&per_page=4&slug=" + slug + "&page=" + page; //clue
+    }
+  //clueAkhir
+
     axios
-      .get("http://adminmesuji.embuncode.com/api/news?instansi_id=7&sort_by=created_at&sort_type=desc&per_page=4&page=" + page)
+      .get(url)
       .then(function (response) {
         dispatch(increment()); // 4
         setDataTerbaru(response.data.data.data);
@@ -73,6 +88,16 @@ const Berita = () => {
         console.log(error);
       });
   }
+  
+
+  function handleArticleChange(artikelSlug) {
+    console.log("artikelSlug", artikelSlug);
+
+    gettingData(1, artikelSlug);
+
+    setArticleCategories(artikelSlug);
+  }
+
 
   function handleLength(valeu, lengths) {
     if (valeu.length < lengths) {
@@ -82,22 +107,18 @@ const Berita = () => {
     }
   }
 
-  function convvertDate(timeResponse) {
-    var date = new Date(timeResponse);
-    return date.toLocaleString("en-GB", { hour12: false });
-  }
   // ======Get Api untuk berita populer======//
-  useEffect(() => {
-    axios
-      .get("http://adminmesuji.embuncode.com/api/news?instansi_id=7&sort_by=total_hit&sort_type=desc&per_page=4")
-      .then(function (response) {
-        console.log("console ini1: " + response.data.data.data);
-        setDataPopuler(response.data.data.data);
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
-  }, []);
+   useEffect(() => {
+     axios
+       .get("http://adminmesuji.embuncode.com/api/article?instansi_id=7&per_page=4&sort_by=total_hit")
+       .then(function (response) {
+         console.log("console ini1: " + response.data.data.data);
+         setDataPopuler(response.data.data.data);
+       })
+       .catch(function (error) {
+         console.log(error);
+       });
+   }, []);
 
   // ======Get Api untuk kategori berita======//
   useEffect(() => {
@@ -111,13 +132,34 @@ const Berita = () => {
         console.log(error);
       });
   }, []);
+
+  //clueAwal
+  function handleSearchChange(value) {
+    console.log("value", value.target.value);
+    if (value.key === "Enter") {
+      console.log("do validate");
+      gettingData(1, null, value.target.value);
+    }
+  }
+  //clueAkhir
+
   return (
     <div className='style-artikel'>
       {/* ====== menampilkan Loading full screen dipage artikel====== */}
       <Loading loading={LoaderComplete} background='#ffff' loaderColor='#3498db' />
-      {/* ====== menampilkan list berita terbaru====== */}
       <Row>
         <Col md={6}>
+          {/* ====== Menampilkan Actual search box artikel =======*/}
+          <div className='pembungkus-search'>
+            <div className='main'>
+              <div className='form-group has-search'>
+                <span className='fa fa-search form-control-feedback' />
+                {/* clue */}
+                <input onKeyDown={handleSearchChange} type='text' className='form-control' placeholder='Cari Berita' />
+              </div>
+            </div>
+          </div>
+          {/* ====== menampilkan list berita terbaru====== */}
           <h1> Berita Terbaru </h1>
           <div>
             {DataTerbaru &&
@@ -183,13 +225,6 @@ const Berita = () => {
           </Row>
         </Col>
         <Col md={6}>
-          {/* ====== Menampilkan Actual search box berita =======*/}
-          <div className='main'>
-            <div className='form-group has-search'>
-              <span className='fa fa-search form-control-feedback' />
-              <input type='text' className='form-control' placeholder='Cari Berita' />
-            </div>
-          </div>
           {/* ====== Menampilkan Kategori Berita ======= */}
           <Row>
             <h3>Kategori Berita</h3>
@@ -206,8 +241,8 @@ const Berita = () => {
                 dataKategori.map((item, index) => {
                   return (
                     <>
-                      <Link to='#'>
-                        <ListItem className='list-item-mui'>
+                      {ArticleCategories === item.slug ? (
+                        <ListItem as='li' onClick={() => handleArticleChange(item.slug)} className='d-flex justify-content-between align-items-start kategori-list-article kategori-list-article-active  list-item-mui' key={index}>
                           <ListItemAvatar>
                             <Avatar>
                               <ListIcon />
@@ -218,7 +253,19 @@ const Berita = () => {
                             {item.news_count}
                           </Badge>
                         </ListItem>
-                      </Link>
+                      ) : (
+                        <ListItem as='li' onClick={() => handleArticleChange(item.slug)} className='d-flex justify-content-between align-items-start kategori-list-article list-item-mui'>
+                          <ListItemAvatar>
+                            <Avatar>
+                              <ListIcon />
+                            </Avatar>
+                          </ListItemAvatar>
+                          <ListItemText primary={item.nama_kategori} />
+                          <Badge bg='primary' pill>
+                            {item.news_count}
+                          </Badge>
+                        </ListItem>
+                      )}
                     </>
                   );
                 })}

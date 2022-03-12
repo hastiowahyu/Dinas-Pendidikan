@@ -7,8 +7,8 @@ import moment from "moment-with-locales-es6";
 import { MdDateRange } from "react-icons/md";
 import { HiClipboardList } from "react-icons/hi";
 import { FaRegEye } from "react-icons/fa";
-import { useDispatch, useSelector } from "react-redux"; // 1
-import { decrement, increment } from "../../../Counter"; // 2
+import { useDispatch} from "react-redux";
+import { increment } from "../../../Counter";
 
 const News = () => {
   const [DataTerbaru, setDataTerbaru] = useState();

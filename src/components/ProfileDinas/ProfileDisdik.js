@@ -3,15 +3,30 @@ import "./ProfileDisdik.css";
 import { Row, Col, Container } from "react-bootstrap";
 import { useState, useEffect } from "react";
 import { SiGooglemaps } from "react-icons/si";
+import { useDispatch, useSelector } from "react-redux";
+import Loading from "react-fullscreen-loading";
+import { increment } from "./../../Counter";
+
 const ProfileDisdik = () => {
   const [DataPimpinan, setDataPimpinan] = useState([]);
   const axios = require("axios");
+  //====== untuk menghitung API yang sedang diproses, untuk menentukan loading full screen======//
+  const [LoaderComplete, setLoaderComplete] = useState(true);
+  const count = useSelector((state) => state.counter.value);
+  const dispatch = useDispatch(); // 3
+  useEffect(() => {
+    console.log("LoaderComplete", LoaderComplete);
+    if (count == 1) {
+      setLoaderComplete(false);
+    }
+  }, [count, LoaderComplete]);
 
   //====== get API for Detail Instansi======//
   useEffect(() => {
     axios
       .get("http://adminmesuji.embuncode.com/api/instansi/detail/7")
       .then(function (pimpinan) {
+        dispatch(increment()); // 4
         setDataPimpinan(pimpinan.data.data);
         console.log("console kepala: " + pimpinan.data.data);
       })
@@ -21,6 +36,8 @@ const ProfileDisdik = () => {
   }, []);
   return (
     <Container className='containernya-profil'>
+      {/* ====== menampilkan Loading full screen didetail artikel====== */}
+      <Loading loading={LoaderComplete} background='#ffff' loaderColor='#3498db' />
       {/* ===== Menampilkan Logo Instansi ===== */}
       <div className='wrapper' id='app'>
         <div className='card-form'>

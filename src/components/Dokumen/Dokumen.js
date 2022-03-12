@@ -2,15 +2,14 @@ import React, { useState, useEffect } from "react";
 import { Container } from "react-bootstrap";
 import "./Dokumen.css";
 import moment from "moment-with-locales-es6";
-import { useDispatch, useSelector } from "react-redux"; // CLUE
-import Loading from "react-fullscreen-loading"; // CLUE
-import { increment } from "./../../Counter"; // CLUE
+import { useDispatch, useSelector } from "react-redux";
+import Loading from "react-fullscreen-loading";
+import { increment } from "./../../Counter";
 import FieldAPI from "../FieldAPI/FieldAPI";
 
 function Dokumen() {
   const [DataDokumen, setDataDokumen] = useState([]);
   //====== untuk menghitung API yang sedang diproses, untuk menentukan loading full screen======//
-  // CLUE
   const [LoaderComplete, setLoaderComplete] = useState(true);
   const count = useSelector((state) => state.counter.value);
   const dispatch = useDispatch(); // 3
@@ -20,7 +19,6 @@ function Dokumen() {
       setLoaderComplete(false);
     }
   }, [count, LoaderComplete]);
-  // CLUE
 
   const axios = require("axios");
 
@@ -29,7 +27,7 @@ function Dokumen() {
     axios
       .get("http://adminmesuji.embuncode.com/api/dokumen?instansi_id=7")
       .then(function (dokumen) {
-        dispatch(increment()); // 4
+        dispatch(increment());
         console.log("dokumen: " + dokumen.data.data.data);
         setDataDokumen(dokumen.data.data.data);
       })
