@@ -5,8 +5,6 @@ import "./Navbar.css";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
-import Box from "@mui/material/Box";
-import LinearProgress from "@mui/material/LinearProgress";
 
 const Navbars = (params) => {
   const [DataResponse, setDataResponses] = useState(null);
@@ -25,40 +23,35 @@ const Navbars = (params) => {
 
   return (
     <Fragment>
-      {console.log(DataResponse)}
       <Navbar className='bg-white style-navbar' expand='lg' fixed='top'>
         <Navbar.Toggle aria-controls='basic-navbar-nav' />
         <Navbar.Collapse id='basic-navbar-nav'>
           <Nav className='m-auto'>
             {DataResponse &&
               DataResponse.map((m, i) => {
-                console.log("DataResponse22", DataResponse);
                 return (
-                  <>
+                  <Fragment key={i}>
                     {m.children.length > 0 ? (
                       <>
                         <NavDropdown title={m.name}>
                           {m.children &&
                             m.children.map((h, k) => {
-                              {
-                                console.log("Nama Children " + h.name);
-                              }
                               return (
-                                <>
+                                <Fragment key={k}>
                                   {h.children.length > 0 ? (
                                     <>
                                       <NavDropdown title={h.name}>
                                         {h.children &&
                                           h.children.map((j, o) => {
                                             return (
-                                              <>
+                                              <Fragment key={o}>
                                                 {j.children.length > 0 ? (
                                                   <>
                                                     <NavDropdown title={j.name}>
                                                       {j.children &&
                                                         j.children.map((k, l) => {
                                                           return (
-                                                            <NavDropdown.Item eventKey='4.1' href={k.url}>
+                                                            <NavDropdown.Item eventKey='4.1' href={k.url} key={l}>
                                                               {k.name}
                                                             </NavDropdown.Item>
                                                           );
@@ -70,7 +63,7 @@ const Navbars = (params) => {
                                                 ) : (
                                                   <Nav.Link href={j.url}>{j.name}</Nav.Link>
                                                 )}
-                                              </>
+                                              </Fragment>
                                             );
                                           })}
                                       </NavDropdown>
@@ -78,11 +71,9 @@ const Navbars = (params) => {
                                   ) : h.static_page != null ? (
                                     <Link to={"/static/" + h.static_page}>{h.name}</Link>
                                   ) : (
-                                    <Nav.Link href={h.url}>
-                                      {h.name} {console.log("m.static_page", h.static_page)}
-                                    </Nav.Link>
+                                    <Nav.Link href={h.url}>{h.name}</Nav.Link>
                                   )}
-                                </>
+                                </Fragment>
                               );
                             })}
                         </NavDropdown>
@@ -92,7 +83,7 @@ const Navbars = (params) => {
                     ) : (
                       <Nav.Link href={m.url}>{m.name}</Nav.Link>
                     )}
-                  </>
+                  </Fragment>
                 );
               })}
           </Nav>

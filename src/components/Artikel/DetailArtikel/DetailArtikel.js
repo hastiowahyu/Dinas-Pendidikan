@@ -10,12 +10,12 @@ import { HiClipboardList } from "react-icons/hi";
 import { FaRegEye } from "react-icons/fa";
 import { browserName } from "react-device-detect";
 import { useDispatch, useSelector } from "react-redux";
-import Loading from "react-fullscreen-loading"; 
-import { increment } from "./../../../Counter"; 
+import Loading from "react-fullscreen-loading";
+import { increment } from "./../../../Counter";
 
 const DetailArtikel = () => {
   const { id } = useParams();
-  console.log("first", id);
+
   const axios = require("axios");
   const [dataDetailArtikel, setDataDetailArtikel] = useState(0);
   const [DataPopuler, setDataPopuler] = useState([]);
@@ -25,7 +25,6 @@ const DetailArtikel = () => {
   const count = useSelector((state) => state.counter.value);
   const dispatch = useDispatch();
   useEffect(() => {
-    console.log("LoaderComplete", LoaderComplete);
     if (count == 1) {
       setLoaderComplete(false);
     }
@@ -70,9 +69,7 @@ const DetailArtikel = () => {
       const res = await axios.get("https://geolocation-db.com/json/");
       axios
         .post("http://adminmesuji.embuncode.com/api/article/hit?artikel_id=" + id + "&ip=" + res.data.IPv4 + "&device=" + browserName)
-        .then(function (response) {
-          console.log("console ini2: " + response.data.data);
-        })
+        .then(function (response) {})
         .catch(function (error) {
           console.log(error);
         });
@@ -121,7 +118,7 @@ const DetailArtikel = () => {
         <Col>
           <div className='populer-deco'>
             <h3>Artikel Populer</h3>
-            {console.log("console ini :" + DataPopuler)}
+
             {DataPopuler &&
               DataPopuler.map((item, index) => {
                 return (

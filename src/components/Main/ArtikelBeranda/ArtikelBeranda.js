@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Fragment } from "react";
 import "./ArtikelBeranda.css";
 import { useEffect, useState } from "react";
 import Card from "react-bootstrap/Card";
@@ -49,11 +49,11 @@ const ArtikelBeranda = () => {
             {DataPopuler &&
               DataPopuler.map((item, index) => {
                 return (
-                  <div class='cards-type'>
-                    <div class='card__image'>
+                  <div className='cards-type' key={index}>
+                    <div className='card__image'>
                       <img src={item.image_file_data} alt='' className='image-card-type' />
                     </div>
-                    <div class='card__info'>
+                    <div className='card__info'>
                       <Link to={`/Beranda/DetailArtikel/${item.id}`}>
                         <h5>{item.title}</h5>
                       </Link>
@@ -94,7 +94,7 @@ const ArtikelBeranda = () => {
             {DataArtikel &&
               DataArtikel.map((item, index) => {
                 return (
-                  <>
+                  <Fragment key={index}>
                     <Card>
                       <Card.Img variant='top' src={item.image_file_data} className='ukuran-img image-card-type' />
                       <Card.Body>
@@ -125,7 +125,7 @@ const ArtikelBeranda = () => {
                       </Card.Body>
                     </Card>
                     <br />
-                  </>
+                  </Fragment>
                 );
               })}
           </div>

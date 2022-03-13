@@ -7,7 +7,7 @@ import Box from "@mui/material/Box";
 import moment from "moment-with-locales-es6";
 import { useDispatch, useSelector } from "react-redux";
 import Loading from "react-fullscreen-loading";
-import { decrement, increment } from "./../../Counter"; 
+import { decrement, increment } from "./../../Counter";
 
 const Foto = () => {
   const [DataFoto, setDataFoto] = useState(0);
@@ -16,7 +16,6 @@ const Foto = () => {
   const count = useSelector((state) => state.counter.value);
   const dispatch = useDispatch();
   useEffect(() => {
-    console.log("LoaderComplete", LoaderComplete);
     if (count == 1) {
       setLoaderComplete(false);
     }
@@ -27,7 +26,7 @@ const Foto = () => {
       .get("http://adminmesuji.embuncode.com/api/image-gallery?instansi_id=7&per_page=3")
       .then(function (response) {
         dispatch(increment());
-        console.log("console ini galery1: " + response.data.data.data);
+
         setDataFoto(response.data.data.data);
       })
       .catch(function (error) {

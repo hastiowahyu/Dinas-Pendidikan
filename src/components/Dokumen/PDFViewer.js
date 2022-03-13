@@ -23,7 +23,6 @@ export const PDFViewer = (params) => {
     <div>
       {DataDokumen &&
         DataDokumen.map((item, index) => {
-          console.log("item.dokumen_file_data", item.dokumen_file_data);
           if (item.dokumen_file_name.replace(/\s/g, "") == filename.replace(/\s/g, "")) {
             return (
               <Fragment>

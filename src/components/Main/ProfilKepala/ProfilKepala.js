@@ -12,7 +12,6 @@ const ThridLine = () => {
       .get("http://adminmesuji.embuncode.com/api/instansi/detail/7")
       .then(function (pimpinan) {
         setDataPimpinan(pimpinan.data.data);
-        console.log("console kepala: " + pimpinan.data.data);
       })
       .catch(function (error) {
         console.log(error);

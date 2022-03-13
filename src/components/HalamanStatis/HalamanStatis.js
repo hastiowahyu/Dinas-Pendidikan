@@ -1,6 +1,6 @@
 import React from "react";
 import "./HalamanStatis.css";
-import './../Main/News/News.css'
+import "./../Main/News/News.css";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import moment from "moment-with-locales-es6";
@@ -22,7 +22,6 @@ const HalamanStatis = () => {
   const count = useSelector((state) => state.counter.value);
   const dispatch = useDispatch(); // 3
   useEffect(() => {
-    console.log("LoaderComplete", LoaderComplete);
     if (count == 1) {
       setLoaderComplete(false);
     }
@@ -34,7 +33,6 @@ const HalamanStatis = () => {
       .get("http://adminmesuji.embuncode.com/api/static-page/" + id)
       .then(function (Umum) {
         setDataStatis(Umum.data.data);
-        console.log("statis: " + Umum.data.data);
       })
       .catch(function (error) {
         console.log(error);

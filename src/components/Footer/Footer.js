@@ -26,7 +26,6 @@ const FooterKita = () => {
       .get("http://adminmesuji.embuncode.com/api/instansi")
       .then(function (instansi) {
         setDataInstansi(instansi.data.data);
-        console.log("console foter: " + instansi.data.data);
       })
       .catch(function (error) {
         console.log(error);
@@ -86,10 +85,10 @@ const FooterKita = () => {
                       <i className='fab fa-facebook-f facebook-bg' />
                     </a>
                     <a href={DataFoter.youtube}>
-                      <i class='fab fa-youtube youtube-bg'></i>
+                      <i className='fab fa-youtube youtube-bg'></i>
                     </a>
                     <a href={DataFoter.instagram}>
-                      <i class='fab fa-instagram instagram-bg' />
+                      <i className='fab fa-instagram instagram-bg' />
                     </a>
                   </div>
                 </div>
@@ -108,10 +107,9 @@ const FooterKita = () => {
                     <h3>Dinas Terkait</h3>
                     <div style={{ height: "300px", overflowY: "scroll" }}>
                       <ul>
-                        {console.log("console ini :" + DataInstansi)}
                         {DataInstansi &&
                           DataInstansi.map((item, index) => {
-                            return <li>{item.nama_instansi}</li>;
+                            return <li key={index}>{item.nama_instansi}</li>;
                           })}
                       </ul>
                     </div>

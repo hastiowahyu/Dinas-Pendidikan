@@ -15,7 +15,6 @@ const ProfileDisdik = () => {
   const count = useSelector((state) => state.counter.value);
   const dispatch = useDispatch(); // 3
   useEffect(() => {
-    console.log("LoaderComplete", LoaderComplete);
     if (count == 1) {
       setLoaderComplete(false);
     }
@@ -28,7 +27,6 @@ const ProfileDisdik = () => {
       .then(function (pimpinan) {
         dispatch(increment()); // 4
         setDataPimpinan(pimpinan.data.data);
-        console.log("console kepala: " + pimpinan.data.data);
       })
       .catch(function (error) {
         console.log(error);
@@ -131,13 +129,13 @@ const ProfileDisdik = () => {
         </div>
       </div>
       <div className='main-maps-disdik'>
-        <p>
+        <div>
           <span>
             <h1>
               Peta Lokasi <SiGooglemaps size={40} />
             </h1>
           </span>
-        </p>
+        </div>
         <h5>{DataPimpinan.alamat}</h5>
 
         <iframe src={DataPimpinan.google_map} className='maps-profile-disdik' />

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import "./Artikel.css";
 import { Row, Col, Pagination, Badge } from "react-bootstrap";
 import { Link } from "react-router-dom";
@@ -37,7 +37,6 @@ const Artikel = () => {
   const count = useSelector((state) => state.counter.value);
   const dispatch = useDispatch();
   useEffect(() => {
-    console.log("LoaderComplete", LoaderComplete);
     if (count == 1) {
       setLoaderComplete(false);
     }
@@ -50,7 +49,6 @@ const Artikel = () => {
   // ======Get Api untuk artikel dan set fungsu paginasi + view article category======//
   let tooglePaginate = true;
 
-  //clue Awal//
   function gettingData(page, slug, title) {
     let urlTitle = "";
     if (title != null) {
@@ -65,7 +63,6 @@ const Artikel = () => {
     } else {
       url = "http://adminmesuji.embuncode.com/api/article?instansi_id=7" + urlTitle + "&per_page=4&slug=" + slug + "&page=" + page;
     }
-    //clue Akhir //
 
     axios
       .get(url)
@@ -79,20 +76,18 @@ const Artikel = () => {
               {number}
             </Pagination.Item>
           );
-          console.log("test " + items);
+
           setItems(items);
           tooglePaginate = false;
         }
         forceUpdtae();
-        setAdaisi(response.data.data.total); //clue
+        setAdaisi(response.data.data.total);
       })
       .catch(function (error) {
         console.log(error);
       });
   }
   function handleArticleChange(artikelSlug) {
-    console.log("artikelSlug", artikelSlug);
-
     gettingData(1, artikelSlug);
 
     setArticleCategories(artikelSlug);
@@ -111,7 +106,6 @@ const Artikel = () => {
     axios
       .get("http://adminmesuji.embuncode.com/api/article?instansi_id=7&per_page=4&sort_by=total_hit")
       .then(function (response) {
-        console.log("console ini1: " + response.data.data.data);
         setDataPopuler(response.data.data.data);
       })
       .catch(function (error) {
@@ -124,7 +118,6 @@ const Artikel = () => {
     axios
       .get("http://adminmesuji.embuncode.com/api/article/categories/7")
       .then(function (response) {
-        console.log("console ini2: " + response.data.data);
         setDataKategori(response.data.data);
       })
       .catch(function (error) {
@@ -134,7 +127,6 @@ const Artikel = () => {
 
   //clue Awal//
   function handleSearchChange(value) {
-    console.log("value", value.target.value);
     if (value.key === "Enter") {
       if (value.target.value != "") {
         gettingData(1, null, value.target.value);
@@ -143,7 +135,7 @@ const Artikel = () => {
       }
     }
   }
-  //clue Awal//
+  //clue Akhir//
 
   return (
     <div className='style-artikel'>
@@ -163,13 +155,12 @@ const Artikel = () => {
           </div>
           {/* ====== menampilkan list artikel====== */}
           <div>
-            {/* clue awal */}
             {DataTerbaru != null ? (
               Adaisi != 0 ? (
                 DataTerbaru &&
                 DataTerbaru.map((item, index) => {
                   return index % 2 === 0 ? (
-                    <div className='blog-card pembungkus-artikel-main'>
+                    <div className='blog-card pembungkus-artikel-main' key={index}>
                       <div className='meta'>
                         <img className='photo' src={item.image_file_data} alt='/' />
                         <ul className='details'>
@@ -182,20 +173,20 @@ const Artikel = () => {
                         <a href={`/artikel/DetailArtikel/${item.id}`}>
                           <h2>{handleLength(item.title, 30)}</h2>
                         </a>
-                        <p>
+                        <>
                           <div
                             dangerouslySetInnerHTML={{
                               __html: handleLength(item.content, 200),
                             }}
                           />
-                        </p>
+                        </>
                         <p className='read-more'>
                           <a href={`/artikel/DetailArtikel/${item.id}`}>Read More</a>
                         </p>
                       </div>
                     </div>
                   ) : (
-                    <div className='blog-card alt pembungkus-artikel-main'>
+                    <div className='blog-card alt pembungkus-artikel-main' key={index}>
                       <div className='meta'>
                         <img className='photo' src={item.image_file_data} />
                         <ul className='details'>
@@ -206,13 +197,13 @@ const Artikel = () => {
                       </div>
                       <div className='description'>
                         <h2>{handleLength(item.title, 30)}</h2>
-                        <p>
+                        <>
                           <div
                             dangerouslySetInnerHTML={{
                               __html: handleLength(item.content, 200),
                             }}
                           />
-                        </p>
+                        </>
                         <p className='read-more'>
                           <a href={`/artikel/DetailArtikel/${item.id}`}>Read More</a>
                         </p>
@@ -234,9 +225,7 @@ const Artikel = () => {
                 <LinearProgress />
               </Box>
             )}
-            {/* clue akhir */}
             <Row>
-              {console.log("items", Items)}
               <Col className='text-center-costum'>
                 <Pagination>{Items}</Pagination>
               </Col>
@@ -260,7 +249,7 @@ const Artikel = () => {
               {dataKategori &&
                 dataKategori.map((item, index) => {
                   return (
-                    <>
+                    <Fragment key={index}>
                       {ArticleCategories === item.slug ? (
                         <ListItem as='li' onClick={() => handleArticleChange(item.slug)} className='d-flex justify-content-between align-items-start kategori-list-article kategori-list-article-active  list-item-mui' key={index}>
                           <ListItemAvatar>
@@ -286,7 +275,7 @@ const Artikel = () => {
                           </Badge>
                         </ListItem>
                       )}
-                    </>
+                    </Fragment>
                   );
                 })}
             </List>
@@ -298,7 +287,7 @@ const Artikel = () => {
               {DataPopuler &&
                 DataPopuler.map((item, index) => {
                   return (
-                    <div className='box post-list'>
+                    <div className='box post-list' key={index}>
                       <div className='content'>
                         <div className='post'>
                           <div className='left'>
@@ -308,13 +297,13 @@ const Artikel = () => {
                             <Link to={`/artikel/DetailArtikel/${item.id}`}>
                               <h5>{handleLength(item.title, 30)}</h5>
                             </Link>
-                            <p className='style-intro'>
+                            <div className='style-intro'>
                               <div
                                 dangerouslySetInnerHTML={{
                                   __html: handleLength(item.intro, 80),
                                 }}
                               />
-                            </p>
+                            </div>
                             <p>
                               <span>
                                 {" "}

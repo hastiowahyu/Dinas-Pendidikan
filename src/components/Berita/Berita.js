@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Fragment } from "react";
 import { useEffect, useState } from "react";
 import "./../Artikel/Artikel.css";
 import { Pagination } from "react-bootstrap";
@@ -17,12 +17,15 @@ import ListIcon from "@mui/icons-material/List";
 import { useDispatch, useSelector } from "react-redux";
 import Loading from "react-fullscreen-loading";
 import { increment } from "./../../Counter";
+import Box from "@mui/material/Box";
+import LinearProgress from "@mui/material/LinearProgress";
 
 const Berita = () => {
   const [DataTerbaru, setDataTerbaru] = useState(0);
   const [DataPopuler, setDataPopuler] = useState([]);
   const [dataKategori, setDataKategori] = useState();
   const [ArticleCategories, setArticleCategories] = useState();
+  const [Adaisi, setAdaisi] = useState(0);
   const axios = require("axios");
 
   const [Items, setItems] = useState([]);
@@ -35,7 +38,6 @@ const Berita = () => {
   const count = useSelector((state) => state.counter.value);
   const dispatch = useDispatch();
   useEffect(() => {
-    console.log("LoaderComplete", LoaderComplete);
     if (count == 1) {
       setLoaderComplete(false);
     }
@@ -75,11 +77,12 @@ const Berita = () => {
               {number}
             </Pagination.Item>
           );
-          console.log("test " + items);
+
           setItems(items);
           tooglePaginate = false;
         }
         forceUpdtae();
+        setAdaisi(response.data.data.total);
       })
       .catch(function (error) {
         console.log(error);
@@ -87,8 +90,6 @@ const Berita = () => {
   }
 
   function handleArticleChange(artikelSlug) {
-    console.log("artikelSlug", artikelSlug);
-
     gettingData(1, artikelSlug);
 
     setArticleCategories(artikelSlug);
@@ -107,7 +108,6 @@ const Berita = () => {
     axios
       .get("http://adminmesuji.embuncode.com/api/article?instansi_id=7&per_page=4&sort_by=total_hit")
       .then(function (response) {
-        console.log("console ini1: " + response.data.data.data);
         setDataPopuler(response.data.data.data);
       })
       .catch(function (error) {
@@ -120,7 +120,6 @@ const Berita = () => {
     axios
       .get("http://adminmesuji.embuncode.com/api/news/categories/7")
       .then(function (response) {
-        console.log("console ini2: " + response.data.data);
         setDataKategori(response.data.data);
       })
       .catch(function (error) {
@@ -129,9 +128,7 @@ const Berita = () => {
   }, []);
 
   function handleSearchChange(value) {
-    console.log("value", value.target.value);
     if (value.key === "Enter") {
-      // console.log("do validate");
       if (value.target.value != "") {
         gettingData(1, null, value.target.value);
       } else {
@@ -159,61 +156,77 @@ const Berita = () => {
           {/* ====== menampilkan list berita terbaru====== */}
           <h1> Berita Terbaru </h1>
           <div>
-            {DataTerbaru &&
-              DataTerbaru.map((item, index) => {
-                return index % 2 === 0 ? (
-                  <div className='blog-card pembungkus-artikel-main'>
-                    <div className='meta'>
-                      <img className='photo' src={item.image_file_data} alt='/' />
-                      <ul className='details'>
-                        <li className='date'>{(moment.locale("id-ID"), moment(item.created_at).format("L"))}</li>
-                        <li className='tags'>{item.news_category_id}</li>
-                        <li className='author'>{item.created_by}</li>
-                      </ul>
-                    </div>
-                    <div className='description'>
-                      <a href={`/berita/DetailNews/${item.id}`}>
-                        <h2>{handleLength(item.title, 30)}</h2>
-                      </a>
+            {DataTerbaru != null ? (
+              Adaisi != 0 ? (
+                DataTerbaru &&
+                DataTerbaru.map((item, index) => {
+                  return index % 2 === 0 ? (
+                    <div className='blog-card pembungkus-artikel-main' key={index}>
+                      <div className='meta'>
+                        <img className='photo' src={item.image_file_data} alt='/' />
+                        <ul className='details'>
+                          <li className='date'>{(moment.locale("id-ID"), moment(item.created_at).format("L"))}</li>
+                          <li className='tags'>{item.news_category_id}</li>
+                          <li className='author'>{item.created_by}</li>
+                        </ul>
+                      </div>
+                      <div className='description'>
+                        <a href={`/berita/DetailNews/${item.id}`}>
+                          <h2>{handleLength(item.title, 30)}</h2>
+                        </a>
 
-                      <p>
-                        <div
-                          dangerouslySetInnerHTML={{
-                            __html: handleLength(item.intro, 200),
-                          }}
-                        />
-                      </p>
-                      <p className='read-more'>
-                        <a href={`/berita/DetailNews/${item.id}`}>Read More</a>
-                      </p>
+                        <div>
+                          <div
+                            dangerouslySetInnerHTML={{
+                              __html: handleLength(item.intro, 200),
+                            }}
+                          />
+                        </div>
+                        <p className='read-more'>
+                          <a href={`/berita/DetailNews/${item.id}`}>Read More</a>
+                        </p>
+                      </div>
                     </div>
+                  ) : (
+                    <div className='blog-card alt pembungkus-artikel-main' key={index}>
+                      <div className='meta'>
+                        <img className='photo' src={item.image_file_data} alt='/' />
+                        <ul className='details'>
+                          <li className='date'>{(moment.locale("id-ID"), moment(item.created_at).format("L"))}</li>
+                          <li className='tags'>{item.news_category_id}</li>
+                          <li className='author'>{item.created_by}</li>
+                        </ul>
+                      </div>
+                      <div className='description'>
+                        <h2>{handleLength(item.title, 30)}</h2>
+                        <div>
+                          <div
+                            dangerouslySetInnerHTML={{
+                              __html: handleLength(item.intro, 200),
+                            }}
+                          />
+                        </div>
+                        <p className='read-more'>
+                          <a href={`/berita/DetailNews/${item.id}`}>Read More</a>
+                        </p>
+                      </div>
+                    </div>
+                  );
+                })
+              ) : (
+                <div className='search-error-bg d-flex justify-content-center align-items-center'>
+                  <div className='col-11 col-sm-8 col-md-6 col-lg-5 col-xl-4 search-error d-flex flex-column justify-content-center align-items-center'>
+                    <img src='oops.png' alt='searc img' className='img-fluid search-error-img' />
+                    <p className='search-error-heading text-center'>Sorry, we couldn't find a word match</p>
+                    <p className='search-error-text text-center'>Please try searching with another words</p>
                   </div>
-                ) : (
-                  <div className='blog-card alt pembungkus-artikel-main'>
-                    <div className='meta'>
-                      <img className='photo' src={item.image_file_data} alt='/' />
-                      <ul className='details'>
-                        <li className='date'>{(moment.locale("id-ID"), moment(item.created_at).format("L"))}</li>
-                        <li className='tags'>{item.news_category_id}</li>
-                        <li className='author'>{item.created_by}</li>
-                      </ul>
-                    </div>
-                    <div className='description'>
-                      <h2>{handleLength(item.title, 30)}</h2>
-                      <p>
-                        <div
-                          dangerouslySetInnerHTML={{
-                            __html: handleLength(item.intro, 200),
-                          }}
-                        />
-                      </p>
-                      <p className='read-more'>
-                        <a href={`/berita/DetailNews/${item.id}`}>Read More</a>
-                      </p>
-                    </div>
-                  </div>
-                );
-              })}
+                </div>
+              )
+            ) : (
+              <Box sx={{ width: "75%" }}>
+                <LinearProgress />
+              </Box>
+            )}
           </div>
           <Row>
             <Col className='text-center-costum'>
@@ -237,7 +250,7 @@ const Berita = () => {
               {dataKategori &&
                 dataKategori.map((item, index) => {
                   return (
-                    <>
+                    <Fragment key={index}>
                       {ArticleCategories === item.slug ? (
                         <ListItem as='li' onClick={() => handleArticleChange(item.slug)} className='d-flex justify-content-between align-items-start kategori-list-article kategori-list-article-active  list-item-mui' key={index}>
                           <ListItemAvatar>
@@ -263,7 +276,7 @@ const Berita = () => {
                           </Badge>
                         </ListItem>
                       )}
-                    </>
+                    </Fragment>
                   );
                 })}
             </List>
@@ -275,7 +288,7 @@ const Berita = () => {
               {DataPopuler &&
                 DataPopuler.map((item, index) => {
                   return (
-                    <div className='box post-list'>
+                    <div className='box post-list' key={index}>
                       <div className='content'>
                         <div className='post'>
                           <div className='left'>
@@ -285,13 +298,13 @@ const Berita = () => {
                             <a href={`/berita/DetailNews/${item.id}`}>
                               <h5>{handleLength(item.title, 30)}</h5>
                             </a>
-                            <p className='style-intro'>
+                            <div className='style-intro'>
                               <div
                                 dangerouslySetInnerHTML={{
                                   __html: handleLength(item.intro, 80),
                                 }}
                               />
-                            </p>
+                            </div>
                             <p>
                               <span>
                                 {" "}

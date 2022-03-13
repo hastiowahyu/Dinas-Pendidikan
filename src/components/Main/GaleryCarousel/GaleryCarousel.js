@@ -10,14 +10,11 @@ const Galery = () => {
   const axios = require("axios");
   const dispatch = useDispatch();
 
-// ====== Get API foto untuk ditampilkan di carousel ======
+  // ====== Get API foto untuk ditampilkan di carousel ======
   useEffect(() => {
     axios
-      .get(
-        "http://adminmesuji.embuncode.com/api/image-gallery?instansi_id=7&per_page=3"
-      )
+      .get("http://adminmesuji.embuncode.com/api/image-gallery?instansi_id=7&per_page=3")
       .then(function (response) {
-        console.log("console ini galery1: " + response.data.data.data);
         setDataResponses(response.data.data.data);
 
         dispatch(increment());
@@ -34,10 +31,7 @@ const Galery = () => {
           return item.image_gallery_item.map((itm, idx) => {
             return (
               <Carousel.Item key={idx}>
-                <img
-                  className='d-block w-100 size-img'
-                  src={itm.image_file_data}
-                />
+                <img className='d-block w-100 size-img' src={itm.image_file_data} />
               </Carousel.Item>
             );
           });

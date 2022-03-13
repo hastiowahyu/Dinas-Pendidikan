@@ -12,10 +12,8 @@ const Main = () => {
   const dispatch = useDispatch();
   const count = useSelector((state) => state.counter.value);
   const [LoaderComplete, setLoaderComplete] = useState(true);
-  console.log("count di Main js", count);
 
   useEffect(() => {
-    console.log("LoaderComplete", LoaderComplete);
     if (count == 6) {
       setLoaderComplete(false);
     }

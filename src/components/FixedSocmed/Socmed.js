@@ -11,7 +11,6 @@ const Socmed = () => {
       .get("http://adminmesuji.embuncode.com/api/instansi/detail/7")
       .then(function (footer) {
         setDataFoter(footer.data.data);
-        console.log("console foter: " + footer.data.data);
       })
       .catch(function (error) {
         console.log(error);
@@ -36,10 +35,7 @@ const Socmed = () => {
         </a>
       </div>
       <div>
-        <a
-          href={DataFoter.instagram}
-          className='fixed-instagrem'
-          target='_blank'>
+        <a href={DataFoter.instagram} className='fixed-instagrem' target='_blank'>
           <i className='fab fa-instagram' />
         </a>
       </div>

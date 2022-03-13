@@ -14,7 +14,6 @@ function Dokumen() {
   const count = useSelector((state) => state.counter.value);
   const dispatch = useDispatch(); // 3
   useEffect(() => {
-    console.log("LoaderComplete", LoaderComplete);
     if (count == 1) {
       setLoaderComplete(false);
     }
@@ -28,7 +27,7 @@ function Dokumen() {
       .get("http://adminmesuji.embuncode.com/api/dokumen?instansi_id=7")
       .then(function (dokumen) {
         dispatch(increment());
-        console.log("dokumen: " + dokumen.data.data.data);
+
         setDataDokumen(dokumen.data.data.data);
       })
       .catch(function (error) {
@@ -46,11 +45,11 @@ function Dokumen() {
         DataDokumen.map((item, index) => {
           return item.dokumen_item.map((itm, idx) => {
             return (
-              <Container>
+              <Container key={idx}>
                 <div className='row offerList'>
                   <div className='col-md-12'>
                     <div className='media p-2'>
-                      <img className='d-flex mr-3 image-dok' src='./dokumen.jpg' />
+                      <img className='d-flex mr-3 image-dok' src='./dokumen.png' />
                       <div className='media-body'>
                         <h5 className='mt-0'>
                           <a href={"/pdf/" + item.slug + "/" + itm.dokumen_file_name.replace(/\s/g, "")}>{itm.dokumen_file_name}</a>

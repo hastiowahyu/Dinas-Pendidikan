@@ -1,7 +1,7 @@
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import "./FotoDokumenBeranda.css";
-import { React, useEffect, useState } from "react";
+import { Fragment, React, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import moment from "moment-with-locales-es6";
 import { useDispatch, useSelector } from "react-redux";
@@ -30,7 +30,6 @@ const FotoDokumenBeranda = () => {
     axios
       .get("http://adminmesuji.embuncode.com/api/dokumen?instansi_id=7&per_page=4")
       .then(function (dokumen) {
-        console.log("console dokumen: " + dokumen.data.data.data);
         setDataDokumen(dokumen.data.data.data);
 
         dispatch(increment());
@@ -74,7 +73,7 @@ const FotoDokumenBeranda = () => {
             {BoxAlbum &&
               BoxAlbum.map((item, index) => {
                 return (
-                  <div>
+                  <div key={index}>
                     <figure className='figure'>
                       <img className='style-gambar' src={item.image_file_data} alt='Chaffinch' />
                       <figcaption>{handleLength(item.description, 40)}....</figcaption>
@@ -98,11 +97,11 @@ const FotoDokumenBeranda = () => {
               DataDokumen.map((item, index) => {
                 return item.dokumen_item.map((itm, idx) => {
                   return (
-                    <>
+                    <Fragment key={idx}>
                       <div className='row offerList'>
                         <div className='col-md-12'>
                           <div className='media p-2'>
-                            <img className='d-flex mr-3 image-dok' src='./dokumen.jpg' alt='Generic placeholder image' />
+                            <img className='d-flex mr-3 image-dok' src='./dokumen.png' alt='Generic placeholder image' />
                             <div className='media-body'>
                               <h5 className='mt-0'>
                                 <a href={"/pdf/" + item.slug + "/" + itm.dokumen_file_name.replace(/\s/g, "")}>{itm.dokumen_file_name}</a>
@@ -119,7 +118,7 @@ const FotoDokumenBeranda = () => {
                           </div>
                         </div>
                       </div>
-                    </>
+                    </Fragment>
                   );
                 });
               })}

@@ -22,7 +22,7 @@ const News = () => {
     axios
       .get("http://adminmesuji.embuncode.com/api/news?instansi_id=7&sort_by=created_at&sort_type=desc&per_page=2")
       .then(function (Terbaru) {
-        console.log("console ini1: " + Terbaru.data.data.data);
+       
         setDataTerbaru(Terbaru.data.data.data);
 
         dispatch(increment());
@@ -79,7 +79,7 @@ const News = () => {
             {DataTerbaru &&
               DataTerbaru.map((item, index) => {
                 return (
-                  <div className='col-12 col-sm-12 col-md-12 col-lg-12 col-xl-6'>
+                  <div className='col-12 col-sm-12 col-md-12 col-lg-12 col-xl-6' key={index}>
                     <Card>
                       <Card.Img variant='top' src={item.image_file_data} className='size-image' />
                       <Card.Body>
