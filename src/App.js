@@ -16,13 +16,11 @@ import GalleryVidio from "./components/GalleryVidio/GalleryVidio";
 import Loading from "react-fullscreen-loading";
 import Socmed from "./components/FixedSocmed/Socmed";
 import ProfileDisdik from "./components/ProfileDinas/ProfileDisdik";
-import Cobaan from "./components/ProfileDinas/Cobaan"
 
 function App() {
   return (
     <div className='home'>
       <Header />
-      <Cobaan />
       <Socmed />
       <Routes>
         <Route exact path='/' element={<Main />} />
@@ -46,7 +44,6 @@ function App() {
         <Route path='/tohome' element={<Main />} />
       </Routes>
       <FooterKita />
-      
     </div>
   );
 }

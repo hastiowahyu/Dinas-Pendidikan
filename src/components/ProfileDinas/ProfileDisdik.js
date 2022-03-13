@@ -108,11 +108,33 @@ const ProfileDisdik = () => {
           </div>
         </div>
       </div>
+      {/* menampilkan social media */}
+      <div className='pembungkus-social-media'>
+        <h1 className='judul-social'>Sosial Media Resmi Kami</h1>
+        <div className='social-icons'>
+          <a href={DataPimpinan.twitter} className='social-icon social-icon--twitter'>
+            <i className='fab fa-twitter' />
+            <div className='tooltip'>Twitter</div>
+          </a>
+          <a href={DataPimpinan.instagram} className='social-icon social-icon--instagram'>
+            <i className='fab fa-instagram' />
+            <div className='tooltip'>Instagram</div>
+          </a>
+          <a href={DataPimpinan.youtube} className='social-icon social-icon--youtube'>
+            <i className='fab fa-youtube' />
+            <div className='tooltip'>Youtube</div>
+          </a>
+          <a href={DataPimpinan.facebook} className='social-icon social-icon--facebook'>
+            <i className='fab fa-facebook' />
+            <div className='tooltip'>Facebook</div>
+          </a>
+        </div>
+      </div>
       <div className='main-maps-disdik'>
         <p>
           <span>
             <h1>
-              Maps <SiGooglemaps size={40} />
+              Peta Lokasi <SiGooglemaps size={40} />
             </h1>
           </span>
         </p>

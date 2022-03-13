@@ -30,13 +30,7 @@ export const PDFViewer = (params) => {
       {DataDokumen &&
         DataDokumen.map((item, index) => {
           console.log("item.dokumen_file_data", item.dokumen_file_data);
-          // if (item.dokumen_file_name.replace(/\s/g, '') == filename.replace(/\s/g, '')) {
           return (
-            // <div className="PDF-viewer">
-            //   <PdfViewerComponent
-            //     document={`data:application/pdf;base64,${item.dokumen_file_data}`}
-            //   />
-            // </div>
             <Fragment>
               <iframe
                 className='iframe-pdf'

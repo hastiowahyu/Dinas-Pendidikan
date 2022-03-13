@@ -1,17 +1,17 @@
 .style-secondline{
   margin-top: 15px;
 }
-.style-pimpinan {
+/* .style-pimpinan {
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
   transition: cubic-bezier(0.075, 0.82, 0.165, 1);
-}
-.card-body{
+} */
+/* .card-body{
   height: 100% !important;
   
-}
-.card-text{
+} */
+/* .card-text{
   height: auto !important;
-}
+} */
 .tag-p{
   margin-top: 10px;
   font-style: italic;
@@ -78,3 +78,6 @@ figcaption {
 .khusus-image{
   margin-left: 50px !important;
 }
+/* .text_blue{
+  font-size: 100%;
+} */

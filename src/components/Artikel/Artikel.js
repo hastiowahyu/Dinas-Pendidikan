@@ -43,16 +43,25 @@ const Artikel = () => {
   useEffect(() => {
     gettingData(1);
   }, []);
+
   // ======Get Api untuk artikel dan set fungsu paginasi + view article category======//
   let tooglePaginate = true;
-  function gettingData(page, slug) {
+
+  function gettingData(page, slug, title) {
+    let urlTitle = "";
+    if (title != null) {
+      urlTitle = "&title=" + title;
+    } else {
+      urlTitle = "";
+    }
     setDataTerbaru(null);
     let url = "";
     if (slug == null) {
-      url = "http://adminmesuji.embuncode.com/api/article?instansi_id=7&per_page=4&page=" + page;
+      url = "http://adminmesuji.embuncode.com/api/article?instansi_id=7" + urlTitle + "&per_page=4&page=" + page; //clue
     } else {
-      url = "http://adminmesuji.embuncode.com/api/article?instansi_id=7&per_page=4&slug=" + slug + "&page=" + page;
+      url = "http://adminmesuji.embuncode.com/api/article?instansi_id=7" + urlTitle + "&per_page=4&slug=" + slug + "&page=" + page; //clue
     }
+
     axios
       .get(url)
       .then(function (response) {
@@ -116,6 +125,18 @@ const Artikel = () => {
         console.log(error);
       });
   }, []);
+
+  function handleSearchChange(value) {
+    console.log("value", value.target.value);
+    if (value.key === "Enter") {
+      if (value.target.value != "") {
+        gettingData(1, null, value.target.value);
+      } else {
+        gettingData(null, null);
+      }
+    }
+  }
+
   return (
     <div className='style-artikel'>
       {/* ====== menampilkan Loading full screen page artikel====== */}
@@ -128,17 +149,16 @@ const Artikel = () => {
             <div className='main'>
               <div className='form-group has-search'>
                 <span className='fa fa-search form-control-feedback' />
-                <input type='text' className='form-control' placeholder='Cari Artikel' />
+                <input onKeyDown={handleSearchChange} type='text' className='form-control' placeholder='Cari Artikel' />
               </div>
             </div>
           </div>
           {/* ====== menampilkan list artikel terbaru====== */}
-          <h1> Artikel Terbaru</h1> <hr />
           <div>
             {DataTerbaru &&
               DataTerbaru.map((item, index) => {
                 return index % 2 === 0 ? (
-                  <div className='blog-card'>
+                  <div className='blog-card pembungkus-artikel-main'>
                     <div className='meta'>
                       <img className='photo' src={item.image_file_data} alt='/' />
                       <ul className='details'>
@@ -164,7 +184,7 @@ const Artikel = () => {
                     </div>
                   </div>
                 ) : (
-                  <div className='blog-card alt'>
+                  <div className='blog-card alt pembungkus-artikel-main'>
                     <div className='meta'>
                       <img className='photo' src={item.image_file_data} />
                       <ul className='details'>

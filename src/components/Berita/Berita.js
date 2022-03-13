@@ -3,7 +3,6 @@ import { useEffect, useState } from "react";
 import "./../Artikel/Artikel.css";
 import { Pagination } from "react-bootstrap";
 import { Row, Col } from "react-bootstrap";
-import { Link } from "react-router-dom";
 import { Badge } from "react-bootstrap";
 import moment from "moment-with-locales-es6";
 import { MdDateRange } from "react-icons/md";
@@ -49,7 +48,6 @@ const Berita = () => {
   // ======Get Api untuk beita dan set fungsi paginasi======//
   let tooglePaginate = true;
 
-  //clueAwal
   function gettingData(page, slug, title) {
     let urlTitle = "";
     if (title != null) {
@@ -64,7 +62,6 @@ const Berita = () => {
     } else {
       url = "http://adminmesuji.embuncode.com/api/news?instansi_id=7" + urlTitle + "&per_page=4&slug=" + slug + "&page=" + page; //clue
     }
-  //clueAkhir
 
     axios
       .get(url)
@@ -88,7 +85,6 @@ const Berita = () => {
         console.log(error);
       });
   }
-  
 
   function handleArticleChange(artikelSlug) {
     console.log("artikelSlug", artikelSlug);
@@ -97,7 +93,6 @@ const Berita = () => {
 
     setArticleCategories(artikelSlug);
   }
-
 
   function handleLength(valeu, lengths) {
     if (valeu.length < lengths) {
@@ -108,17 +103,17 @@ const Berita = () => {
   }
 
   // ======Get Api untuk berita populer======//
-   useEffect(() => {
-     axios
-       .get("http://adminmesuji.embuncode.com/api/article?instansi_id=7&per_page=4&sort_by=total_hit")
-       .then(function (response) {
-         console.log("console ini1: " + response.data.data.data);
-         setDataPopuler(response.data.data.data);
-       })
-       .catch(function (error) {
-         console.log(error);
-       });
-   }, []);
+  useEffect(() => {
+    axios
+      .get("http://adminmesuji.embuncode.com/api/article?instansi_id=7&per_page=4&sort_by=total_hit")
+      .then(function (response) {
+        console.log("console ini1: " + response.data.data.data);
+        setDataPopuler(response.data.data.data);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  }, []);
 
   // ======Get Api untuk kategori berita======//
   useEffect(() => {
@@ -133,15 +128,17 @@ const Berita = () => {
       });
   }, []);
 
-  //clueAwal
   function handleSearchChange(value) {
     console.log("value", value.target.value);
     if (value.key === "Enter") {
-      console.log("do validate");
-      gettingData(1, null, value.target.value);
+      // console.log("do validate");
+      if (value.target.value != "") {
+        gettingData(1, null, value.target.value);
+      } else {
+        gettingData(null, null);
+      }
     }
   }
-  //clueAkhir
 
   return (
     <div className='style-artikel'>
@@ -165,7 +162,7 @@ const Berita = () => {
             {DataTerbaru &&
               DataTerbaru.map((item, index) => {
                 return index % 2 === 0 ? (
-                  <div className='blog-card'>
+                  <div className='blog-card pembungkus-artikel-main'>
                     <div className='meta'>
                       <img className='photo' src={item.image_file_data} alt='/' />
                       <ul className='details'>
@@ -192,7 +189,7 @@ const Berita = () => {
                     </div>
                   </div>
                 ) : (
-                  <div className='blog-card alt'>
+                  <div className='blog-card alt pembungkus-artikel-main'>
                     <div className='meta'>
                       <img className='photo' src={item.image_file_data} alt='/' />
                       <ul className='details'>
