@@ -15,12 +15,15 @@ import ListIcon from "@mui/icons-material/List";
 import { useDispatch, useSelector } from "react-redux";
 import Loading from "react-fullscreen-loading";
 import { increment } from "../../Counter";
+import Box from "@mui/material/Box";
+import LinearProgress from "@mui/material/LinearProgress";
 
 const Artikel = () => {
   const [DataTerbaru, setDataTerbaru] = useState();
   const [DataPopuler, setDataPopuler] = useState([]);
   const [dataKategori, setDataKategori] = useState();
   const [ArticleCategories, setArticleCategories] = useState();
+  const [Adaisi, setAdaisi] = useState(0); //clue
   const axios = require("axios");
 
   const [Items, setItems] = useState([]);
@@ -47,6 +50,7 @@ const Artikel = () => {
   // ======Get Api untuk artikel dan set fungsu paginasi + view article category======//
   let tooglePaginate = true;
 
+  //clue Awal//
   function gettingData(page, slug, title) {
     let urlTitle = "";
     if (title != null) {
@@ -57,10 +61,11 @@ const Artikel = () => {
     setDataTerbaru(null);
     let url = "";
     if (slug == null) {
-      url = "http://adminmesuji.embuncode.com/api/article?instansi_id=7" + urlTitle + "&per_page=4&page=" + page; //clue
+      url = "http://adminmesuji.embuncode.com/api/article?instansi_id=7" + urlTitle + "&per_page=4&page=" + page;
     } else {
-      url = "http://adminmesuji.embuncode.com/api/article?instansi_id=7" + urlTitle + "&per_page=4&slug=" + slug + "&page=" + page; //clue
+      url = "http://adminmesuji.embuncode.com/api/article?instansi_id=7" + urlTitle + "&per_page=4&slug=" + slug + "&page=" + page;
     }
+    //clue Akhir //
 
     axios
       .get(url)
@@ -79,6 +84,7 @@ const Artikel = () => {
           tooglePaginate = false;
         }
         forceUpdtae();
+        setAdaisi(response.data.data.total); //clue
       })
       .catch(function (error) {
         console.log(error);
@@ -126,6 +132,7 @@ const Artikel = () => {
       });
   }, []);
 
+  //clue Awal//
   function handleSearchChange(value) {
     console.log("value", value.target.value);
     if (value.key === "Enter") {
@@ -136,6 +143,7 @@ const Artikel = () => {
       }
     }
   }
+  //clue Awal//
 
   return (
     <div className='style-artikel'>
@@ -153,69 +161,87 @@ const Artikel = () => {
               </div>
             </div>
           </div>
-          {/* ====== menampilkan list artikel terbaru====== */}
+          {/* ====== menampilkan list artikel====== */}
           <div>
-            {DataTerbaru &&
-              DataTerbaru.map((item, index) => {
-                return index % 2 === 0 ? (
-                  <div className='blog-card pembungkus-artikel-main'>
-                    <div className='meta'>
-                      <img className='photo' src={item.image_file_data} alt='/' />
-                      <ul className='details'>
-                        <li className='date'>{(moment.locale("id-ID"), moment(item.created_at).format("L"))}</li>
-                        <li className='tags'>{item.news_category_id}</li>
-                        <li className='author'>{item.created_by}</li>
-                      </ul>
+            {/* clue awal */}
+            {DataTerbaru != null ? (
+              Adaisi != 0 ? (
+                DataTerbaru &&
+                DataTerbaru.map((item, index) => {
+                  return index % 2 === 0 ? (
+                    <div className='blog-card pembungkus-artikel-main'>
+                      <div className='meta'>
+                        <img className='photo' src={item.image_file_data} alt='/' />
+                        <ul className='details'>
+                          <li className='date'>{(moment.locale("id-ID"), moment(item.created_at).format("L"))}</li>
+                          <li className='tags'>{item.news_category_id}</li>
+                          <li className='author'>{item.created_by}</li>
+                        </ul>
+                      </div>
+                      <div className='description'>
+                        <a href={`/artikel/DetailArtikel/${item.id}`}>
+                          <h2>{handleLength(item.title, 30)}</h2>
+                        </a>
+                        <p>
+                          <div
+                            dangerouslySetInnerHTML={{
+                              __html: handleLength(item.content, 200),
+                            }}
+                          />
+                        </p>
+                        <p className='read-more'>
+                          <a href={`/artikel/DetailArtikel/${item.id}`}>Read More</a>
+                        </p>
+                      </div>
                     </div>
-                    <div className='description'>
-                      <a href={`/artikel/DetailArtikel/${item.id}`}>
+                  ) : (
+                    <div className='blog-card alt pembungkus-artikel-main'>
+                      <div className='meta'>
+                        <img className='photo' src={item.image_file_data} />
+                        <ul className='details'>
+                          <li className='date'>{(moment.locale("id-ID"), moment(item.created_at).format("L"))}</li>
+                          <li className='tags'>{item.news_category_id}</li>
+                          <li className='author'>{item.created_by}</li>
+                        </ul>
+                      </div>
+                      <div className='description'>
                         <h2>{handleLength(item.title, 30)}</h2>
-                      </a>
-                      <p>
-                        <div
-                          dangerouslySetInnerHTML={{
-                            __html: handleLength(item.content, 200),
-                          }}
-                        />
-                      </p>
-                      <p className='read-more'>
-                        <a href={`/artikel/DetailArtikel/${item.id}`}>Read More</a>
-                      </p>
+                        <p>
+                          <div
+                            dangerouslySetInnerHTML={{
+                              __html: handleLength(item.content, 200),
+                            }}
+                          />
+                        </p>
+                        <p className='read-more'>
+                          <a href={`/artikel/DetailArtikel/${item.id}`}>Read More</a>
+                        </p>
+                      </div>
                     </div>
+                  );
+                })
+              ) : (
+                <div className='search-error-bg d-flex justify-content-center align-items-center'>
+                  <div className='col-11 col-sm-8 col-md-6 col-lg-5 col-xl-4 search-error d-flex flex-column justify-content-center align-items-center'>
+                    <img src='oops.png' alt='searc img' className='img-fluid search-error-img' />
+                    <p className='search-error-heading text-center'>Sorry, we couldn't find a word match</p>
+                    <p className='search-error-text text-center'>Please try searching with another words</p>
                   </div>
-                ) : (
-                  <div className='blog-card alt pembungkus-artikel-main'>
-                    <div className='meta'>
-                      <img className='photo' src={item.image_file_data} />
-                      <ul className='details'>
-                        <li className='date'>{(moment.locale("id-ID"), moment(item.created_at).format("L"))}</li>
-                        <li className='tags'>{item.news_category_id}</li>
-                        <li className='author'>{item.created_by}</li>
-                      </ul>
-                    </div>
-                    <div className='description'>
-                      <h2>{handleLength(item.title, 30)}</h2>
-                      <p>
-                        <div
-                          dangerouslySetInnerHTML={{
-                            __html: handleLength(item.content, 200),
-                          }}
-                        />
-                      </p>
-                      <p className='read-more'>
-                        <a href={`/artikel/DetailArtikel/${item.id}`}>Read More</a>
-                      </p>
-                    </div>
-                  </div>
-                );
-              })}
+                </div>
+              )
+            ) : (
+              <Box sx={{ width: "75%" }}>
+                <LinearProgress />
+              </Box>
+            )}
+            {/* clue akhir */}
+            <Row>
+              {console.log("items", Items)}
+              <Col className='text-center-costum'>
+                <Pagination>{Items}</Pagination>
+              </Col>
+            </Row>
           </div>
-          <Row>
-            {console.log("items", Items)}
-            <Col className='text-center-costum'>
-              <Pagination>{Items}</Pagination>
-            </Col>
-          </Row>
         </Col>
 
         <Col md={6}>
